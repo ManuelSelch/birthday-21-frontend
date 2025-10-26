@@ -1,4 +1,3 @@
-import { Container, Flex, Stack, Text, Title } from "@mantine/core";
 import InvitationCard from "@/components/invitation/invitation-card";
 import InvitationHero from "@/components/invitation/invitation-hero";
 import Footer from "@/components/footer";
