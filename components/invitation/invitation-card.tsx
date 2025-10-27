@@ -3,8 +3,7 @@ import { Button, Card, Group, Text, Title, Image, Paper, Overlay, Container, Sta
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import reichshofImage from "@/img/reichshof.jpg";
-import ManuelMarcoCard from "./manuel-marco-card";
-import Footer from "../footer";
+import ManuelMarcoCardDavid from "./manuel-marco-david-card";
 import appleWallet from "@/img/apple_wallet.png";
 import googleWallet from "@/img/google_wallet.png";
 
@@ -84,7 +83,7 @@ export default function InvitationCard() {
           </Card>
         </div>
 
-        <ManuelMarcoCard/>
+        <ManuelMarcoCardDavid/>
       </Container>
   );
 }
