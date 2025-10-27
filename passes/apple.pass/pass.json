@@ -1,1 +1,24 @@
-{"passTypeIdentifier":"pass.de.selch.birth2025","teamIdentifier":"476LPWUTHD","organizationName":"selch","description":"20th Birthday","formatVersion":1,"eventTicket":{"headerFields":[],"auxiliaryFields":[{"key":"name","value":"Manuel Selch","label":"Name"}],"primaryFields":[],"secondaryFields":[{"value":"01.11.2025","key":"date","label":"Date"},{"key":"location","value":"Bayreuth","label":"Location"}]}}
+{
+    "passTypeIdentifier": "pass.de.selch.birth2025",
+    "teamIdentifier": "476LPWUTHD",
+    "organizationName": "selch",
+    "description": "20th Birthday",
+    "formatVersion": 1,
+    "eventTicket": {
+        "headerFields": [],
+        "auxiliaryFields": [],
+        "primaryFields": [],
+        "secondaryFields": [
+            {
+                "value": "01.11.2025",
+                "key": "date",
+                "label": "Date"
+            },
+            {
+                "key": "location",
+                "value": "Bayreuth",
+                "label": "Location"
+            }
+        ]
+    }
+}
