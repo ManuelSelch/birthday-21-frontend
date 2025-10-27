@@ -41,10 +41,11 @@ export default function InvitationCard() {
       </div>
 
       {/* Einladungskarte */}
-      <div className="mt-10 flex justify-center w-full">
+      <div className="flex justify-center w-full">
         <Card
           shadow="xl"
           radius="lg"
+          mt="md"
           className="bg-gray-900/80 text-center border border-amber-500 backdrop-blur-md w-full"
         >
           <Title order={3} className="text-amber-400" pb="lg">
@@ -85,6 +86,8 @@ export default function InvitationCard() {
       </div>
 
       <ManuelMarcoCard/>
+
+      <Footer />
     </Container>
   );
 }
