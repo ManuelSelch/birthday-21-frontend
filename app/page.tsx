@@ -1,11 +1,9 @@
 import InvitationCard from "@/components/invitation/invitation-card";
 import Footer from "@/components/footer";
-import InvitationHeader from "@/components/invitation/invitation-header";
-
+import { Space } from "@mantine/core";
 export default function Home() {
   return (
     <>
-      <InvitationHeader />
       <InvitationCard />
       <Footer/>
     </>
