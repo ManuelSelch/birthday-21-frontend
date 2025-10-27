@@ -7,10 +7,10 @@ import ManuelMarcoCardDavid from "./manuel-marco-david-card";
 import appleWallet from "@/img/apple_wallet.png";
 import googleWallet from "@/img/google_wallet.png";
 
-export default function InvitationCard() {
+export default function InvitationCard({guest}: {guest: any}) {
   const [confirmed, setConfirmed] = useState(false);
 
-  const guestName = "Basti";
+  const guestName = guest.name;
   const eventDate = "01. November 2025";
   const eventTime = "21:00 Uhr";
   const eventLocation = "Reichshof Bayreuth";
