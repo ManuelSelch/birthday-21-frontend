@@ -1,9 +1,13 @@
 "use client";
-import { Button, Card, Group, Text, Title, Image, Paper, Overlay, Container, Stack } from "@mantine/core";
+import { Button, Card, Group, Text, Title, Image, Paper, Overlay, Container, Stack, Anchor } from "@mantine/core";
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import reichshofImage from "@/img/reichshof.jpg";
 import reichshofInterior from "@/img/reichshof_interior.jpeg";
+import ManuelMarcoCard from "./manuel-marco-card";
+import Footer from "../footer";
+import appleWallet from "@/img/apple_wallet.png";
+import googleWallet from "@/img/google_wallet.png";
 
 export default function InvitationCard() {
   const [confirmed, setConfirmed] = useState(false);
@@ -41,13 +45,11 @@ export default function InvitationCard() {
         <Card
           shadow="xl"
           radius="lg"
-          className="bg-gray-900/80 p-8 text-center border border-amber-500 backdrop-blur-md w-full"
+          className="bg-gray-900/80 text-center border border-amber-500 backdrop-blur-md w-full"
         >
           <Title order={3} className="text-amber-400" pb="lg">
             Willkommen, {guestName}!
           </Title>
-
-         
 
           {confirmed ? (
             <Text c={"green"} className="font-semibold mb-4">
@@ -69,41 +71,20 @@ export default function InvitationCard() {
             
           )}
 
-          <div className="flex justify-center mt-6">
-            <QRCodeSVG value={`https://manuelselch.de`} size={128} />
-          </div>
+          <Group pt="md">
+            <Anchor href={`${walletPassLink}.pkpass`}>
+              <Image src={appleWallet.src} h={50} w={50}/>
+            </Anchor>
+            <Anchor href={`${walletPassLink}.gpay`}>
+              <Image src={googleWallet.src} h={40} w={40}/>
+            </Anchor>
 
-          <Group pt="lg">
-            <Button
-              component="a"
-              href={`${walletPassLink}.pkpass`}
-              target="_blank"
-              color="green"
-              radius="md"
-            >
-              Apple Wallet
-            </Button>
-            <Button
-              component="a"
-              href={`${walletPassLink}.gpay`}
-              target="_blank"
-              color="blue"
-              radius="md"
-            >
-              Google Wallet
-            </Button>
+            <QRCodeSVG value={`https://manuelselch.de`} size={40} />
           </Group>
         </Card>
       </div>
 
-      {/* Optional: Innenaufnahme als Fußzeilen-Visual */}
-      {/* <div className="mt-12 w-full max-w-3xl rounded-lg overflow-hidden opacity-70">
-        <Image
-          src={reichshofInterior.src}
-          alt="Reichshof Bayreuth Innenansicht"
-          className="w-full h-[200px] object-cover brightness-50"
-        />
-      </div> */}
+      <ManuelMarcoCard/>
     </Container>
   );
 }
