@@ -58,6 +58,22 @@ class CockpitAPI {
   async getSingleton<T = any>(singleton: string): Promise<T> {
     return this.request<T>(`/content/item/${singleton}`);
   }
+
+   /**
+   * Create or update a collection item
+   * @param collection - the collection name
+   * @param data - the item data. Include _id to update existing item
+   */
+  async saveItem<T = any>(collection: string, data: Record<string, any>): Promise<T> {
+    const endpoint = `/content/item/${collection}`;
+
+    return this.request<T>(endpoint, {
+      method: "POST",
+      body: JSON.stringify({
+        data: data
+      }),
+    });
+  }
 }
 
 export default new CockpitAPI();

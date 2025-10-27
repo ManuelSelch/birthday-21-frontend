@@ -8,7 +8,9 @@ import appleWallet from "@/img/apple_wallet.png";
 import googleWallet from "@/img/google_wallet.png";
 
 export default function InvitationCard({guest}: {guest: any}) {
-  const [confirmed, setConfirmed] = useState(false);
+  const [confirmed, setConfirmed] = useState(guest?.accepted ?? false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const guestName = guest.name;
   const eventDate = "01. November 2025";
@@ -18,6 +20,25 @@ export default function InvitationCard({guest}: {guest: any}) {
   const guestLink = `https://geburtstag.manuelselch.de?id=${guest._id}`;
   const applePassLink = `https://geburtstag.manuelselch.de/api?id=${guest._id}`;
   const googlePassLink = `https://manuelselch.de`;
+
+  const confirmAttendance = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch(`/api/accept?id=${guest._id}`, { method: "GET" });
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status}`);
+      }
+
+      setConfirmed(true);
+    } catch (err: any) {
+      console.error(err);
+      setError("Teilnahme konnte nicht bestätigt werden.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
        <Container className="grow flex flex-col items-center justify-center">
@@ -63,11 +84,13 @@ export default function InvitationCard({guest}: {guest: any}) {
                   radius="md"
                   size="lg"
                   w="300px"
-                  onClick={() => setConfirmed(true)}
+                  loading={loading}
+                  onClick={confirmAttendance}
                   className="transition-transform transform hover:scale-105"
                 >
                   Teilnahme bestätigen
                 </Button>
+                {error && <Text c="red">{error}</Text>}
               </Stack>
               
             )}
