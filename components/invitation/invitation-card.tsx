@@ -15,6 +15,7 @@ export default function InvitationCard({guest}: {guest: any}) {
   const eventTime = "21:00 Uhr";
   const eventLocation = "Reichshof Bayreuth";
 
+  const guestLink = `https://geburtstag.manuelselch.de?id=` + guest._id;
   const walletPassLink = `https://manuelselch.de/wallet-pass/${guestName}`;
 
   return (
@@ -72,13 +73,13 @@ export default function InvitationCard({guest}: {guest: any}) {
 
             <Group pt="md" justify="center">
               <Anchor href={`${walletPassLink}.pkpass`}>
-                <Image src={appleWallet.src} h={50} w={50}/>
+                <Image src={appleWallet.src} h={60} w={60}/>
               </Anchor>
               <Anchor href={`${walletPassLink}.gpay`}>
-                <Image src={googleWallet.src} h={40} w={40}/>
+                <Image src={googleWallet.src} h={50} w={50}/>
               </Anchor>
 
-              <QRCodeSVG value={`https://manuelselch.de`} size={40} />
+              <QRCodeSVG value={guestLink} size={50} />
             </Group>
           </Card>
         </div>
