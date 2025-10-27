@@ -1,10 +1,10 @@
-import { Button, Card, Container, NumberInput, Select, Stack, Text, Title } from "@mantine/core";
+import { Button, Card, Container, NumberInput, Select, Stack, Title } from "@mantine/core";
 
 export default function Order() {
     const menu = ["A", "B", "C"]
 
     return (
-        <Container>
+        <div>
             <Card>
                 <Stack>
                     <Title order={4} mb="md">Bestelle deine Getränke</Title>
@@ -14,6 +14,6 @@ export default function Order() {
                     <Button color="yellow" mt="md">Bestellen</Button>
                 </Stack>
             </Card>
-        </Container>
+        </div>
     )
 }
