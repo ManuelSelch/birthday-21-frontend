@@ -35,6 +35,25 @@ export default function InvitationCard({guest}: {guest: any}) {
     }
   };
 
+  const cancelInvitation = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const res = await fetch(`/api/accept?id=${guest._id}`, { method: "GET" });
+      if (!res.ok) {
+        throw new Error(`Error: ${res.status}`);
+      }
+
+      setConfirmed(false);
+    } catch (err: any) {
+      console.error(err);
+      setError("Absage konnte nicht bestätigt werden.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
        <Container className="grow flex flex-col items-center justify-center">
         {/* Header mit Reichshof-Hintergrund */}
@@ -69,7 +88,7 @@ export default function InvitationCard({guest}: {guest: any}) {
             </Title>
 
             {confirmed ? (
-              <AcceptedCard guest={guest}/>
+              <AcceptedCard guest={guest} loading={loading} cancelInvitation={cancelInvitation} error={error}/>
             ) : (
               <AcceptCard loading={loading} confirmAttendance={confirmAttendance} error={error}/>
             )}

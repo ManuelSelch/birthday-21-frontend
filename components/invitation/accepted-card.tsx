@@ -1,17 +1,17 @@
-import { Anchor, Group, Image, Overlay, Paper, Stack, Text } from "@mantine/core";
+import { Anchor, Button, Center, Group, Image, Overlay, Paper, Stack, Text } from "@mantine/core";
 import { QRCodeSVG } from "qrcode.react";
 import appleWallet from "@/img/apple_wallet.png";
 import googleWallet from "@/img/google_wallet.png";
 import whatsapp from "@/img/whatsapp.webp";
+import { useState } from "react";
 
-export default function AcceptedCard({guest}: {guest: any}) {
-
+export default function AcceptedCard({guest, loading, cancelInvitation, error}: {guest: any, loading: any, cancelInvitation: any, error: any}) {
     const guestLink = `https://geburtstag.manuelselch.de/invite?id=${guest._id}`;
     const applePassLink = `https://geburtstag.manuelselch.de/api/apple-pass?id=${guest._id}`;
     const whatsappLink = `https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt`;
 
     return (
-        <Stack>
+        <Stack align="center">
             <Text c={"green"} className="font-semibold mb-4">Deine Teilnahme ist bestätigt!</Text>
 
             <Group pt="md" justify="center">
@@ -30,6 +30,10 @@ export default function AcceptedCard({guest}: {guest: any}) {
 
                 <QRCodeSVG value={guestLink} size={50} />
             </Group>
+
+            <Button bg="black" c="red" loading={loading} onClick={cancelInvitation}>Absagen</Button>
+
+            {error && <Text c="red">{error}</Text>}
         </Stack>
     )
 }

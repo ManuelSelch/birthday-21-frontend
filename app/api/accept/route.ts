@@ -7,7 +7,7 @@ export async function GET(request: Request) {
     const id = url.searchParams.get("id");
 
     let guest = await cockpit.getItem("guests", id as string);
-    guest.accepted = true;
+
     await cockpit.saveItem("guests", {
         "_id": id,
         "accepted": true
