@@ -7,7 +7,6 @@ export default function GuestsTable({guests}: {guests: any[]}) {
     const rows = guests.map(g => (
         <Table.Tr key={g._id}>
             <Table.Td>{g.name}</Table.Td>
-            <Table.Td>{parse(g.vip)}</Table.Td>
             <Table.Td>{parse(g.accepted)}</Table.Td>
             <Table.Td>{parse(g.checked_in)}</Table.Td>
             <Table.Td>
@@ -24,7 +23,6 @@ export default function GuestsTable({guests}: {guests: any[]}) {
             <Table.Thead>
                 <Table.Tr>
                     <Table.Th>Name</Table.Th>
-                    <Table.Th>VIP</Table.Th>
                     <Table.Th>Accepted</Table.Th>
                     <Table.Th>Checked In</Table.Th>
                     <Table.Th>Action</Table.Th>
