@@ -17,7 +17,7 @@ export default function InvitationCard({guest}: {guest: any}) {
   const eventTime = "21:00 Uhr";
   const eventLocation = "Reichshof Bayreuth";
 
-  const guestLink = `https://geburtstag.manuelselch.de?id=${guest._id}`;
+  const guestLink = `https://geburtstag.manuelselch.de/invite?id=${guest._id}`;
   const applePassLink = `https://geburtstag.manuelselch.de/api/apple-pass?id=${guest._id}`;
   const googlePassLink = `https://manuelselch.de`;
 
