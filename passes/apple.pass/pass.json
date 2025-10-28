@@ -20,10 +20,5 @@
                 "label": "Location"
             }
         ]
-    },
-    "barcode": {
-        "format": "PKBarcodeFormatQR",
-        "message": "https://manuelselch.de",
-        "messageEncoding": "iso-8859-1"
     }
 }
