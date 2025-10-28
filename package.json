@@ -11,6 +11,8 @@
   "dependencies": {
     "@mantine/core": "^8.3.5",
     "@mantine/hooks": "^8.3.5",
+    "google-auth-library": "^10.4.2",
+    "jsonwebtoken": "^9.0.2",
     "next": "16.0.0",
     "passkit-generator": "^3.5.2",
     "qrcode.react": "^4.2.0",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

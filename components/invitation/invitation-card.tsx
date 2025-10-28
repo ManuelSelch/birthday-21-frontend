@@ -21,6 +21,13 @@ export default function InvitationCard({guest}: {guest: any}) {
   const applePassLink = `https://geburtstag.manuelselch.de/api/apple-pass?id=${guest._id}`;
   const googlePassLink = `https://manuelselch.de`;
 
+  const createGooglePass = async () => {
+    const res = await fetch("/api/create-pass");
+    const data = await res.json();
+    const url = data.saveUrl;
+    window.location.href = url;
+  };
+
   const confirmAttendance = async () => {
     setLoading(true);
     setError(null);
@@ -99,9 +106,10 @@ export default function InvitationCard({guest}: {guest: any}) {
               <Anchor href={applePassLink}>
                 <Image src={appleWallet.src} h={60} w={60}/>
               </Anchor>
-              <Anchor href={googlePassLink}>
-                <Image src={googleWallet.src} h={50} w={50}/>
-              </Anchor>
+              <Paper className="relative">
+                <Image src={googleWallet.src} h={50} w={50} radius="md"/>
+                <Overlay radius="md"/>
+              </Paper>
 
               <QRCodeSVG value={guestLink} size={50} />
             </Group>
