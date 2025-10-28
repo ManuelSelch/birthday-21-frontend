@@ -14,6 +14,9 @@ export default function AcceptedCard({guest, loading, cancelInvitation, error}: 
         <Stack align="center">
             <Text c={"green"} className="font-semibold mb-4">Deine Teilnahme ist bestätigt!</Text>
 
+            <Text>Trete der WhatsApp Gruppe bei, um weitere Orga Infos zu erhalten</Text>
+            <Text>Zeige diesen QR Code beim Check-In vor oder füge das Ticket deinem Apple Wallet hinzu</Text>
+
             <Group pt="md" justify="center">
                 <Anchor href={applePassLink}>
                 <Image src={appleWallet.src} h={60} w={60}/>
