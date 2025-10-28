@@ -22,13 +22,6 @@ export default function InvitationCard({guest}: {guest: any}) {
   const applePassLink = `https://geburtstag.manuelselch.de/api/apple-pass?id=${guest._id}`;
   const whatsappLink = `https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt`;
 
-  const createGooglePass = async () => {
-    const res = await fetch("/api/create-pass");
-    const data = await res.json();
-    const url = data.saveUrl;
-    window.location.href = url;
-  };
-
   const confirmAttendance = async () => {
     setLoading(true);
     setError(null);
