@@ -17,6 +17,14 @@ export default function InvitationCard({guest}: {guest: any}) {
   const eventTime = "21:00 Uhr";
   const eventLocation = "Reichshof Bayreuth";
 
+  const confirmInvited = async () => {
+    try {
+      await fetch(`/api/invited?id=${guest._id}`, { method: "GET" });
+    } catch (err: any) { }
+  };
+
+  confirmInvited();
+
   const confirmAttendance = async () => {
     setLoading(true);
     setError(null);

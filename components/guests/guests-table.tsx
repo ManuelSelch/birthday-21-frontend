@@ -16,7 +16,7 @@ export default function GuestsTable({guests}: {guests: any[]}) {
             <Table.Td>{parse(g.checked_in)}</Table.Td>
             <Table.Td>
                 <Anchor href={`https://geburtstag.manuelselch.de/invite?id=${g._id}`}>
-                    <Button>Invite</Button>
+                    <Button bg={g.invited == true ? "gray" : "blue"}>Invite</Button>
                 </Anchor>
                 
             </Table.Td>
