@@ -47,7 +47,7 @@ export default function ScannerPage() {
       <Stack align="center"  style={{ height: "100vh", padding: 20 }}>
         <Group>
           <Title w={700}> Ticket Scanner </Title>
-          <Anchor><IconUsers /></Anchor>
+          <Anchor href="/admin/guests"><IconUsers /></Anchor>
         </Group>
 
       <Paper shadow="sm" p="md" style={{ width: 320 }}>
