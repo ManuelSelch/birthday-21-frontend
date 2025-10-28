@@ -1,7 +1,8 @@
 "use client";
-import { Paper, Stack, Text } from "@mantine/core";
+import { Anchor, Group, Paper, Stack, Text, Title } from "@mantine/core";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useState } from "react";
+import { IconUsers } from "@tabler/icons-react";
 
 type CheckInResponse = {
     success: boolean,
@@ -14,26 +15,26 @@ export default function ScannerPage() {
     const [loading, setLoading] = useState(false);
 
     const handleScan = async (detectedCodes: any) => {
-        if (!detectedCodes || loading) return;
+      if (!detectedCodes || loading) return;
 
-        const data = detectedCodes[0]?.rawValue;
-        console.log("scan data: " + data);
+      const data = detectedCodes[0]?.rawValue;
+      console.log("scan data: " + data);
 
-        const url = new URL(data);
-        const id = url.searchParams.get("id");
+      const url = new URL(data);
+      const id = url.searchParams.get("id");
 
-        setLoading(true);
-        try {
-            const res = await fetch("/api/check-in", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id }),
-            });
-            const json = await res.json();
-            setResult(json);
-        } 
-        catch (e) { setResult({ success: false, error: "server error" }) } 
-        finally { setLoading(false) }
+      setLoading(true);
+      try {
+          const res = await fetch("/api/check-in", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id }),
+          });
+          const json = await res.json();
+          setResult(json);
+      } 
+      catch (e) { setResult({ success: false, error: "server error" }) } 
+      finally { setLoading(false) }
     };
 
     const handleError = (error: any) => {
@@ -43,10 +44,11 @@ export default function ScannerPage() {
 
 
     return (
-        <Stack align="center" justify="center" style={{ height: "100vh", padding: 20 }}>
-        <Text size="xl" w={700}>
-        Ticket Scanner
-      </Text>
+      <Stack align="center"  style={{ height: "100vh", padding: 20 }}>
+        <Group>
+          <Title w={700}> Ticket Scanner </Title>
+          <Anchor><IconUsers /></Anchor>
+        </Group>
 
       <Paper shadow="sm" p="md" style={{ width: 320 }}>
         <Scanner onScan={handleScan} onError={handleError} />

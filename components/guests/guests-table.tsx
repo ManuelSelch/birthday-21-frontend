@@ -9,7 +9,6 @@ export default function GuestsTable({guests}: {guests: any[]}) {
         g.name.toLowerCase().includes(search.toLowerCase())
     );
 
-    
     const rows = filteredGuests.map(g => (
         <Table.Tr key={g._id}>
             <Table.Td>{g.name}</Table.Td>
