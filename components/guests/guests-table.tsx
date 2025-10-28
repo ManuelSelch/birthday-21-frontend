@@ -1,10 +1,16 @@
 "use client";
-import { Anchor, Button, Table } from "@mantine/core";
+import { Anchor, Button, Stack, Table, TextInput } from "@mantine/core";
+import { useState } from "react";
 
 export default function GuestsTable({guests}: {guests: any[]}) {
+    const [search, setSearch] = useState("");
+
+    const filteredGuests = guests.filter((g) =>
+        g.name.toLowerCase().includes(search.toLowerCase())
+    );
 
     
-    const rows = guests.map(g => (
+    const rows = filteredGuests.map(g => (
         <Table.Tr key={g._id}>
             <Table.Td>{g.name}</Table.Td>
             <Table.Td>{parse(g.accepted)}</Table.Td>
@@ -19,17 +25,26 @@ export default function GuestsTable({guests}: {guests: any[]}) {
     ));
 
     return (
-        <Table>
-            <Table.Thead>
-                <Table.Tr>
-                    <Table.Th>Name</Table.Th>
-                    <Table.Th>Accepted</Table.Th>
-                    <Table.Th>Checked In</Table.Th>
-                    <Table.Th>Action</Table.Th>
-                </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
+        <Stack pt="md">
+            <TextInput
+                placeholder="Search guest by name..."
+                value={search}
+                onChange={(e) => setSearch(e.currentTarget.value)}
+                radius="md"
+            />
+
+            <Table mt="md">
+                <Table.Thead>
+                    <Table.Tr>
+                        <Table.Th>Name</Table.Th>
+                        <Table.Th>Accepted</Table.Th>
+                        <Table.Th>Checked In</Table.Th>
+                        <Table.Th>Action</Table.Th>
+                    </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+        </Stack>
     )
 }
 
