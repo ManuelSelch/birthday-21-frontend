@@ -116,8 +116,9 @@ export default function InvitationCard({guest}: {guest: any}) {
             )}
           </Card>
         </div>
-
-        <ManuelMarcoCardDavid/>
+        
+        {confirmed ? <div></div>: <ManuelMarcoCardDavid/>}
+       
       </Container>
   );
 }
