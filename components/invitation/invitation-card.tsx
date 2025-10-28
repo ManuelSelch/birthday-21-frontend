@@ -6,6 +6,7 @@ import reichshofImage from "@/img/reichshof.jpg";
 import ManuelMarcoCardDavid from "./manuel-marco-david-card";
 import appleWallet from "@/img/apple_wallet.png";
 import googleWallet from "@/img/google_wallet.png";
+import whatsapp from "@/img/whatsapp.webp";
 
 export default function InvitationCard({guest}: {guest: any}) {
   const [confirmed, setConfirmed] = useState(guest?.accepted ?? false);
@@ -19,7 +20,7 @@ export default function InvitationCard({guest}: {guest: any}) {
 
   const guestLink = `https://geburtstag.manuelselch.de/invite?id=${guest._id}`;
   const applePassLink = `https://geburtstag.manuelselch.de/api/apple-pass?id=${guest._id}`;
-  const googlePassLink = `https://manuelselch.de`;
+  const whatsappLink = `https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt`;
 
   const createGooglePass = async () => {
     const res = await fetch("/api/create-pass");
@@ -106,12 +107,18 @@ export default function InvitationCard({guest}: {guest: any}) {
               <Anchor href={applePassLink}>
                 <Image src={appleWallet.src} h={60} w={60}/>
               </Anchor>
+
               <Paper className="relative">
                 <Image src={googleWallet.src} h={50} w={50} radius="md"/>
                 <Overlay radius="md"/>
               </Paper>
 
+              <Anchor href={whatsappLink}>
+                <Image src={whatsapp.src} h={60} w={60}/>
+              </Anchor>
+
               <QRCodeSVG value={guestLink} size={50} />
+
             </Group>
           </Card>
         </div>
