@@ -36,5 +36,5 @@ export default function GuestsTable({guests}: {guests: any[]}) {
 function parse(value: any) {
     if(value == undefined)
         return "--"
-    return value ? "✓" : "✖"
+    return (value == true) ? "✓" : "✖"
 }
