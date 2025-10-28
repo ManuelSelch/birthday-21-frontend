@@ -27,10 +27,10 @@ export default function AcceptedCard({companion, setCompanion, guest, loading, c
             
             <Group pt="md" justify="center">
                 <Anchor href={applePassLink}>
-                    <Image src={appleWallet.src} h={60}/>
+                    <Image src={appleWallet.src} h={50} fit="contain"/>
                 </Anchor>
                 <Anchor href={whatsappLink}>
-                    <Image src={whatsapp.src} h={60} w={60}/>
+                    <Image src={whatsapp.src} h={50} w={50}/>
                 </Anchor>
             </Group>
 
