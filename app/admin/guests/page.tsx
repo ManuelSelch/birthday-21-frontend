@@ -12,7 +12,7 @@ export default async function GuestsPage() {
     return (
         <Container>
             <Group>
-                <Title w={700}>Gästeliste</Title>
+                <Title>Gästeliste</Title>
                 <Anchor href="/admin/scanner"><IconScan size="40"/></Anchor>
             </Group>
 
