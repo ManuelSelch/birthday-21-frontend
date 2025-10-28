@@ -7,7 +7,9 @@
     "eventTicket": {
         "headerFields": [],
         "auxiliaryFields": [],
-        "primaryFields": [],
+        "primaryFields": [
+             {"key": "event", "label": "Event", "value": "20th Birthday" }
+        ],
         "secondaryFields": [
             {
                 "value": "01.11.2025",
