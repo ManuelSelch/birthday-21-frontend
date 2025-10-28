@@ -6,7 +6,9 @@
     "formatVersion": 1,
     "eventTicket": {
         "headerFields": [],
-        "auxiliaryFields": [],
+        "auxiliaryFields": [
+            { "value": "21 Uhr", "key": "time", "label": "Time" }
+        ],
         "primaryFields": [],
         "secondaryFields": [
             {
