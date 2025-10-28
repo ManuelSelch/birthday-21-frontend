@@ -1,12 +1,10 @@
 "use client";
-import { Button, Card, Group, Text, Title, Image, Paper, Overlay, Container, Stack, Anchor } from "@mantine/core";
+import { Card, Text, Title, Image, Container} from "@mantine/core";
 import { useState } from "react";
-import { QRCodeSVG } from "qrcode.react";
 import reichshofImage from "@/img/reichshof.jpg";
 import ManuelMarcoCardDavid from "./manuel-marco-david-card";
-import appleWallet from "@/img/apple_wallet.png";
-import googleWallet from "@/img/google_wallet.png";
-import whatsapp from "@/img/whatsapp.webp";
+import AcceptedCard from "./accepted-card";
+import AcceptCard from "./accept-card";
 
 export default function InvitationCard({guest}: {guest: any}) {
   const [confirmed, setConfirmed] = useState(guest?.accepted ?? false);
@@ -17,10 +15,6 @@ export default function InvitationCard({guest}: {guest: any}) {
   const eventDate = "01. November 2025";
   const eventTime = "21:00 Uhr";
   const eventLocation = "Reichshof Bayreuth";
-
-  const guestLink = `https://geburtstag.manuelselch.de/invite?id=${guest._id}`;
-  const applePassLink = `https://geburtstag.manuelselch.de/api/apple-pass?id=${guest._id}`;
-  const whatsappLink = `https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt`;
 
   const confirmAttendance = async () => {
     setLoading(true);
@@ -75,44 +69,10 @@ export default function InvitationCard({guest}: {guest: any}) {
             </Title>
 
             {confirmed ? (
-              <Text c={"green"} className="font-semibold mb-4">
-                Deine Teilnahme ist bestätigt!
-              </Text>
+              <AcceptedCard guest={guest}/>
             ) : (
-              <Stack align="center">
-                <Button
-                  color="yellow"
-                  radius="md"
-                  size="lg"
-                  w="300px"
-                  loading={loading}
-                  onClick={confirmAttendance}
-                  className="transition-transform transform hover:scale-105"
-                >
-                  Teilnahme bestätigen
-                </Button>
-                {error && <Text c="red">{error}</Text>}
-              </Stack>
-              
+              <AcceptCard loading={loading} confirmAttendance={confirmAttendance} error={error}/>
             )}
-
-            <Group pt="md" justify="center">
-              <Anchor href={applePassLink}>
-                <Image src={appleWallet.src} h={60} w={60}/>
-              </Anchor>
-
-              <Paper className="relative">
-                <Image src={googleWallet.src} h={50} w={50} radius="md"/>
-                <Overlay radius="md"/>
-              </Paper>
-
-              <Anchor href={whatsappLink}>
-                <Image src={whatsapp.src} h={60} w={60}/>
-              </Anchor>
-
-              <QRCodeSVG value={guestLink} size={50} />
-
-            </Group>
           </Card>
         </div>
 
