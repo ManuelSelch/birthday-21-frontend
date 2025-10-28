@@ -41,7 +41,7 @@ export default function InvitationCard({guest}: {guest: any}) {
     setError(null);
 
     try {
-      const res = await fetch(`/api/accept?id=${guest._id}`, { method: "GET" });
+      const res = await fetch(`/api/cancel?id=${guest._id}`, { method: "GET" });
       if (!res.ok) {
         throw new Error(`Error: ${res.status}`);
       }
