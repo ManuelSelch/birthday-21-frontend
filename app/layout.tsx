@@ -22,8 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider>
-          <Paper pt="lg">
-            <InvitationHero />
+          <Paper pt="lg" c="black">
             {children}
           </Paper>
         </MantineProvider>
