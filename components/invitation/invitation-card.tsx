@@ -10,6 +10,7 @@ export default function InvitationCard({guest}: {guest: any}) {
   const [confirmed, setConfirmed] = useState(guest?.accepted ?? false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isCompanion, setIsCompanion] = useState(guest?.companion ?? false);
 
   const guestName = guest.name;
   const eventDate = "01. November 2025";
@@ -54,6 +55,27 @@ export default function InvitationCard({guest}: {guest: any}) {
     }
   }
 
+  const setCompanion = async (isCompanion: boolean) => {
+    setLoading(true);
+    setError(null);
+
+    const companion = isCompanion ? "1" : "0";
+
+    try {
+      const res = await fetch(`/api/companion?id=${guest._id}&companion=${companion}`, { method: "GET" });
+      if (!res.ok) {
+          throw new Error(`Error: ${res.status}`);
+      }
+
+      setIsCompanion(isCompanion);
+    } catch (err: any) {
+      console.error(err);
+      setError("Begleitung konnte nicht bestätigt werden.");
+      } finally {
+      setLoading(false);
+    }
+  };
+
   return (
        <Container className="grow flex flex-col items-center justify-center">
         {/* Header mit Reichshof-Hintergrund */}
@@ -88,7 +110,7 @@ export default function InvitationCard({guest}: {guest: any}) {
             </Title>
 
             {confirmed ? (
-              <AcceptedCard guest={guest} loading={loading} cancelInvitation={cancelInvitation} error={error}/>
+              <AcceptedCard companion={isCompanion} setCompanion={setCompanion} guest={guest} loading={loading} cancelInvitation={cancelInvitation} error={error}/>
             ) : (
               <AcceptCard loading={loading} confirmAttendance={confirmAttendance} error={error}/>
             )}
