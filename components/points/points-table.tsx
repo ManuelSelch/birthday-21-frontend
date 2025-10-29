@@ -1,5 +1,5 @@
 "use client";
-import { Anchor, Button, Stack, Table, TextInput } from "@mantine/core";
+import { Anchor, Button, Group, NumberInput, Stack, Table, TextInput } from "@mantine/core";
 import { useState } from "react";
 
 export default function PointsTable({guests}: {guests: any[]}) {
@@ -13,9 +13,11 @@ export default function PointsTable({guests}: {guests: any[]}) {
     const rows = filteredGuests.map(g => (
         <Table.Tr key={g._id}>
             <Table.Td>{g.name}</Table.Td>
-            <Table.Td>{num(g.points)}</Table.Td>
             <Table.Td>
-               
+                <NumberInput placeholder="new" maw={100} value={num(g.points)}/>
+            </Table.Td>
+            <Table.Td>
+               <Button maw={80}>Save</Button>
             </Table.Td>
         </Table.Tr>
     ));
