@@ -19,6 +19,7 @@ class CockpitAPI {
     const url = `${this.baseURL}${endpoint}`;
 
     const config: RequestInit = {
+      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
         'api-key': this.apiKey,
