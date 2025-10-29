@@ -37,6 +37,24 @@ class API {
         }
     }
 
+    async accept(guest: any) {
+        try {
+            await this.get(`/api/accept?id=${guest._id}`);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    async cancel(guest: any) {
+        try {
+            await this.get(`/api/cancel?id=${guest._id}`);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
     private async get(endpoint: string) {
         return (await fetch(endpoint, { method: "GET", cache: 'no-store' })).json();
     }

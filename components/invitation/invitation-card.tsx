@@ -28,38 +28,28 @@ export default function InvitationCard({guest}: {guest: any}) {
     setLoading(true);
     setError(null);
 
-    try {
-      const res = await fetch(`/api/accept?id=${guest._id}`, { method: "GET" });
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status}`);
-      }
+    const success = await api.accept(guest);
 
+    if(success) 
       setConfirmed(true);
-    } catch (err: any) {
-      console.error(err);
+    else 
       setError("Teilnahme konnte nicht bestätigt werden.");
-    } finally {
-      setLoading(false);
-    }
+
+    setLoading(false);
   };
 
   const cancelInvitation = async () => {
     setLoading(true);
     setError(null);
 
-    try {
-      const res = await fetch(`/api/cancel?id=${guest._id}`, { method: "GET" });
-      if (!res.ok) {
-        throw new Error(`Error: ${res.status}`);
-      }
+    const success = await api.cancel(guest);
 
+    if(success)
       setConfirmed(false);
-    } catch (err: any) {
-      console.error(err);
+    else
       setError("Absage konnte nicht bestätigt werden.");
-    } finally {
-      setLoading(false);
-    }
+
+    setLoading(false);
   }
 
   const setCompanion = async (isCompanion: boolean) => {
