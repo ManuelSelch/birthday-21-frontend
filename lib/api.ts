@@ -55,6 +55,18 @@ class API {
         }
     }
 
+    async setCompanion(guest: any, isCompanion: boolean) {
+        const companion = isCompanion ? "1" : "0";
+
+        try {
+            const res = await this.get(`/api/companion?id=${guest._id}&companion=${companion}`);
+            return true;
+        }
+        catch {
+            return false;
+        }
+    }
+
     private async get(endpoint: string) {
         return (await fetch(endpoint, { method: "GET", cache: 'no-store' })).json();
     }

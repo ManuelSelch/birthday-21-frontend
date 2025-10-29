@@ -56,21 +56,14 @@ export default function InvitationCard({guest}: {guest: any}) {
     setLoading(true);
     setError(null);
 
-    const companion = isCompanion ? "1" : "0";
-
-    try {
-      const res = await fetch(`/api/companion?id=${guest._id}&companion=${companion}`, { method: "GET" });
-      if (!res.ok) {
-          throw new Error(`Error: ${res.status}`);
-      }
-
+    const success = await api.setCompanion(guest, isCompanion);
+    
+    if(success)
       setIsCompanion(isCompanion);
-    } catch (err: any) {
-      console.error(err);
+    else
       setError("Begleitung konnte nicht bestätigt werden.");
-      } finally {
-      setLoading(false);
-    }
+
+    setLoading(false);
   };
 
   return (
