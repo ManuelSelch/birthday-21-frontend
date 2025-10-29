@@ -1,6 +1,6 @@
 import GuestsTable from "@/components/guests/guests-table";
 import cockpit from "@/lib/cockpit";
-import { IconScan, IconScoreboard } from '@tabler/icons-react';
+import { IconBeer, IconScan, IconScoreboard } from '@tabler/icons-react';
 import { Anchor, Card, Container, Group, Stack, Text, Title } from "@mantine/core";
 
 export default async function GuestsPage() {
@@ -12,6 +12,7 @@ export default async function GuestsPage() {
                 <Title>Gästeliste</Title>
                 <Anchor href="/admin/scanner"><IconScan size="40"/></Anchor>
                 <Anchor href="/admin/points"><IconScoreboard size="40"/></Anchor>
+                <Anchor href="/admin/orders"><IconBeer size="40"/></Anchor>
             </Group>
 
             <Card shadow="md" withBorder my="md">
