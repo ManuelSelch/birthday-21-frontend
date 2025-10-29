@@ -3,6 +3,7 @@ import { Anchor, Group, Paper, Stack, Text, Title } from "@mantine/core";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useState } from "react";
 import { IconUsers } from "@tabler/icons-react";
+import api from "@/lib/api";
 
 type CheckInResponse = {
     success: boolean,
@@ -23,18 +24,12 @@ export default function ScannerPage() {
       const url = new URL(data);
       const id = url.searchParams.get("id");
 
+      if(!id) return;
+
       setLoading(true);
-      try {
-          const res = await fetch("/api/check-in", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ id }),
-          });
-          const json = await res.json();
-          setResult(json);
-      } 
-      catch (e) { setResult({ success: false, error: "server error" }) } 
-      finally { setLoading(false) }
+      const res = await api.checkIn(id);
+      setResult(res);
+      setLoading(false);
     };
 
     const handleError = (error: any) => {
