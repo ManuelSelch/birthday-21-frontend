@@ -5,6 +5,7 @@ import reichshofImage from "@/img/reichshof.jpg";
 import ManuelMarcoCardDavid from "./manuel-marco-david-card";
 import AcceptedCard from "./accepted-card";
 import AcceptCard from "./accept-card";
+import api from "@/lib/api";
 
 export default function InvitationCard({guest}: {guest: any}) {
   const [confirmed, setConfirmed] = useState(guest?.accepted ?? false);
@@ -18,9 +19,7 @@ export default function InvitationCard({guest}: {guest: any}) {
   const eventLocation = "Reichshof Bayreuth";
 
   const confirmInvited = async () => {
-    try {
-      await fetch(`/api/invited?id=${guest._id}`, { method: "GET" });
-    } catch (err: any) { }
+    await api.confirmInvited(guest);
   };
 
   confirmInvited();

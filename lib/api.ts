@@ -28,6 +28,15 @@ class API {
         } 
     }
 
+    async confirmInvited(guest: any) {
+        try {
+            await this.get(`/api/invited?id=${guest._id}`);
+            return true;
+        } catch (err: any) { 
+            return false;
+        }
+    }
+
     private async get(endpoint: string) {
         return (await fetch(endpoint, { method: "GET", cache: 'no-store' })).json();
     }
