@@ -4,8 +4,6 @@ import { Anchor, Container, Group, Text, Title } from "@mantine/core";
 import PointsTable from "@/components/points/points-table";
 
 export default async function GuestsPage() {
-    const guests = await cockpit.getItems("guests");
-
     return (
         <Container>
             <Group>
@@ -13,7 +11,7 @@ export default async function GuestsPage() {
                 <Anchor href="/admin/guests"><IconUsers /></Anchor>
             </Group>
 
-            <PointsTable guests={guests}/>
+            <PointsTable/>
         </Container>
     )
 }
