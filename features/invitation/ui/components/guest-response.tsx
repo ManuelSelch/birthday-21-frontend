@@ -34,7 +34,7 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
               <span className={styles.companionHint}>{companion ? "Erneut tippen zum Entfernen" : "Nur wenn deine Begleitung keine eigene Einladung hat."}</span>
             </span>
             <span className={styles.companionIcon} aria-hidden="true">
-              {companion ? <IconCheck size={32} stroke={1.7} /> : <IconArrowRight size={32} stroke={1.7} />}
+              {companion ? <IconCheck size={20} stroke={1.7} /> : <IconArrowRight size={20} stroke={1.7} />}
             </span>
           </UnstyledButton>
           <ImportantDetails whatsapp={links.whatsapp} />

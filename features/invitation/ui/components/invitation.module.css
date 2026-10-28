@@ -86,25 +86,25 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 10px;
   width: 100%;
-  min-height: 88px;
-  padding: 18px 20px;
-  background: #142035;
-  border: 1px solid #8bb8ff45;
-  border-radius: 12px;
+  min-height: 44px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid var(--invitation-border);
+  border-radius: 4px;
   color: inherit;
   touch-action: manipulation;
   transition: background 160ms ease, border-color 160ms ease;
 }
-.invitation .companionChoice:hover:not(:disabled) { background: #1a2a43; border-color: #9fc6ff90; }
+.invitation .companionChoice:hover:not(:disabled) { background: #ffffff08; border-color: #ffffff40; }
 .invitation .companionChoice[data-selected="true"] { background: #142d29; border-color: #69d6a075; }
 .invitation .companionChoice[data-selected="true"]:hover:not(:disabled) { background: #19382f; }
 .invitation .companionChoice:disabled { cursor: wait; opacity: .65; }
-.companionCopy { display: grid; gap: 6px; min-width: 0; }
-.companionTitle { font-size: 17px; line-height: 1.4; overflow-wrap: anywhere; }
-.companionHint { color: var(--invitation-muted); font-size: 13px; line-height: 1.4; }
-.companionIcon { color: #9fc6ff; display: grid; place-items: center; flex-shrink: 0; }
+.companionCopy { display: grid; gap: 3px; min-width: 0; }
+.companionTitle { font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.companionHint { color: var(--invitation-muted); font-size: 12px; line-height: 1.4; }
+.companionIcon { color: var(--invitation-muted); display: grid; place-items: center; flex-shrink: 0; }
 .companionChoice[data-selected="true"] .companionIcon { color: #88e5b2; }
 .invitation :is(a, button, input):focus-visible { outline: 3px solid var(--invitation-accent); outline-offset: 4px; }
 .unavailable { max-width: 600px; padding: 80px 24px; margin: auto; }
@@ -146,9 +146,6 @@
   .ticketName strong { font-size: 24px; }
   .invitation .secondary { padding: 0 6px; font-size: 14px; min-height: 48px; }
   .invitation .cancel { font-size: 15px; }
-}
-@media (max-width: 380px) {
-  .invitation .companionChoice { padding: 16px; gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .invitation *, .invitation *::before, .invitation *::after { animation: none !important; transition: none !important; }

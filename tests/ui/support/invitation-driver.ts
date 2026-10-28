@@ -64,14 +64,17 @@ export class InvitationDriver {
     await this.page.keyboard.press("Space");
   }
   async thenCompanionChoiceFits() {
+    await this.page.mouse.move(0, 0);
     const choice = this.companionChoice();
     await expect(choice).toHaveAttribute("aria-pressed", "false");
     await expect(choice).toContainText("Nur wenn deine Begleitung keine eigene Einladung hat.");
     const box = await choice.boundingBox();
-    expect(box!.height).toBeGreaterThanOrEqual(88);
+    expect(box!.height).toBeGreaterThanOrEqual(44);
+    expect(box!.height).toBeLessThanOrEqual(80);
+    await expect(choice).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
     expect(box!.x).toBeGreaterThanOrEqual(0);
     expect(box!.x + box!.width).toBeLessThanOrEqual(this.page.viewportSize()!.width);
-    await expect(choice.locator("svg")).toHaveAttribute("width", "32");
+    await expect(choice.locator("svg")).toHaveAttribute("width", "20");
     await expect(choice.locator("svg")).toHaveClass(/icon-arrow-right/);
   }
   async holdCompanionSave() {
