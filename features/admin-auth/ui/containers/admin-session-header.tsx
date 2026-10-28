@@ -6,7 +6,7 @@ import { LogoutContainer } from "./logout-container";
 
 export function AdminSessionHeader() {
   const pathname = usePathname();
-  if (pathname === "/admin/guests") return null;
+  if (pathname === "/admin/guests" || pathname === "/admin/scanner") return null;
 
   return <Group justify="flex-end" px="md" pb="md"><LogoutContainer /></Group>;
 }

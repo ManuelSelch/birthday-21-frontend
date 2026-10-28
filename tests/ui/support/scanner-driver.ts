@@ -47,6 +47,7 @@ export class ScannerDriver {
     await admin.loginWithKeyboard();
     await this.page.getByRole("link", { name: "Scanner", exact: true }).click();
     await expect(this.page.getByRole("heading", { name: "Ticket-Scanner" })).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Abmelden", exact: true })).toHaveCount(0);
   }
 
   async useMobileViewport() { await this.page.setViewportSize({ width: 375, height: 812 }); }
