@@ -53,7 +53,9 @@ export class InvitationDriver {
   async thenCompanionSaving() {
     await expect(this.companionChoice()).toBeDisabled();
     await expect(this.companionChoice()).toHaveAttribute("aria-pressed", "false");
-    await expect(this.page.getByRole("button", { name: "Teilnahme absagen" })).toBeDisabled();
+    const cancel = this.page.getByRole("button", { name: "Teilnahme absagen" });
+    await expect(cancel).toBeDisabled();
+    await expect(cancel).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
   }
   async finishCompanionSave() {
     await expect.poll(() => !!this.release).toBe(true);

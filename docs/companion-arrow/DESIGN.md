@@ -27,10 +27,11 @@ Replace the invitation's small companion switch with the full-width row from [mo
 - Match R2's 17px label, 32px icon, rounded full-width row and wrapping text within existing layout.
 - Selected uses mint-green checkmark plus restrained green background/border; text and icon also communicate state without relying on color.
 - Use native disabled behavior while busy, visible keyboard focus and reduced-motion support.
+- Disabled cancellation stays transparent: Mantine's default light disabled background caused a flash during companion saves. Override only the invitation cancellation button's disabled background; keep native disabled semantics and existing text styling. This is the fix described to the user and approved with “yes fix it”.
 - Keep state in the existing hook, not the presentation. No dependencies, backend changes or mock-only React Grab.
 
 ## Verification
-Planned: driven browser coverage for keyboard toggle, enable/disable persistence, disabled pending actions and failed-save state retention; check narrow layout. Run existing invitation tests, typecheck and scoped lint; report checks actually executed.
+Regression: hold a companion save and assert the cancellation button remains disabled with a transparent background. Planned: driven browser coverage for keyboard toggle, enable/disable persistence, disabled pending actions and failed-save state retention; check narrow layout. Run existing invitation tests, typecheck and scoped lint; report checks actually executed.
 
 ## Open Questions
 None.
