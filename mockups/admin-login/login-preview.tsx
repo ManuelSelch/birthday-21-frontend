@@ -19,9 +19,8 @@ function LoginCard({ state, password, onPassword, onSubmit }: {
       <Stack gap="lg">
         <div className="lock-mark"><IconLock size={24} stroke={1.6} aria-hidden /></div>
         <div>
-          <Text size="xs" fw={700} c="dimmed" tt="uppercase" mb={8}>21. Geburtstag · Organisation</Text>
+          <Text size="xs" fw={700} c="dimmed" tt="uppercase" mb={8}>21. Geburtstag</Text>
           <Title order={1} size={28}>Admin-Anmeldung</Title>
-          <Text c="dimmed" size="sm" mt={8}>Melde dich an, um Gäste, Check-in und Punkte zu verwalten.</Text>
         </div>
         <form onSubmit={onSubmit}>
           <Stack gap="md">
@@ -40,7 +39,6 @@ function LoginCard({ state, password, onPassword, onSubmit }: {
             <Button type="submit" fullWidth size="md" color="blue" loading={loading} disabled={state === 'limited'} rightSection={<IconArrowRight size={18} />}>Anmelden</Button>
           </Stack>
         </form>
-        <Text size="xs" c="dimmed">Nur für das Orga-Team. Gäste benötigen keine Anmeldung.</Text>
       </Stack>
     </Paper>
   );
