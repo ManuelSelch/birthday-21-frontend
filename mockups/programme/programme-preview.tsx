@@ -4,7 +4,7 @@ import { IconArrowLeft } from '@tabler/icons-react';
 import { ProgrammeItem, type ProgrammeEntry } from './programme-item';
 
 const entries: ProgrammeEntry[] = [
-  { time: '18:30', chapter: 'Ankommen', title: 'Auf einen schönen Abend', summary: 'Ein Willkommensdrink, vertraute Gesichter und neue Bekanntschaften.' },
+  { time: '19:00', chapter: 'Ankommen', title: 'Auf einen schönen Abend', summary: 'Ein Willkommensdrink, vertraute Gesichter und neue Bekanntschaften.' },
   { time: '19:15', chapter: 'Gemeinsam genießen', title: 'Zu Tisch, bitte', summary: 'Gutes Essen und Zeit für lange Gespräche.' },
   { time: '20:30', chapter: 'Das Highlight', title: 'Wir suchen den Superstar', summary: 'Unsere Freunde im Rampenlicht. Die Gastgeber in der Jury.', highlight: true },
   { time: '21:15', chapter: 'Erinnerungen', title: 'Ein Blick zurück', summary: 'Die letzten Jahre. Die besten Geschichten. Wir zusammen.' },
@@ -31,7 +31,7 @@ export function ProgrammePreview() {
   }
   return <>
     <div className="review-toolbar">
-      <div><strong>Programm · R7</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
+      <div><strong>Programm · R8</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
       <SegmentedControl aria-label="Designvariante" value={variant} onChange={changeVariant} data={[{ value: 'timeline', label: 'A · Timeline' }, { value: 'editorial', label: 'B · Programmheft' }]} />
     </div>
     <a className="skip-link" href="#programme">Zum Programm</a>
