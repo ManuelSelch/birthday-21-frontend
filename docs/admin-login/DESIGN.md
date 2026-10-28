@@ -1,7 +1,7 @@
 # Birthday Admin Login — Design
 
 ## Overview
-Add a shared-password login and server-validated sessions around the existing Next.js admin area. Public guest links remain unchanged. The isolated [revision 1 mockup](../../mockups/admin-login/DESIGN.md) proposes a small German-language Mantine form and minimal logout control; it is not yet approved.
+Add a shared-password login and server-validated sessions around the existing Next.js admin area. Public guest links remain unchanged. The user approved the isolated [revision 3 mockup](../../mockups/admin-login/DESIGN.md): a small German-language Mantine form with the existing blue color scheme, reduced copy, and minimal logout control.
 
 ## Components
 | Package/module | Component | Change | Responsibility |
