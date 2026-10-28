@@ -28,7 +28,7 @@ export function GuestVideos() {
   function toggle(id: number) {
     const guest = guests.find(item => item.id === id)!;
     setGuests(items => items.map(item => item.id === id ? {...item, video: !item.video} : item));
-    setAnnouncement(guest.name + ': ' + (guest.video ? 'Video als fehlend markiert.' : 'Video als erhalten markiert.'));
+    setAnnouncement(guest.name + ': ' + (guest.video ? 'Video als fehlend markiert.' : 'Video als vorhanden markiert.'));
   }
   return <div className="screen">
     <header><span className="brand">21. Geburtstag</span><Badge variant="outline" color="gray" size="sm">Admin</Badge></header>
@@ -37,15 +37,15 @@ export function GuestVideos() {
       <SegmentedControl className="view-tabs" fullWidth size="md" value={view} onChange={setView}
         aria-label="Ansicht" data={[{value:'guests',label:'Übersicht'},{value:'videos',label:'Videos'}]}/>
       {videos && <section className="summary" aria-label="Video-Fortschritt">
-        <div className="summary-title"><span><IconVideo size={18}/> Videos erhalten</span><strong>{received} <span>/ {guests.length}</span></strong></div>
+        <div className="summary-title"><span><IconVideo size={18}/> Gäste mit Video</span><strong>{received} <span>/ {guests.length}</span></strong></div>
         <Progress value={received / guests.length * 100} size={4} aria-label={received + ' von ' + guests.length + ' Gästen mit Video'}/>
-        <p>Von {guests.length - received} Gästen fehlt noch ein Video.</p>
+        <p>Zu {guests.length - received} Gästen fehlt noch ein Video.</p>
       </section>}
       <TextInput className="search" size="md" placeholder="Name, Gruppe oder Host suchen"
         aria-label="Gäste suchen" leftSection={<IconSearch size={17}/>} value={query} onChange={event => setQuery(event.currentTarget.value)}/>
       {videos && <SegmentedControl className="filters" fullWidth value={filter} onChange={setFilter} aria-label="Video-Status"
-        data={[{value:'all',label:'Alle'},{value:'missing',label:'Fehlt · ' + (guests.length - received)},{value:'received',label:'Erhalten · ' + received}]}/>}
-      <div className="list-label"><span>{visible.length} {visible.length === 1 ? 'Gast' : 'Gäste'}</span><span>{videos ? 'Video erhalten' : 'Status'}</span></div>
+        data={[{value:'all',label:'Alle'},{value:'missing',label:'Fehlt · ' + (guests.length - received)},{value:'received',label:'Vorhanden · ' + received}]}/>}
+      <div className="list-label"><span>{visible.length} {visible.length === 1 ? 'Gast' : 'Gäste'}</span><span>{videos ? 'Video vorhanden' : 'Status'}</span></div>
       <ul className="guest-list">{visible.map(guest => <GuestRow key={guest.id} guest={guest} videos={videos} onToggle={() => toggle(guest.id)}/>)}</ul>
       {!visible.length && <p className="empty">Keine Gäste gefunden.</p>}
       <div className="sr-only" role="status" aria-live="polite">{announcement}</div>
