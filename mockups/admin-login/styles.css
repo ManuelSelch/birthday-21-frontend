@@ -2,8 +2,8 @@
 body { margin: 0; background: #f7f7f5; color: #171717; }
 .preview-page { min-height: 100dvh; display: flex; flex-direction: column; }
 .screen { flex: 1; display: grid; place-items: center; padding: 48px 20px; }
-.login-card { width: 100%; max-width: 420px; border-top: 3px solid #e4b23a; box-shadow: 0 12px 40px #17171708; }
-.lock-mark { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; color: #855d00; background: #fff4d5; }
+.login-card { width: 100%; max-width: 420px; border-top: 3px solid var(--mantine-color-blue-6); box-shadow: 0 12px 40px #17171708; }
+.lock-mark { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; color: var(--mantine-color-blue-7); background: var(--mantine-color-blue-0); }
 .admin-preview { width: 100%; max-width: 760px; }
 .review-tools { padding: 20px; text-align: center; border-top: 1px dashed #deded8; }
 @media (max-width: 480px) {

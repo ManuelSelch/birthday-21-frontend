@@ -10,7 +10,7 @@ if (import.meta.env.DEV) {
 
 const theme = createTheme({
   fontFamily: 'Arial, Helvetica, sans-serif',
-  primaryColor: 'yellow',
+  primaryColor: 'blue',
   defaultRadius: 'md',
 });
 

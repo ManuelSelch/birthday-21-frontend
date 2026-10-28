@@ -37,7 +37,7 @@ function LoginCard({ state, password, onPassword, onSubmit }: {
             />
             {state === 'error' && <Alert color="red" icon={<IconAlertCircle size={18} />} role="alert">Anmeldung fehlgeschlagen. Bitte versuche es erneut.</Alert>}
             {state === 'limited' && <Alert color="orange" icon={<IconAlertCircle size={18} />} role="alert">Zu viele Versuche. Bitte versuche es in 15 Minuten erneut.</Alert>}
-            <Button type="submit" fullWidth size="md" color="yellow.6" c="black" loading={loading} disabled={state === 'limited'} rightSection={<IconArrowRight size={18} />}>Anmelden</Button>
+            <Button type="submit" fullWidth size="md" color="blue" loading={loading} disabled={state === 'limited'} rightSection={<IconArrowRight size={18} />}>Anmelden</Button>
           </Stack>
         </form>
         <Text size="xs" c="dimmed">Nur für das Orga-Team. Gäste benötigen keine Anmeldung.</Text>
