@@ -4,7 +4,7 @@
 Compare three distinct invitation treatments using images downloaded from the official Stadtball Bayreuth website, as requested by the user. Isolated React/Mantine prototype; no production changes.
 
 ## Revision and review
-- Revision: R5.
+- Revision: R6. Sample guest renamed to Max Muster as requested.
 - Status: in review; Midnight Gala is the preferred direction, not yet approved for implementation.
 - User prefers the first direction with less text and the title “21. Geburtstag”. Midnight Gala's mobile typography uses: 48–64px title, 16px hosts/controls, 17px event details, 12–13px supporting labels, and 32px greeting. Event details stack; action targets are at least 44px tall. R5 keeps Apple Wallet and WhatsApp next to each other at every width, with equal-width mobile buttons and 14px labels. Desktop and other directions remain unchanged. This is a request to iterate, not production approval.
 
@@ -27,7 +27,7 @@ Locally cached images are used to avoid third-party requests while reviewing. Al
 Image reuse was requested for this private mockup; publication rights have not been established. The footer links the source and states this is not affiliated with the event. Photographs illustrate atmosphere, not a confirmed birthday venue. Do not publish these images in production without confirming permission and required attribution.
 
 ## Fake or omitted behavior
-- Sophie Muster is fictional. Hosts and 21st-birthday wording are provisional; date, time, venue, dress code, real photos, and WhatsApp destination remain unconfirmed.
+- Max Muster is fictional. Hosts and 21st-birthday wording are provisional; date, time, venue, dress code, real photos, and WhatsApp destination remain unconfirmed.
 - No guest backend, tracking, credentials, persistence, generated pass, or external messaging. QR icon is explicitly labeled as a non-scannable placeholder.
 - Wallet/WhatsApp buttons display explanatory messages. RSVP/loading/error do not exercise real API calls.
 - No public Stadtball event date or branding is presented as the birthday event.
