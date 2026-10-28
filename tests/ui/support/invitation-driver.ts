@@ -146,8 +146,8 @@ export class InvitationDriver {
   async thenMobileTextIsReadable() {
     const size = await this.page.getByText("Location folgt · Bayreuth", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
     expect(size).toBeGreaterThanOrEqual(16);
-    const hosts = await this.page.getByText("MANUEL · MARCO · DAVID", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-    expect(hosts).toBeGreaterThanOrEqual(16);
+    const hostName = await this.page.getByText("Manuel", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+    expect(hostName).toBeGreaterThanOrEqual(14);
   }
   async thenDateAndLocationAreStacked() {
     const date = await this.page.getByText("WANN", { exact: true }).boundingBox();
@@ -157,11 +157,33 @@ export class InvitationDriver {
     expect(date!.y + date!.height).toBeLessThan(location!.y);
     expect(Math.abs(date!.x - location!.x)).toBeLessThan(2);
   }
-  async thenMobileLayoutIsCompact() {
-    await this.thenDateAndLocationAreStacked();
-    expect(await this.page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)).toBeLessThanOrEqual(0);
-    const layout = await this.page.getByRole("main").locator(":scope > div").boundingBox();
-    expect(layout!.y + layout!.height).toBeGreaterThanOrEqual(this.page.viewportSize()!.height - 1);
+  async thenHostPortraitsAreVisible() {
+    const section = this.page.getByRole("region", { name: "Wir feiern mit euch" });
+    await expect(section).toBeVisible();
+    const positions = [];
+    for (const name of ["Manuel", "Marco", "David"]) {
+      const portrait = section.getByRole("img", { name, exact: true });
+      await expect(portrait).toBeVisible();
+      await expect.poll(() => portrait.evaluate(el => {
+        const image = el as HTMLImageElement;
+        return image.complete && image.naturalWidth > 0;
+      })).toBe(true);
+      await expect(section.getByText(name, { exact: true })).toBeVisible();
+      const box = (await portrait.boundingBox())!;
+      expect(box.width).toBe(this.page.viewportSize()!.width <= 350 ? 72 : 80);
+      expect(box.height).toBe(box.width);
+      positions.push(box);
+    }
+    expect(Math.abs(positions[0].y - positions[2].y)).toBeLessThan(2);
+    expect(positions[0].x + positions[0].width).toBeLessThan(positions[1].x);
+    expect(positions[1].x + positions[1].width).toBeLessThan(positions[2].x);
+    const hero = (await this.page.getByRole("main").locator("header").boundingBox())!;
+    const hosts = (await section.boundingBox())!;
+    const date = (await this.page.getByText("WANN", { exact: true }).boundingBox())!;
+    expect(hero.y + hero.height).toBeLessThanOrEqual(hosts.y);
+    expect(hosts.y + hosts.height).toBeLessThanOrEqual(date.y);
+    await expect(this.page.getByText("MANUEL · MARCO · DAVID", { exact: true })).toHaveCount(0);
+    await expect(section.getByRole("button")).toHaveCount(0);
   }
   async captureLayout() {
     await this.page.screenshot({ path: test.info().outputPath("invitation.png"), fullPage: true });

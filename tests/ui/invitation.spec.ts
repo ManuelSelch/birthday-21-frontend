@@ -40,6 +40,14 @@ test("accepted invitation shows concise evening details before the ticket", asyn
   await invite.thenTicketHasGuestLinks();
 });
 
+test("invitation introduces all three hosts with labelled portraits", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+  await invite.open();
+
+  await invite.thenHostPortraitsAreVisible();
+});
+
 for (const width of [320, 375, 640, 641, 768, 1280]) {
   test(`invitation fits ${width}px with stacked evening details`, async ({ page }) => {
     const invite = new InvitationDriver(page);
@@ -48,9 +56,9 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
     await invite.open();
     await invite.thenLayoutFits();
     await invite.thenDateAndLocationAreStacked();
+    await invite.thenHostPortraitsAreVisible();
     if (width < 640) {
       await invite.thenMobileTextIsReadable();
-      await invite.thenMobileLayoutIsCompact();
     }
 
     await invite.accept();

@@ -7,7 +7,6 @@ export function InvitationHero() {
       <span className={styles.edition}>{invitationEvent.year}</span>
       <div className={styles.heroTitle}>
         <h1>{invitationEvent.title}</h1>
-        <p className={styles.hosts}>{invitationEvent.hosts}</p>
       </div>
     </header>
   );
