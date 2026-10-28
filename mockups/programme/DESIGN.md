@@ -1,10 +1,10 @@
-# Programme page · R2
+# Programme page · R3
 - Status: in review. No approval for production implementation.
 - Goal: guest-facing evening programme for an elegant, relaxed birthday gala with 45–70 guests.
 - Existing language: Midnight Gala navy/gold, serif headings, German copy, readable mobile typography.
 - Two concepts at /programme/?variant=timeline (A) and ?variant=editorial (B).
 - Selected direction: A, split introduction / connected timeline on desktop; single column on mobile. Still iterating, not approved for implementation.
-- Header simplified to “Ein Abend.”; “Viele Lieblingsmomente.” and “Unser Programm” removed at user request.
+- Header simplified to “Ein Abend.” with “Schön, dass du dabei bist.”; “Viele Lieblingsmomente.”, “Unser Programm” and “Das haben wir mit euch vor.” removed at user request.
 - B: centered introduction and warm paper programme within the navy site.
 - Interaction: accessible expandable details per entry; variant selector updates the query string. Reduced motion respected.
 - Fake content: six illustrative times and descriptions. No actual date/location, automatic live status, voting, backend, authentication, or persistence.
