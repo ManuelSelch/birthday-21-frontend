@@ -5,6 +5,7 @@ import { ImportantDetails } from "./important-details";
 import styles from "./invitation.module.css";
 
 export interface GuestResponseProps extends GuestTicketProps {
+  links: GuestTicketProps["links"] & { timeline: string };
   accepted: boolean;
   companion: boolean;
   pending: "invited" | "accept" | "cancel" | "companion" | null;
