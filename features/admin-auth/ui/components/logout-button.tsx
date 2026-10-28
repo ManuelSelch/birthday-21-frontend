@@ -8,7 +8,7 @@ export function LogoutButton({ loading, error, onLogout }: {
 }) {
   return (
     <Stack gap="xs" align="flex-end">
-      <ActionIcon variant="default" size={44} aria-label="Abmelden" title="Abmelden" loading={loading} onClick={onLogout}>
+      <ActionIcon variant="subtle" color="gray" size={36} aria-label="Abmelden" title="Abmelden" loading={loading} onClick={onLogout}>
         <IconLogout size={18} aria-hidden="true" />
       </ActionIcon>
       {error && <Alert color="red" role="alert">{error}</Alert>}

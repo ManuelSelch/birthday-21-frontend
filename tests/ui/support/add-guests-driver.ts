@@ -181,7 +181,13 @@ export class AddGuestsDriver {
       await expect(link).toHaveAttribute("href", "/timeline");
       await expect(link).toBeInViewport();
       await expect(this.page.getByRole("banner").getByRole("link", { name: "Scanner", exact: true })).toBeInViewport();
-      await expect(this.page.getByRole("button", { name: "Abmelden", exact: true })).toBeInViewport();
+      const logout = this.page.getByRole("button", { name: "Abmelden", exact: true });
+      await expect(logout).toBeInViewport();
+      await expect(logout).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
+      const timelineBounds = await link.boundingBox();
+      const logoutBounds = await logout.boundingBox();
+      expect(logoutBounds!.height).toBe(timelineBounds!.height);
+      if (width >= 375) expect(Math.abs(logoutBounds!.y - timelineBounds!.y)).toBeLessThan(1);
       expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     }
   }
@@ -198,8 +204,8 @@ export class AddGuestsDriver {
     await expect(logout).toHaveText("");
     await expect(logout).toHaveAttribute("title", "Abmelden");
     await expect(logout.locator("svg")).toBeVisible();
-    await expect(logout).toHaveCSS("width", "44px");
-    await expect(logout).toHaveCSS("height", "44px");
+    await expect(logout).toHaveCSS("width", "36px");
+    await expect(logout).toHaveCSS("height", "36px");
     await this.editGuest("Alex Beispiel");
     await this.page.getByRole("link", { name: "Einladung öffnen", exact: true }).click();
     await expect(this.page.getByRole("heading", { name: "Alex Beispiel, bist du dabei?" })).toBeVisible();
