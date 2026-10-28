@@ -113,12 +113,16 @@ export class InvitationDriver {
     const hosts = await this.page.getByText("MANUEL · MARCO · DAVID", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
     expect(hosts).toBeGreaterThanOrEqual(16);
   }
-  async thenMobileLayoutIsCompact() {
+  async thenDateAndLocationAreAdjacent() {
     const date = await this.page.getByText("WANN", { exact: true }).boundingBox();
     const location = await this.page.getByText("WO", { exact: true }).boundingBox();
     expect(date).not.toBeNull();
     expect(location).not.toBeNull();
     expect(Math.abs(date!.y - location!.y)).toBeLessThan(2);
+    expect(date!.x + date!.width).toBeLessThan(location!.x);
+  }
+  async thenMobileLayoutIsCompact() {
+    await this.thenDateAndLocationAreAdjacent();
     expect(await this.page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)).toBeLessThanOrEqual(0);
   }
   async captureLayout() {

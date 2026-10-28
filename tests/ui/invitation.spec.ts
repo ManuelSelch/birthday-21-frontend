@@ -23,13 +23,14 @@ test("personal invitation records viewing once and persists RSVP, companion and 
   await invite.thenPending();
 });
 
-for (const width of [320, 375, 1280]) {
+for (const width of [320, 375, 640, 641, 768, 1280]) {
   test(`invitation fits ${width}px and keeps ticket actions adjacent`, async ({ page }) => {
     const invite = new InvitationDriver(page);
     await invite.reset();
     await invite.useViewport(width);
     await invite.open();
     await invite.thenLayoutFits();
+    await invite.thenDateAndLocationAreAdjacent();
     if (width < 640) {
       await invite.thenMobileTextIsReadable();
       await invite.thenMobileLayoutIsCompact();

@@ -40,18 +40,18 @@
   gap: 70px;
 }
 .details {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-self: start;
   gap: 26px;
   margin: 25px 0 0;
   padding: 27px 0;
   border-block: 1px solid var(--invitation-border);
 }
-.details > div { display: flex; align-items: center; gap: 12px; }
+.details > div { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
 .details svg { color: var(--invitation-accent); flex-shrink: 0; }
 .details dt { font-size: 9px; line-height: 1.6; letter-spacing: 1.6px; color: var(--invitation-muted); margin-bottom: 5px; }
-.details dd { font-size: 13px; line-height: 1.6; margin: 0; }
+.details dd { font-size: 13px; line-height: 1.6; margin: 0; overflow-wrap: anywhere; }
 .response { min-width: 0; padding: 22px 0 28px; }
 .response h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 400; line-height: 1.2; margin: 17px 0 12px; overflow-wrap: anywhere; }
 .invitation .rsvp { background: var(--invitation-accent); color: #181521; border-radius: 2px; font-size: 13px; }
