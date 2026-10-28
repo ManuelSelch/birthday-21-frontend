@@ -3,6 +3,7 @@ import { Button } from '@mantine/core';
 import { IconArrowRight, IconCalendarEvent, IconMapPin } from '@tabler/icons-react';
 import { HostPortrait } from './host-portrait';
 import manuelPhoto from './assets/manuel.jpg';
+import marcoPhoto from './assets/marco.jpg';
 import davidPhoto from './assets/david.jpg';
 
 function Hosts() {
@@ -10,7 +11,7 @@ function Hosts() {
     <h2 id="hosts-title">Wir feiern mit euch</h2>
     <div className="host-row">
       <HostPortrait name="Manuel" initialPhoto={manuelPhoto} />
-      <HostPortrait name="Marco" initialPhoto={null} />
+      <HostPortrait name="Marco" initialPhoto={marcoPhoto} />
       <HostPortrait name="David" initialPhoto={davidPhoto} />
     </div>
   </section>;
