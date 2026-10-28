@@ -1,0 +1,11 @@
+# Add guests — Mockup
+- Revision: 1. Review status: approved.
+- Scope: add guests by name on the existing guest page; no edit/delete or extra invitation tools.
+- Preserve existing blue Mantine styling, navigation, counters, search and table.
+- Inline name field and submit button above search; stack controls on mobile.
+- Trim names, reject blank names, maximum 100 characters; allow equal names.
+- Success clears the form/search, updates the list/counter and announces success.
+- Failed submission preserves the name and shows an error; production disables submission while pending.
+- Local fake data only; links/navigation and persistence omitted. No added motion.
+- States: default, ?state=empty, ?state=error (submission failure).
+- Open questions: None. Approval evidence: user said “yes looks good. implement” for revision 1 and the technical design.

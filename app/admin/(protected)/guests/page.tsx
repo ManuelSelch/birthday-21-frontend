@@ -1,7 +1,7 @@
-import GuestsTable from "@/components/guests/guests-table";
+import { GuestManagement } from "@/features/guests/ui";
 import cockpit from "@/lib/cockpit";
 import { IconBeer, IconScan, IconScoreboard } from '@tabler/icons-react';
-import { Anchor, Card, Container, Group, Stack, Text, Title } from "@mantine/core";
+import { Anchor, Card, Container, Group, Text, Title } from "@mantine/core";
 
 export default async function GuestsPage() {
     const guests = await cockpit.getItems("guests");
@@ -21,7 +21,7 @@ export default async function GuestsPage() {
                 <Text>Mit Begleitung: {guests.filter(g => g.accepted).length + guests.filter(g => g.companion).length}</Text>
             </Card>
 
-            <GuestsTable guests={guests}/>
+            <GuestManagement guests={guests}/>
         </Container>
     )
 }

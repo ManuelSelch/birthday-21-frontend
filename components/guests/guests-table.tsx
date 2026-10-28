@@ -1,8 +1,9 @@
 "use client";
 import { Anchor, Button, Stack, Table, TextInput } from "@mantine/core";
 import { useState } from "react";
+import type { Guest } from "@/features/guests/model";
 
-export default function GuestsTable({guests}: {guests: any[]}) {
+export default function GuestsTable({guests}: {guests: Guest[]}) {
     const [search, setSearch] = useState("");
 
     const filteredGuests = guests.filter((g) =>
@@ -47,7 +48,7 @@ export default function GuestsTable({guests}: {guests: any[]}) {
     )
 }
 
-function parse(value: any) {
+function parse(value: boolean | undefined) {
     if(value == undefined)
         return "--"
     return (value == true) ? "✓" : "✖"
