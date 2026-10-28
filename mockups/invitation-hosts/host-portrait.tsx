@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Avatar, FileButton, UnstyledButton } from '@mantine/core';
 import { IconUser } from '@tabler/icons-react';
 
-export function HostPortrait({ name }: { name: string }) {
-  const [photo, setPhoto] = useState<string | null>(null);
+export function HostPortrait({ name, initialPhoto }: { name: string; initialPhoto: string | null }) {
+  const [photo, setPhoto] = useState<string | null>(initialPhoto);
   function choosePhoto(file: File | null) {
     if (!file) return;
     const reader = new FileReader();

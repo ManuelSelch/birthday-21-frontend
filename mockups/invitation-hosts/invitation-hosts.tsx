@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { Button } from '@mantine/core';
 import { IconArrowRight, IconCalendarEvent, IconMapPin } from '@tabler/icons-react';
 import { HostPortrait } from './host-portrait';
+import manuelPhoto from './assets/manuel.jpg';
 
 function Hosts() {
   return <section className="hosts-section" aria-labelledby="hosts-title">
     <h2 id="hosts-title">Wir feiern mit euch</h2>
     <div className="host-row">
-      <HostPortrait name="Manuel" />
-      <HostPortrait name="Marco" />
-      <HostPortrait name="David" />
+      <HostPortrait name="Manuel" initialPhoto={manuelPhoto} />
+      <HostPortrait name="Marco" initialPhoto={null} />
+      <HostPortrait name="David" initialPhoto={null} />
     </div>
   </section>;
 }
@@ -32,7 +33,7 @@ export function InvitationHosts() {
         <Button fullWidth className="accept" size="md" rightSection={<IconArrowRight size={19} />} onClick={() => setNotice('Nur Vorschau – es wird keine Zusage gespeichert.')}>Ich bin dabei</Button>
         <p className="notice" role="status">{notice}</p>
       </section>
-      <footer>Mockup · Portraits antippen, um eigene Fotos auszuprobieren.<br />Fotos bleiben lokal und werden nicht gespeichert.<br />Atmosphärenfoto: Stadtball Bayreuth · SW Bayreuth / Screenshot</footer>
+      <footer>Mockup · Portraits antippen, um eigene Fotos auszuprobieren.<br />Ausgewählte Fotos werden nicht hochgeladen.<br />Atmosphärenfoto: Stadtball Bayreuth · SW Bayreuth / Screenshot</footer>
     </div>
   </main>;
 }
