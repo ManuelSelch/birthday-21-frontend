@@ -1,0 +1,32 @@
+*{box-sizing:border-box}
+:root{--navy:#0d1220;--gold:#e4c991;--text:#f7f3ed;--muted:#b8bac3;--line:#ffffff24}
+body{margin:0;background:#060a12;color:var(--text);font-family:Arial,Helvetica,sans-serif}
+.mobile-preview{max-width:430px;margin:32px auto;background:var(--navy);border:1px solid var(--line)}
+.hero{min-height:235px;padding:28px 24px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,#0d122020,#0d1220dd),url('../invitation-2026/assets/gala.jpg') center 43%/cover}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:1.8px;color:var(--gold);line-height:1.6}
+h1,h2,p{margin:0}
+h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:400}
+h1{font-size:44px;line-height:1.08;letter-spacing:-1.5px;margin-top:14px}
+.content{padding:0 24px 20px}
+.hosts-section{padding:25px 0 26px}
+.hosts-section h2{font-size:24px;line-height:1.3;text-align:center;margin-bottom:22px}
+.host-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:330px;margin:auto}
+.host{margin:0;text-align:center;min-width:0}
+.portrait-button{display:block;margin:0 auto;border-radius:50%;outline-offset:4px}
+.portrait{width:80px;height:80px;border:1px solid #e4c99155;background:#182131;--avatar-color:var(--gold)}
+.portrait :where(img){object-fit:cover}
+.host figcaption{font-size:14px;line-height:1.5;margin-top:11px}
+.event{display:flex;flex-direction:column;gap:20px;padding:24px 0;border-block:1px solid var(--line)}
+.event>div{display:flex;align-items:center;gap:13px;font-size:17px;line-height:1.5}
+.event svg{color:var(--gold);flex-shrink:0}
+.event small{display:block;font-size:10px;letter-spacing:1.3px;color:var(--muted);margin-bottom:4px}
+.response{padding-top:25px}
+.response h2{font-size:30px;line-height:1.25;margin-bottom:19px}
+.accept{background:var(--gold);color:var(--navy);min-height:48px;font-size:16px}
+.accept:hover{background:#eed6aa}
+.notice{font-size:13px;color:var(--gold);line-height:1.6}
+.notice:not(:empty){margin-top:14px}
+footer{font-size:10px;color:var(--muted);line-height:1.8;margin-top:25px;text-align:center}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+@media(max-width:460px){.mobile-preview{margin:0 auto;border:0;min-height:100dvh}}
+@media(max-width:350px){.content{padding-inline:20px}.hero{padding-inline:20px}h1{font-size:39px}.host-row{gap:12px}.portrait{width:72px;height:72px}}
