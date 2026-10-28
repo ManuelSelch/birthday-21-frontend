@@ -2,7 +2,7 @@
     "passTypeIdentifier": "pass.de.selch.birth2025",
     "teamIdentifier": "476LPWUTHD",
     "organizationName": "selch",
-    "description": "20th Birthday",
+    "description": "21th Birthday",
     "formatVersion": 1,
     "eventTicket": {
         "headerFields": [],
@@ -12,7 +12,7 @@
         "primaryFields": [],
         "secondaryFields": [
             {
-                "value": "01.11.2025",
+                "value": "13.11.2026",
                 "key": "date",
                 "label": "Date"
             },

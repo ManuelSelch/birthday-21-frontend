@@ -4,13 +4,12 @@ import { Alert, Button, Paper, PasswordInput, Stack, Text, Title } from "@mantin
 import { IconAlertCircle, IconArrowRight, IconLock } from "@tabler/icons-react";
 import styles from "./login-form.module.css";
 
-export function LoginForm({ password, onPassword, onSubmit, loading, error, limited }: {
+export function LoginForm({ password, onPassword, onSubmit, loading, error }: {
   password: string;
   onPassword: (value: string) => void;
   onSubmit: () => void;
   loading: boolean;
   error?: string;
-  limited: boolean;
 }) {
   return (
     <main className={styles.page}>
@@ -31,11 +30,11 @@ export function LoginForm({ password, onPassword, onSubmit, loading, error, limi
                 maxLength={1024}
                 value={password}
                 onChange={(event) => onPassword(event.currentTarget.value)}
-                disabled={loading || limited}
+                disabled={loading}
                 size="md"
               />
-              {error && <Alert color={limited ? "orange" : "red"} icon={<IconAlertCircle size={18} />} role="alert">{error}</Alert>}
-              <Button type="submit" fullWidth size="md" color="blue" loading={loading} disabled={limited} rightSection={<IconArrowRight size={18} />}>Anmelden</Button>
+              {error && <Alert color="red" icon={<IconAlertCircle size={18} />} role="alert">{error}</Alert>}
+              <Button type="submit" fullWidth size="md" color="blue" loading={loading} rightSection={<IconArrowRight size={18} />}>Anmelden</Button>
             </Stack>
           </form>
         </Stack>

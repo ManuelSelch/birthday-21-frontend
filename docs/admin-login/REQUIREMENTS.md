@@ -1,37 +1,37 @@
 # Birthday Admin Login — Requirements
 
 ## Goal
-Provide a small admin login for birthday-party management, preventing unauthenticated access to guest lists, check-in, and points management without disrupting public invitations.
+Provide a simple shared-password login for the party admin pages, without password hashes or complex configuration. This simplified scope replaces the earlier security-heavy requirements at the user's request.
 
 ## Requirements
-- **R1** — Provide a public `/admin/login` page with a password field, submit button, loading state, and a generic invalid-credentials error. Never display or log credentials. The page must work on mobile and support keyboard submission and an accessible field label.
-- **R2** — Require an authenticated admin session for `/admin` and every nested admin page except `/admin/login`, including guests, orders, points, and scanner. Unauthenticated page requests redirect to login before protected content is fetched or rendered. Successful login returns to the requested admin page, or `/admin/guests` by default; return destinations must remain within the protected admin area.
-- **R3** — Independently require admin authentication for `/api/guests`, `/api/points`, and `/api/check-in`. Unauthenticated requests return HTTP 401 without reading or changing Cockpit data; protecting pages alone is insufficient.
-- **R4** — Keep guest invitation viewing, acceptance, cancellation, companion selection, invited-status tracking, and Apple Wallet access public under their existing guest-link behavior. Do not require guests to log in. This scope does not redesign guest-link authorization.
-- **R5** — Maintain authentication with a server-validated, tamper-resistant, expiring session in an HttpOnly cookie, using Secure cookies in production and a SameSite policy. Do not store admin credentials or session tokens in browser local storage or expose secrets through public environment variables. Missing authentication configuration must fail closed.
-- **R6** — Provide logout from authenticated admin pages. Logout clears the browser session; subsequent protected requests from that browser are denied. Use a fixed session expiry, provisionally 12 hours, without silently extending it indefinitely.
-- **R7** — Protect login against repeated password guessing with a documented attempt limit and retry response. State-changing authentication and administrative operations must reject inappropriate cross-site requests and must not mutate state through GET requests. Preserve public guest endpoints outside this administrative scope.
-- **R8** — Document server-only authentication configuration using placeholders, local setup, production HTTPS requirements, password rotation, and the limits of the chosen session/logout behavior. Do not commit actual secrets or reuse the Cockpit API key as the login password.
-- **R9** — Verify invalid and valid login, direct protected-page access, direct API access, logout, expired/tampered sessions, safe redirects, attempt limiting, cross-site rejection, and continued public invitation access. No production implementation begins before a technical design is approved; the new login UI also requires an approved isolated mockup.
+- **R1** — Keep the approved blue `/admin/login` page with a password field, submit/loading state, and a generic wrong-password error.
+- **R2** — Require login for `/admin` and nested admin pages except login. Return to the requested admin page after login, defaulting to guests; accept only internal admin destinations.
+- **R3** — Keep login checks for the guest-list, points, and check-in APIs before Cockpit access.
+- **R4** — Keep guest invitation viewing, attendance responses, companion selection, invited tracking, and Wallet access public.
+- **R5** — Compare the submitted password directly against server-only `ADMIN_PASSWORD`. No password hashing, minimum length policy, additional secret, or custom origin configuration. A missing or empty password does not permit login.
+- **R6** — Retain a 12-hour login cookie and logout. Keep the password itself out of the browser cookie. Password changes invalidate existing cookies.
+- **R7** — Remove rate limiting and custom cross-site checks. Administrative mutations remain POST; do not change public guest endpoints.
+- **R8** — Document only `ADMIN_PASSWORD=your-party-password` and restarting the app. Remove the hash-generation script and obsolete configuration instructions. Do not read, edit, or commit the real `.env`.
+- **R9** — Verify valid/wrong/missing passwords, cookies, logout, expiry, admin access, safe returns, and public invitations. Reuse the approved UI without another mockup.
 
 ## Assumptions
-- Confirmed in Q1: use one shared admin password. Individual accounts, roles, registration, password-reset emails, and Cockpit-user authentication are out of scope.
-- A 12-hour fixed session is suitable for party-day use. Per-device remote revocation and forced logout of all sessions are outside this small initial scope; the design must explain credential-rotation effects.
-- Existing admin features and the casino theme remain unchanged apart from the login and a minimal logout control.
-- The deployment will serve production traffic over HTTPS. The design must establish deployment topology before selecting an effective login-attempt limiter.
+- One shared password is sufficient; no individual accounts, roles, registration, or password-reset flow.
+- The existing 12-hour session and admin functionality stay unchanged.
+- The user explicitly approved the simpler technical design and accepts removing rate limiting and custom origin enforcement.
 
 ## Implementation Plan
 ### S1 — Approve Login Scope and UI
-Description: Resolve Q1, create an isolated mobile-friendly login mockup with password, loading/error states, and a minimal logout placement, and obtain explicit UI approval. Write and present `docs/admin-login/DESIGN.md` covering credentials, sessions, page/API protection, cross-site safeguards, attempt limiting, and deployment assumptions; obtain explicit design approval before production changes. Implements the approval prerequisite in R9 and prepares R1–R8. Verify by recording the agreed behavior and approvals, not by changing production code.
+Description: Completed. Reuse the approved blue UI and the approved simplified design; no new mockup.
 
 ### S2 — Add Login and Session Lifecycle
-Description: After S1, implement the approved login page, credential verification, session issuance/validation, expiry, logout behavior, and login-attempt/cross-site safeguards. Implements R1, R5, R6, and authentication-related parts of R7. Verify valid/invalid credentials, missing configuration, tampered/expired cookies, repeated attempts, and logout with focused automated tests.
+Description: Simplify password verification and cookie handling; remove hashing, extra configuration, and the attempt limiter. Verify R5–R7 with focused tests.
 
 ### S3 — Protect Admin Pages and APIs
-Description: After S2, enforce authentication before loading admin data and independently on the three administrative API routes. Add a minimal logout control, safe return navigation, and non-GET administrative mutations with matching caller updates. Implements R2–R4 and remaining R7 behavior. Verify unauthenticated direct access is denied, authenticated guests/points/scanner flows work, external return targets are rejected, and public invitation flows remain usable.
+Description: Preserve existing page/API checks and navigation while adapting them to the plain-password session helper. Verify R2–R4 and unchanged administrative POST behavior.
 
 ### S4 — Verify and Document Setup
-Description: After S3, complete end-to-end coverage for R9 and add concise placeholder-only configuration and deployment instructions for R8. Verify the protected browser/API flows and public invitation regression checks; run available project checks and report failures accurately. Do not modify or commit real environment secrets.
+Description: Replace obsolete tests/instructions, document the single environment variable, and run the focused tests, browser suite, typecheck, and build. Implements R8–R9.
 
 ## Open Questions
-- **Q1 — Resolved** — Is one shared admin password enough, or do you need separate logins for each organizer? Resolution: the user approved the recommended single shared admin password and requirements plan. Technical design and mockup approval remain separate.
+- **Q1 — Resolved** — Use one shared admin password, as approved by the user.
+- **Q2 — Resolved** — The user rejected the earlier complexity and approved a plain `ADMIN_PASSWORD` with no hashing or extra authentication configuration.

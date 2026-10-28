@@ -8,7 +8,7 @@ export class BirthdayAdminDriver {
     expect(response.ok()).toBe(true);
   }
   async thenAllAdminPagesRequireLogin() {
-    const origin = process.env.ADMIN_TEST_PRODUCTION === "1" ? "https://localhost:3187" : "http://localhost:3187";
+    const origin = "http://localhost:3187";
     for (const path of ["/admin", "/admin/guests", "/admin/orders", "/admin/points", "/admin/scanner"]) {
       const response = await this.page.request.get(path, { maxRedirects: 0 });
       expect(response.status(), path).toBe(307);

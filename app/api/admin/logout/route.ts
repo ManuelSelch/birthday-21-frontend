@@ -1,5 +1,5 @@
 import { auth } from "@/features/admin-auth/server";
 
-export async function POST(request: Request) {
-  return auth.logout(request);
+export async function POST() {
+  return auth.logout();
 }

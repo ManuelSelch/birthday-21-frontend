@@ -1,12 +1,11 @@
 import assert from "node:assert/strict";
 import type { TestContext } from "node:test";
-import { createPasswordHash, signSession } from "../../../features/admin-auth/infra/security";
+import { createSession } from "../../../features/admin-auth/infra/session";
 
 export class AdminRoutesDriver {
   private response?: Response;
   private cookie = "";
   private cockpitRequests: { url: string; method: string; data?: unknown }[] = [];
-  private readonly hash = createPasswordHash("isolated test password");
 
   private constructor(private readonly routes: {
     guests: typeof import("../../../app/api/guests/route");
@@ -20,6 +19,9 @@ export class AdminRoutesDriver {
       driver.cockpitRequests.push({ url, method: options?.method ?? "GET", data: options?.body ? JSON.parse(String(options.body)) : undefined });
       return Response.json(url.includes("/items/") ? [{ _id: "guest-1", name: "Alex", accepted: true }] : { _id: "guest-1", name: "Alex", accepted: true });
     });
+    const original = process.env;
+    process.env = { ...original, ADMIN_PASSWORD: "party" };
+    context.after(() => { process.env = original; });
     process.env.COCKPIT_API_URL = "https://fake-cockpit.test/api";
     process.env.COCKPIT_API_KEY = "fake-api-key";
     const routes = {
@@ -28,17 +30,11 @@ export class AdminRoutesDriver {
       checkIn: await import("../../../app/api/check-in/route"),
     };
     const driver = new AdminRoutesDriver(routes);
-    process.env.ADMIN_PASSWORD_HASH = driver.hash;
-    process.env.ADMIN_SESSION_SECRET = "test-secret-".repeat(6);
-    process.env.APP_ORIGIN = "https://party.test";
     return driver;
   }
 
   signIn() {
-    this.cookie = "birthday_admin=" + signSession({
-      passwordHash: this.hash, sessionSecret: process.env.ADMIN_SESSION_SECRET!,
-      origin: "https://party.test", secure: false,
-    }, Math.floor(Date.now() / 1000));
+    this.cookie = "birthday_admin=" + createSession();
   }
 
   async readGuests() {

@@ -1,3 +1,3 @@
-// Server entry point. Node crypto prevents accidental inclusion in browser bundles.
+// Server authentication entry point.
 export { auth, privateJson, readAdminBody } from "./app/http";
 export { SESSION_COOKIE } from "./domain/rules";
