@@ -4,12 +4,12 @@
 Compare three distinct invitation treatments using images downloaded from the official Stadtball Bayreuth website, as requested by the user. Isolated React/Mantine prototype; no production changes.
 
 ## Revision and review
-- Revision: R6. Sample guest renamed to Max Muster as requested.
+- Revision: R7. Sample guest is Max Muster; visible QR placeholder disclaimer removed as requested.
 - Status: in review; Midnight Gala is the preferred direction, not yet approved for implementation.
 - User prefers the first direction with less text and the title “21. Geburtstag”. Midnight Gala's mobile typography uses: 48–64px title, 16px hosts/controls, 17px event details, 12–13px supporting labels, and 32px greeting. Event details stack; action targets are at least 44px tall. R5 keeps Apple Wallet and WhatsApp next to each other at every width, with equal-width mobile buttons and 14px labels. Desktop and other directions remain unchanged. This is a request to iterate, not production approval.
 
 ## Directions
-- `?variant=midnight`: Midnight Gala — navy/gold, wide blue-lit ballroom hero, expressive serif title; details and RSVP alongside each other below, stacked on mobile. R3 uses “21. Geburtstag” as the main title, with year, hosts, date/location, personalized greeting, and actions. Removes hero slogans, descriptive paragraphs, decorative guest number, RSVP explanation, and redundant confirmation label. Image attribution and prototype caveats remain in the review footer; ticket placeholder warning and useful errors remain visible.
+- `?variant=midnight`: Midnight Gala — navy/gold, wide blue-lit ballroom hero, expressive serif title; details and RSVP alongside each other below, stacked on mobile. R3 uses “21. Geburtstag” as the main title, with year, hosts, date/location, personalized greeting, and actions. Removes hero slogans, descriptive paragraphs, decorative guest number, RSVP explanation, and redundant confirmation label. Image attribution and prototype caveats remain in the review footer; useful errors remain visible; the ticket has no placeholder disclaimer.
 - `?variant=champagne`: Champagne Editorial — cream/brown, large serif headline, portrait ballroom photograph, birthday seal, editorial two-column composition; single column on mobile.
 - `?variant=afterdark`: After Dark — burgundy/coral, bokeh photograph, full-height party-poster composition and bold sans-serif title with serif accent; RSVP beside poster, below on mobile.
 - Shared review toolbar selects direction and state. Every direction includes provisional hosts/age, personalized greeting, unknown date/location, RSVP, companion control, ticket placeholder, simulated Wallet/WhatsApp actions, and cancellation.
@@ -28,7 +28,7 @@ Image reuse was requested for this private mockup; publication rights have not b
 
 ## Fake or omitted behavior
 - Max Muster is fictional. Hosts and 21st-birthday wording are provisional; date, time, venue, dress code, real photos, and WhatsApp destination remain unconfirmed.
-- No guest backend, tracking, credentials, persistence, generated pass, or external messaging. QR icon is explicitly labeled as a non-scannable placeholder.
+- No guest backend, tracking, credentials, persistence, generated pass, or external messaging. QR icon is a non-scannable placeholder; its visible disclaimer was removed at the user's request. The review footer still identifies this as a mockup with no real registration.
 - Wallet/WhatsApp buttons display explanatory messages. RSVP/loading/error do not exercise real API calls.
 - No public Stadtball event date or branding is presented as the birthday event.
 
