@@ -1,0 +1,39 @@
+*{box-sizing:border-box}
+:root{--navy:#0d1220;--gold:#e4c991;--text:#f7f3ed;--muted:#b8bac3;--line:#ffffff24}
+body{margin:0;background:#060a12;color:var(--text);font-family:Arial,Helvetica,sans-serif}
+.mobile-preview{max-width:430px;margin:32px auto;background:var(--navy);border:1px solid var(--line)}
+.hero{min-height:260px;padding:29px 24px 25px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,#0d122035,#0d1220ee),url('../invitation-2026/assets/gala.jpg') center 43%/cover}
+.section-label{font-size:10px;font-weight:600;letter-spacing:1.8px;color:var(--gold);line-height:1.6}
+h1,h2,h3,p{margin:0}
+h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:400}
+h1{font-size:44px;line-height:1.08;letter-spacing:-1.5px;margin:13px 0 18px}
+.hero>p{font-size:12px;letter-spacing:1.8px;line-height:1.7}
+.content{padding:0 24px 20px}
+.event{display:flex;gap:36px;padding:22px 0;border-bottom:1px solid var(--line)}
+.event>div{display:flex;align-items:center;gap:10px;font-size:16px}
+.event svg{color:var(--gold);flex-shrink:0}
+.event small{display:block;font-size:9px;letter-spacing:1.3px;color:var(--muted);margin-bottom:6px}
+.greeting{padding:27px 0}
+.confirmed{display:flex;align-items:center;gap:6px;color:var(--gold);font-size:12px}
+.greeting h2{font-size:31px;line-height:1.25;margin-top:13px}
+.important{padding:24px 0 4px;border-top:1px solid var(--line)}
+.important h2{font-size:28px;margin-top:7px;margin-bottom:22px}
+.detail-row{display:flex;align-items:flex-start;gap:14px;padding:0 0 21px}
+.detail-row>svg{color:var(--gold);flex-shrink:0;margin-top:1px}
+.detail-row h3{font-size:15px;line-height:1.45;font-weight:600;margin-bottom:5px}
+.detail-row p{font-size:14px;line-height:1.65;color:var(--muted)}
+.join-button{color:var(--gold);padding:0;min-height:44px;font-size:14px;height:auto;margin-top:3px}
+.join-button:hover{background:transparent;text-decoration:underline}
+.ticket-section{padding-top:24px;border-top:1px solid var(--line)}
+.ticket{background:#faf8f3;color:#161c29;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px;border-radius:3px}
+.ticket .section-label{color:#68604e;font-size:9px}
+.ticket strong{display:block;font-family:Georgia,serif;font-size:23px;margin:7px 0}
+.ticket-caption{font-size:11px;color:#5a6070}
+.ticket>svg{flex-shrink:0}
+.wallet-button{border-color:var(--line);color:var(--text);min-height:48px;margin-top:13px;font-size:14px}
+.notice{font-size:13px;color:var(--gold);line-height:1.6}
+.notice:not(:empty){margin-top:16px}
+footer{font-size:10px;color:var(--muted);line-height:1.8;margin-top:25px;text-align:center}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+@media(max-width:460px){.mobile-preview{margin:0 auto;border:0;min-height:100dvh}}
+@media(max-width:350px){.content{padding-inline:18px}.hero{padding-inline:18px}h1{font-size:39px}.event{gap:24px}}
