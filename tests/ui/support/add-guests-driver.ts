@@ -110,6 +110,13 @@ export class AddGuestsDriver {
         ? ["Gast", "Gruppen / Hosts", "Status", "Check-in"]
         : ["Gast", "Gruppen", "Hosts", "Status", "Check-in"]);
       if (width < 700) {
+        const checkinHeading = table.getByRole("columnheader", { name: "Check-in", exact: true });
+        await expect(checkinHeading).toHaveCSS("white-space", "nowrap");
+        expect(await checkinHeading.evaluate(element => {
+          const range = document.createRange();
+          range.selectNodeContents(element);
+          return range.getClientRects().length === 1 && range.getBoundingClientRect().width <= element.clientWidth;
+        })).toBe(true);
         await expect(this.details("Anna Weber").locator("strong")).toHaveCSS("font-size", "15px");
         const assignments = this.row("Anna Weber").getByRole("cell").nth(1);
         await expect(assignments).toContainText("Uni");
