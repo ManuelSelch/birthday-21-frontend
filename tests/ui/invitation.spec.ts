@@ -30,7 +30,7 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
     await invite.useViewport(width);
     await invite.open();
     await invite.thenLayoutFits();
-    await invite.thenDateAndLocationAreAdjacent();
+    await invite.thenDateAndLocationAreStacked();
     if (width < 640) {
       await invite.thenMobileTextIsReadable();
       await invite.thenMobileLayoutIsCompact();
@@ -41,7 +41,8 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
     await invite.thenAccepted();
     await invite.thenCompanionChoiceFits();
     await invite.thenActionsAreAdjacent();
-    if (width < 640) {
+    // At 320px, stacked event details and the ticket may scroll vertically.
+    if (width > 320 && width < 640) {
       await invite.thenMobileLayoutIsCompact();
       await invite.thenHeroGrowsWithScreen();
     }

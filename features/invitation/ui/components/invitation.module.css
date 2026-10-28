@@ -41,7 +41,7 @@
 }
 .details {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   align-self: start;
   gap: 26px;
   margin: 25px 0 0;
@@ -121,7 +121,7 @@
   .edition { font-size: 26px; }
   .hosts { font-size: 16px; letter-spacing: 1px; }
   .content { display: block; width: 100%; margin: 0; padding: 0 24px 12px; }
-  .details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 12px 0; }
+  .details { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 0; padding: 12px 0; }
   .details > div { align-items: flex-start; gap: 8px; min-width: 0; }
   .details svg { margin-top: 3px; }
   .details dd { overflow-wrap: anywhere; }
