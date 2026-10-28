@@ -15,6 +15,7 @@ export function TicketScanner() {
 
   async function handleScan(codes: IDetectedBarcode[]) {
     if (checking.current || !codes[0]?.rawValue) return;
+    checking.current = true;
     let id: string | null;
     try {
       id = new URL(codes[0].rawValue).searchParams.get("id");
@@ -27,12 +28,10 @@ export function TicketScanner() {
       return;
     }
 
-    checking.current = true;
     setLoading(true);
     try {
       setFeedback(scanFeedback(await api.checkIn(id)));
     } finally {
-      checking.current = false;
       setLoading(false);
     }
   }
@@ -41,8 +40,13 @@ export function TicketScanner() {
     loading={loading}
     cameraError={cameraError}
     feedback={feedback}
+    onScanNext={() => {
+      setFeedback(undefined);
+      setCameraError(false);
+      checking.current = false;
+    }}
     camera={<>
-      <Scanner onScan={handleScan} onError={() => setCameraError(true)} components={{ finder: false }} />
+      <Scanner paused={loading} onScan={handleScan} onError={() => setCameraError(true)} components={{ finder: false }} />
       <div className={styles.frame} aria-hidden="true" />
     </>}
   />;
