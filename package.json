@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "node --import tsx --test tests/features/admin-auth/domain/*.test.ts tests/features/admin-auth/infra/*.test.ts tests/features/guests/domain/*.test.ts tests/features/invitation/domain/*.test.ts tests/features/invitation/infra/*.test.ts tests/integration/*.test.ts",
+    "test": "node --import tsx --test tests/features/admin-auth/domain/*.test.ts tests/features/admin-auth/infra/*.test.ts tests/features/guests/domain/*.test.ts tests/features/scanner/domain/*.test.ts tests/features/invitation/domain/*.test.ts tests/features/invitation/infra/*.test.ts tests/integration/*.test.ts",
     "test:ui": "playwright test"
   },
   "dependencies": {
