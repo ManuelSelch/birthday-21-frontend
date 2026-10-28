@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ActionIcon, Button, MantineProvider, Select, TextInput, Tooltip } from "@mantine/core";
-import { IconPlus, IconRefresh, IconScan, IconSearch } from "@tabler/icons-react";
+import { IconPlus, IconRefresh, IconScan, IconSearch, IconTimeline } from "@tabler/icons-react";
 import type { Guest } from "../../domain/guest";
 import { HOSTS } from "../../domain/assignments";
 import { UNASSIGNED, type GuestFilter } from "../../domain/guest-list";
@@ -29,6 +29,7 @@ export function GuestListView(props: Props) {
             </ActionIcon>
           </Tooltip>
           <Button component="a" href="/admin/scanner" variant="subtle" leftSection={<IconScan size={17}/>}>Scanner</Button>
+          <Button component="a" href="/timeline" variant="subtle" leftSection={<IconTimeline size={17} aria-hidden="true" />}>Timeline</Button>
           {props.logout}</div></header>
       <main className={styles.main}>
         <div className={styles.heading}><div><h1>Gäste</h1><p className={styles.summary} aria-label="Übersicht">

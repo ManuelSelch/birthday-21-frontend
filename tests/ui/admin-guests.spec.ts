@@ -82,6 +82,16 @@ test("compact guest table uses invited name colors and fits narrow screens", asy
   await app.thenMixedSummaryIsVisible();
 });
 
+test("admin timeline button fits desktop and mobile and opens the programme", async ({ page }) => {
+  const app = new AddGuestsDriver(page);
+  await app.open();
+
+  await app.thenTimelineNavigationFits();
+  await app.openTimeline();
+
+  await app.thenTimelineIsOpen();
+});
+
 test("scanner is in the top bar, orders is removed and logout and invitations remain available", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();

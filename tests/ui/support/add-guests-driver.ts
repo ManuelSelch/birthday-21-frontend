@@ -174,6 +174,22 @@ export class AddGuestsDriver {
     for (const label of ["Gäste: 4", "Zusagen: 2", "Eingecheckt: 1"]) await expect(this.page.getByLabel(label, { exact: true })).toBeVisible();
     await expect(this.page.getByLabel("Mit Begleitung: 3", { exact: true })).toHaveCount(1);
   }
+  async thenTimelineNavigationFits() {
+    for (const width of [320, 375, 1280]) {
+      await this.page.setViewportSize({ width, height: 812 });
+      const link = this.page.getByRole("banner").getByRole("link", { name: "Timeline", exact: true });
+      await expect(link).toHaveAttribute("href", "/timeline");
+      await expect(link).toBeInViewport();
+      await expect(this.page.getByRole("banner").getByRole("link", { name: "Scanner", exact: true })).toBeInViewport();
+      await expect(this.page.getByRole("button", { name: "Abmelden", exact: true })).toBeInViewport();
+      expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    }
+  }
+  async openTimeline() { await this.page.getByRole("banner").getByRole("link", { name: "Timeline", exact: true }).click(); }
+  async thenTimelineIsOpen() {
+    await expect(this.page).toHaveURL(/\/timeline$/);
+    await expect(this.page.getByRole("heading", { name: "Programm", exact: true })).toBeVisible();
+  }
   async thenNavigationIsReal() {
     await expect(this.page.getByRole("banner").getByRole("link", { name: "Scanner", exact: true })).toHaveAttribute("href", "/admin/scanner");
     await expect(this.page.getByRole("link", { name: "Bestellungen", exact: true })).toHaveCount(0);

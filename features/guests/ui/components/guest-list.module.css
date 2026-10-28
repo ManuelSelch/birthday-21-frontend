@@ -2,7 +2,7 @@
 .screen, .screen * { box-sizing: border-box; }
 .topbar { max-width: 700px; margin: auto; min-height: 72px; padding-block: 12px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .brand { font: 22px Georgia, serif; }
-.headerActions { display: flex; gap: 8px; align-items: center; }
+.headerActions { display: flex; flex-wrap: wrap; max-width: 100%; gap: 8px; align-items: center; }
 .headerActions :global(.mantine-Button-root) { color: var(--muted); background: transparent; border-color: var(--border); }
 .main { max-width: 700px; margin: auto; padding-top: 29px; }
 .heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 25px; }
