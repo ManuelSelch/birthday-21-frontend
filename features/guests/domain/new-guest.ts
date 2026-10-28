@@ -1,9 +1,12 @@
-export function newGuest(value: unknown) {
-  if (typeof value !== "string") return;
-  const name = value.trim();
-  if (!name || name.length > 100) return;
+import { guestAssignments } from "./assignments";
 
-  return { name, invited: false, accepted: null, checked_in: null, companion: false, points: 0 };
+export function newGuest(value: unknown) {
+  if (!value || typeof value !== "object" || !("name" in value) || typeof value.name !== "string") return;
+  const name = value.name.trim();
+  const assignments = guestAssignments(value);
+  if (!name || name.length > 100 || !assignments) return;
+
+  return { name, ...assignments, invited: false, accepted: null, checked_in: null, companion: false, points: 0 };
 }
 
 export type NewGuest = NonNullable<ReturnType<typeof newGuest>>;

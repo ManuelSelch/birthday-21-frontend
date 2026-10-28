@@ -1,4 +1,6 @@
-export type Guest = {
+import type { GuestAssignments } from "./assignments";
+
+export type Guest = GuestAssignments & {
   _id: string;
   name: string;
   invited?: boolean;

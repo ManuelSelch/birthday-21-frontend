@@ -11,8 +11,8 @@ export function createGuestHandler(dependencies: {
     if (denied) return denied;
 
     const body = await dependencies.readBody(request);
-    const guest = newGuest(body?.name);
-    if (!guest) return dependencies.json({ error: "Bitte gib einen Namen mit 1 bis 100 Zeichen ein." }, 400);
+    const guest = newGuest(body);
+    if (!guest) return dependencies.json({ error: "Bitte prüfe Name, Gruppen und Hosts." }, 400);
 
     try {
       const saved = await dependencies.save(guest);
