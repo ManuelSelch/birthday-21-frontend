@@ -1,0 +1,12 @@
+# Minimal admin mockup
+- Revision: R1. Status: approved.
+- Goal: explore the guest list using the invitation's Midnight Gala styling.
+- Scope: one guest-list screen only; no production changes.
+- Visual decisions: navy #0d1220, off-white text, muted gold #d9bd86, Georgia headings, sans-serif controls, thin borders. Compact header; no photograph, hero or sidebar.
+- Layout: title and scanner action, four summary counts, inline guest creation, search/filters and guest table.
+- Responsive: two-column summary on narrow screens, stacked search/filter toolbar and horizontally scrollable table.
+- Interactions: local name-only guest creation, search and All/Accepted/Unanswered filters. New guests start unanswered; declined remains distinct from unanswered.
+- All data is fake and resets on reload. Invitation and scanner buttons show explanatory messages only. No APIs, persistence, authentication or camera access.
+- No added motion. Keyboard focus styling and labeled controls included.
+- Limitations: other admin screens omitted; mobile table intentionally scrolls. Guest total with companions mirrors existing summary intent.
+- Approval: user approved R1 with “yes looks good. implement”. Approved source preserved; preview stopped before implementation.
