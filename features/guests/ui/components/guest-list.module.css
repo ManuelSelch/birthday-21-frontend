@@ -27,11 +27,17 @@
 .filters button { padding: 9px 0; border: 0; border-bottom: 1px solid transparent; background: none; font: inherit; font-size: 13px; color: var(--muted); cursor: pointer; }
 .filters button[aria-pressed="true"] { color: var(--gold); border-color: var(--gold); }
 .tableScroll { overflow-x: auto; }
-.tableScroll table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+.tableScroll table { width: 100%; border-collapse: collapse; text-align: left; table-layout: fixed; }
 .tableScroll th { color: var(--muted); font-size: 10px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; padding: 14px 20px; border-bottom: 1px solid var(--border); }
 .tableScroll td { padding: 17px 20px; border-bottom: 1px solid #ffffff0d; font-size: 13px; }
-.tableScroll td:last-child { text-align: right; }
-.guestName small { display: block; margin-top: 6px; color: var(--muted); font-size: 11px; }
+.tableScroll th:first-child { width: 42%; }
+.tableScroll th:nth-child(2) { width: 28%; }
+.tableScroll th:last-child { width: 30%; }
+.tableScroll th:last-child, .tableScroll td:last-child { text-align: center; }
+.guestName { overflow-wrap: anywhere; }
+.guestName a { color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; }
+.guestName a[data-invited="true"] { color: var(--muted); }
+.guestName a:hover, .guestName a:focus-visible { text-decoration: underline; }
 .screen :global(.mantine-Badge-root) { text-transform: none; font-weight: 400; font-size: 11px; letter-spacing: 0; border-radius: 3px; }
 .muted { color: #969dad; }
 .checked { color: #a9d9c8; font-size: 12px; }
@@ -54,7 +60,9 @@
   .addForm > :first-child { min-width: 0; }
   .addForm :global(.mantine-Button-section) { display: none; }
   .toolbar { align-items: stretch; flex-direction: column-reverse; padding: 14px; gap: 14px; }
-  .tableScroll th, .tableScroll td { padding: 14px; }
+  .tableScroll th, .tableScroll td { padding: 12px 8px; }
+  .tableScroll th { letter-spacing: .5px; }
+  .checked { overflow-wrap: anywhere; }
   .tableFooter { padding: 14px; }
 }
 

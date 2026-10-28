@@ -60,6 +60,15 @@ test("the guest list uses the approved styling without overflowing mobile", asyn
   await app.thenApprovedStyleAndMobileTableFit();
 });
 
+test("compact guest table uses invited name colors and fits narrow screens", async ({ page }) => {
+  const app = new AddGuestsDriver(page);
+  await app.open();
+  await app.useMixedGuestList();
+
+  await app.thenCompactInvitationLinksAreVisible();
+  await app.thenMixedSummaryIsVisible();
+});
+
 test("scanner, orders, logout and guest invitations remain available", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();
