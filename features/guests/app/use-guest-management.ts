@@ -57,7 +57,7 @@ export function useGuestManagement(guests: Guest[], onSaved: () => void) {
       if (editor === "new") await submitGuest(created!);
       else await submitAssignments(editor._id, assignments);
       if (editor === "new") { setSearch(""); setFilter("all"); setGroup(""); setHost(""); }
-      setNotice(editor === "new" ? "Gast hinzugefügt." : "Zuordnung gespeichert.");
+      setNotice(editor === "new" ? "Gast hinzugefügt." : "");
       setEditor(null);
       onSaved();
     } catch {

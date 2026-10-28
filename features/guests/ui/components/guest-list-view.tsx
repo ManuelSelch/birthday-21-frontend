@@ -45,7 +45,7 @@ export function GuestListView(props: Props) {
             <button type="button" key={value} aria-pressed={props.filter === value} onClick={() => props.onFilterChange(value)}>{label}</button>)}</div>
         </section>
         <section className={styles.guestPanel} aria-label="Gäste verwalten" aria-busy={props.refreshing}>
-          <GuestTable guests={props.guests} total={props.summary.total} onEdit={props.onEdit}/>
+          <GuestTable guests={props.guests} onEdit={props.onEdit}/>
         </section>
         <p className={styles.notice} role="status">{props.notice}</p>
         <nav className={styles.secondaryLinks} aria-label="Weitere Verwaltung">

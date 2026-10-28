@@ -5,7 +5,7 @@ import { IconCheck } from "@tabler/icons-react";
 import type { Guest } from "../../domain/guest";
 import styles from "./guest-list.module.css";
 
-export function GuestTable({ guests, total, onEdit }: { guests: Guest[]; total: number; onEdit: (guest: Guest) => void }) {
+export function GuestTable({ guests, onEdit }: { guests: Guest[]; onEdit: (guest: Guest) => void }) {
   return <>
     <div className={styles.tableScroll} role="region" aria-label="Gästetabelle" tabIndex={0}>
       <table><thead><tr><th scope="col">Gast</th><th scope="col" className={styles.desktopColumn}>Gruppen</th><th scope="col" className={styles.desktopColumn}>Hosts</th><th scope="col" className={styles.rsvpColumn}>Status</th><th scope="col" className={styles.checkinColumn}>Check-in</th></tr></thead>
@@ -26,6 +26,5 @@ export function GuestTable({ guests, total, onEdit }: { guests: Guest[]; total: 
       </table>
     </div>
     {!guests.length && <p className={styles.empty}>Keine Gäste gefunden.</p>}
-    <div className={styles.tableFooter}>{guests.length} von {total} Gästen</div>
   </>;
 }

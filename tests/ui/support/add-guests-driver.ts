@@ -14,6 +14,8 @@ export class AddGuestsDriver {
     if (!await this.dialog().isVisible()) await this.page.getByRole("button", { name: "Gast", exact: true }).click();
   }
   async reloadGuests() {
+    await expect(this.dialog()).not.toBeVisible();
+    await expect(this.page.getByText("Zuordnung gespeichert.", { exact: true })).toHaveCount(0);
     await this.page.reload();
     await this.page.getByRole("button", { name: "Alle", exact: true }).click();
   }
@@ -93,6 +95,7 @@ export class AddGuestsDriver {
     await expect(this.details("Alex Beispiel")).toHaveCSS("color", "rgb(217, 189, 134)");
     await expect(this.details("Anna Weber")).toHaveCSS("color", "rgb(174, 182, 198)");
     await expect(table.getByRole("columnheader").last()).toHaveCSS("text-align", "center");
+    await expect(this.page.getByText(/\d+ von \d+ Gästen/)).toHaveCount(0);
     await expect(this.row("Alex Beispiel").locator("td").nth(1)).toHaveText("—");
     await expect(this.row("Alex Beispiel").locator("td").nth(2)).toHaveText("—");
     await expect(this.details("Alex Beispiel").getByText("—", { exact: true })).toHaveCount(2);
@@ -104,6 +107,13 @@ export class AddGuestsDriver {
       const region = this.page.getByRole("region", { name: "Gästetabelle" });
       expect(await region.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
       await expect(table.getByRole("columnheader")).toHaveCount(width < 700 ? 3 : 5);
+      const cell = this.row("Anna Weber").getByRole("cell").last();
+      const cellBounds = await cell.boundingBox();
+      const iconBounds = await cell.locator("svg").boundingBox();
+      expect(cellBounds).not.toBeNull();
+      expect(iconBounds).not.toBeNull();
+      expect(Math.abs(iconBounds!.x + iconBounds!.width / 2 - (cellBounds!.x + cellBounds!.width / 2))).toBeLessThan(1);
+      expect(Math.abs(iconBounds!.y + iconBounds!.height / 2 - (cellBounds!.y + cellBounds!.height / 2))).toBeLessThan(1);
     }
   }
   async thenVisibleGuests(names: string[]) {
@@ -112,7 +122,7 @@ export class AddGuestsDriver {
   }
   async thenNoMatches() {
     await expect(this.page.getByText("Keine Gäste gefunden.", { exact: true })).toBeVisible();
-    await expect(this.page.getByText("0 von 4 Gästen", { exact: true })).toBeVisible();
+    await expect(this.page.getByText(/\d+ von \d+ Gästen/)).toHaveCount(0);
   }
   async thenMixedSummaryIsVisible() {
     for (const label of ["Gäste: 4", "Zusagen: 2", "Eingecheckt: 1"]) await expect(this.page.getByLabel(label, { exact: true })).toBeVisible();
