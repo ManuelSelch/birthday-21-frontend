@@ -3,6 +3,7 @@ import { Button } from '@mantine/core';
 import { IconArrowRight, IconCalendarEvent, IconMapPin } from '@tabler/icons-react';
 import { HostPortrait } from './host-portrait';
 import manuelPhoto from './assets/manuel.jpg';
+import davidPhoto from './assets/david.jpg';
 
 function Hosts() {
   return <section className="hosts-section" aria-labelledby="hosts-title">
@@ -10,7 +11,7 @@ function Hosts() {
     <div className="host-row">
       <HostPortrait name="Manuel" initialPhoto={manuelPhoto} />
       <HostPortrait name="Marco" initialPhoto={null} />
-      <HostPortrait name="David" initialPhoto={null} />
+      <HostPortrait name="David" initialPhoto={davidPhoto} />
     </div>
   </section>;
 }
