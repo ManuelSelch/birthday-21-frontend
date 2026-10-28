@@ -181,6 +181,24 @@ export class AddGuestsDriver {
     await expect(this.dialog().getByRole("status")).toHaveText("Einladungslink kopiert.");
     expect(await this.page.evaluate(() => navigator.clipboard.readText())).toBe(await link.inputValue());
   }
+  async useInvalidGuestAssignments(groups: unknown, hosts: unknown) {
+    const data: Record<string, unknown> = { _id: "bad-guest", name: "Invalid Example" };
+    if (groups !== undefined) data.groups = groups;
+    if (hosts !== undefined) data.hosts = hosts;
+    const response = await this.page.request.post(cockpitOrigin + "/__test/guests", { data: [data] });
+    expect(response.ok()).toBe(true);
+    await this.page.reload();
+  }
+  async thenGuestDataErrorIsVisible() {
+    await expect(this.page.getByRole("heading", { name: "Gästedaten prüfen" })).toBeVisible();
+    const error = this.page.getByRole("alert").filter({ hasText: "Cockpit ungültige Gästedaten" });
+    await expect(error).toContainText("bad-guest");
+    await expect(error).toContainText("groups");
+    await expect(error).toContainText("hosts");
+    await expect(this.page.getByText("[@mantine/core] Each option must have value property", { exact: false })).toHaveCount(0);
+    await expect(this.page.getByRole("textbox", { name: "Gruppe filtern", exact: true })).toHaveCount(0);
+  }
+
   async failNextAssignmentSave() {
     let failed = false;
     await this.page.route("**/api/guests/assignments", async route => {
