@@ -1,4 +1,4 @@
-# Programme page · R3
+# Programme page · R4
 - Status: in review. No approval for production implementation.
 - Goal: guest-facing evening programme for an elegant, relaxed birthday gala with 45–70 guests.
 - Existing language: Midnight Gala navy/gold, serif headings, German copy, readable mobile typography.
@@ -6,10 +6,10 @@
 - Selected direction: A, split introduction / connected timeline on desktop; single column on mobile. Still iterating, not approved for implementation.
 - Header simplified to “Ein Abend.” with “Schön, dass du dabei bist.”; “Viele Lieblingsmomente.”, “Unser Programm” and “Das haben wir mit euch vor.” removed at user request.
 - B: centered introduction and warm paper programme within the navy site.
-- Interaction: accessible expandable details per entry; variant selector updates the query string. Reduced motion respected.
+- Entries are static: time, chapter, title and short summary. No plus/minus buttons, expandable details or clickable rows. Variant selector updates the query string. Reduced motion respected.
 - Fake content: six illustrative times and descriptions. No actual date/location, automatic live status, voting, backend, authentication, or persistence.
 - Surprise details and performers omitted. Confirm whether the retrospective video should be named publicly or kept a surprise.
 - Back link opens the existing invitation-details mockup, not production.
 - Proposed eventual source: published Cockpit programme entries. No model/API work in this mockup.
-- Open questions: final heading/copy, actual order/times, whether descriptions should expand or always display.
+- Open questions: final heading/copy and actual order/times.
 - Review: user-led browser review; no automated visual/interaction verification requested.
