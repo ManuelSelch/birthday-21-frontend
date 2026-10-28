@@ -1,0 +1,10 @@
+{
+  "steps": {
+    "plan": {
+      "enabled": false
+    },
+    "design": {
+      "enabled": false
+    }
+  }
+}
