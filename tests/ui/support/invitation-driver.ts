@@ -128,7 +128,7 @@ export class InvitationDriver {
   async thenTicketHasGuestLinks() {
     const invitation = "https://geburtstag.manuelselch.de/invite?id=guest-1";
     await expect(this.page.getByRole("link", { name: "Apple Wallet" })).toHaveAttribute("href", "https://geburtstag.manuelselch.de/api/apple-pass?id=guest-1");
-    await expect(this.page.getByRole("link", { name: "WhatsApp" })).toHaveAttribute("href", "https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt");
+    await expect(this.page.getByRole("link", { name: "Gruppe beitreten" })).toHaveAttribute("href", "https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt");
     const reference = renderToStaticMarkup(createElement(QRCodeSVG, { value: invitation, size: 200, marginSize: 4, level: "M" }));
     const path = reference.match(/<path fill="#000000" d="([^"]+)"/)?.[1];
     expect(path).toBeTruthy();
@@ -160,29 +160,31 @@ export class InvitationDriver {
     const layout = await this.page.getByRole("main").locator(":scope > div").boundingBox();
     expect(layout!.y + layout!.height).toBeGreaterThanOrEqual(this.page.viewportSize()!.height - 1);
   }
-  async thenHeroGrowsWithScreen() {
-    const hero = this.page.getByRole("main").locator("header");
-    const before = await hero.boundingBox();
-    const viewport = this.page.viewportSize()!;
-
-    await this.page.setViewportSize({ width: viewport.width, height: viewport.height + 120 });
-
-    await expect.poll(async () => (await hero.boundingBox())!.height - before!.height).toBeCloseTo(120, 0);
-    await this.thenMobileLayoutIsCompact();
-  }
   async captureLayout() {
     await this.page.screenshot({ path: test.info().outputPath("invitation.png"), fullPage: true });
   }
-  async thenActionsAreAdjacent() {
+  async thenEveningDetailsAreVisible() {
+    const details = this.page.getByRole("region", { name: "Gut zu wissen" });
+    await expect(details.getByRole("heading", { name: "WhatsApp-Gruppe", exact: true })).toBeVisible();
+    await expect(details.getByRole("heading", { name: "Einlass nur mit Ticket", exact: true })).toBeVisible();
+    await expect(details.getByRole("heading", { name: "Dresscode: Anzug", exact: true })).toBeVisible();
+    const join = details.getByRole("link", { name: "Gruppe beitreten" });
+    await expect(join).toHaveAttribute("target", "_blank");
+    await expect(join).toHaveAttribute("rel", "noopener noreferrer");
+    await expect(details.locator("p")).toHaveCount(0);
+    await expect(this.page.getByRole("link", { name: "WhatsApp", exact: true })).toHaveCount(0);
+  }
+  async thenEveningDetailsAndTicketAreStacked() {
+    const details = await this.page.getByRole("region", { name: "Gut zu wissen" }).boundingBox();
+    const ticket = await this.page.getByRole("region", { name: "Dein Ticket", exact: true }).boundingBox();
     const wallet = await this.page.getByRole("link", { name: "Apple Wallet" }).boundingBox();
-    const whatsapp = await this.page.getByRole("link", { name: "WhatsApp" }).boundingBox();
-    expect(wallet).not.toBeNull();
-    expect(whatsapp).not.toBeNull();
-    expect(Math.abs(wallet!.y - whatsapp!.y)).toBeLessThan(2);
-    expect(wallet!.x + wallet!.width).toBeLessThanOrEqual(whatsapp!.x);
+    const whatsapp = await this.page.getByRole("link", { name: "Gruppe beitreten" }).boundingBox();
+    const cancel = await this.page.getByRole("button", { name: "Teilnahme absagen" }).boundingBox();
+    expect(details!.y + details!.height).toBeLessThanOrEqual(ticket!.y);
+    expect(ticket!.y + ticket!.height).toBeLessThanOrEqual(wallet!.y);
+    expect(wallet!.y + wallet!.height).toBeLessThanOrEqual(cancel!.y);
     expect(wallet!.height).toBeGreaterThanOrEqual(44);
     expect(whatsapp!.height).toBeGreaterThanOrEqual(44);
-    await this.thenLayoutFits();
   }
   async failAction(action: "accept" | "cancel" | "companion", mode: "http" | "result" = "http") {
     await this.page.route(`**/api/${action}?*`, route => route.fulfill({ status: mode === "http" ? 500 : 200, json: { success: false } }));

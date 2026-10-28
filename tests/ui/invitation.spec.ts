@@ -30,8 +30,18 @@ test("personal invitation records viewing once and persists RSVP, companion and 
   await invite.thenPending();
 });
 
+test("accepted invitation shows concise evening details before the ticket", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+  await invite.open();
+  await invite.accept();
+
+  await invite.thenEveningDetailsAreVisible();
+  await invite.thenTicketHasGuestLinks();
+});
+
 for (const width of [320, 375, 640, 641, 768, 1280]) {
-  test(`invitation fits ${width}px and keeps ticket actions adjacent`, async ({ page }) => {
+  test(`invitation fits ${width}px with stacked evening details`, async ({ page }) => {
     const invite = new InvitationDriver(page);
     await invite.reset();
     await invite.useViewport(width);
@@ -47,12 +57,9 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
 
     await invite.thenAccepted();
     await invite.thenCompanionChoiceFits();
-    await invite.thenActionsAreAdjacent();
-    // At 320px, stacked event details and the ticket may scroll vertically.
-    if (width > 320 && width < 640) {
-      await invite.thenMobileLayoutIsCompact();
-      await invite.thenHeroGrowsWithScreen();
-    }
+    await invite.thenEveningDetailsAreVisible();
+    await invite.thenEveningDetailsAndTicketAreStacked();
+    await invite.thenLayoutFits();
     await invite.thenTicketHasGuestLinks();
     await invite.captureLayout();
   });

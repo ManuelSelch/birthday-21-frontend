@@ -1,6 +1,7 @@
 import { Alert, Button, Stack, UnstyledButton } from "@mantine/core";
 import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { GuestTicket, type GuestTicketProps } from "./guest-ticket";
+import { ImportantDetails } from "./important-details";
 import styles from "./invitation.module.css";
 
 export interface GuestResponseProps extends GuestTicketProps {
@@ -36,6 +37,7 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
               {companion ? <IconCheck size={32} stroke={1.7} /> : <IconArrowRight size={32} stroke={1.7} />}
             </span>
           </UnstyledButton>
+          <ImportantDetails whatsapp={links.whatsapp} />
           <GuestTicket name={name} links={links} />
           <Button variant="subtle" className={styles.cancel} disabled={busy} loading={pending === "cancel"} onClick={onCancel}>
             Teilnahme absagen

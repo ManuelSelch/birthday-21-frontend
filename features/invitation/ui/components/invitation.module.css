@@ -56,12 +56,20 @@
 .response h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 400; line-height: 1.2; margin: 17px 0 12px; overflow-wrap: anywhere; }
 .invitation .rsvp { background: var(--invitation-accent); color: #181521; border-radius: 2px; font-size: 13px; }
 .invitation .rsvp:hover:not(:disabled) { background: #e4c991; }
+.ticketBlock { padding-top: 24px; border-top: 1px solid var(--invitation-border); }
 .ticket { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding: 18px; background: #fff; color: #171717; border-radius: 3px; }
 .ticket > svg { display: block; flex-shrink: 0; max-width: 100%; height: auto; }
 .ticketName { flex: 1; min-width: 100px; overflow-wrap: anywhere; }
 .ticketName span { font-size: 10px; font-weight: 600; letter-spacing: 2.1px; line-height: 1.7; }
 .ticketName strong { display: block; font-family: Georgia, serif; font-size: 20px; font-weight: 600; line-height: 1.4; margin-top: 5px; }
-.invitation .ticketActions { flex-wrap: nowrap; }
+.important { padding: 24px 0 4px; border-top: 1px solid var(--invitation-border); }
+.sectionLabel { color: var(--invitation-accent); font-size: 10px; font-weight: 600; letter-spacing: 1.8px; line-height: 1.6; }
+.response .important h2 { font-size: 28px; line-height: 1.25; margin: 7px 0 22px; }
+.detailRow { display: flex; align-items: flex-start; gap: 14px; padding-bottom: 21px; }
+.detailRow > svg { color: var(--invitation-accent); flex-shrink: 0; margin-top: 1px; }
+.detailRow h3 { font-size: 15px; font-weight: 600; line-height: 1.45; margin: 0 0 5px; }
+.invitation .joinButton { color: var(--invitation-accent); padding: 0; min-height: 44px; font-size: 14px; margin-top: 3px; }
+.invitation .joinButton:hover { background: transparent; text-decoration: underline; }
 .invitation .secondary {
   flex: 1 1 0;
   min-width: 0;
@@ -129,7 +137,7 @@
   .details dd { font-size: 17px; line-height: 1.5; }
   .response { padding: 12px 0 0; }
   .response :global(.mantine-Stack-root) { gap: 8px; }
-  .response h2 { font-size: 32px; line-height: 1.25; margin: 0 0 12px; }
+  .response > h2 { font-size: 32px; line-height: 1.25; margin: 0 0 12px; }
   .invitation .rsvp { font-size: 17px; min-height: 52px; }
   .ticket { flex-wrap: nowrap; padding: 12px; gap: 12px; }
   .ticket > svg { width: 140px; max-width: 50%; }
