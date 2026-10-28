@@ -22,8 +22,8 @@
   .midnight .ticket .eyebrow{font-size:12px}
   .midnight .ticket strong{font-size:24px}
   .midnight .ticket small{font-size:13px}
-  .midnight .response .mantine-Group-root{flex-direction:column;align-items:stretch}
-  .midnight .response .secondary{flex:auto;font-size:16px;min-height:48px}
+  .midnight .response .mantine-Group-root{flex-direction:row;flex-wrap:nowrap;align-items:stretch}
+  .midnight .response .secondary{flex:1 1 0;min-width:0;padding:0 6px;font-size:14px;min-height:48px}
   .midnight .response .cancel{font-size:15px;min-height:44px}
   .midnight .response .demo-notice{font-size:16px}
 }

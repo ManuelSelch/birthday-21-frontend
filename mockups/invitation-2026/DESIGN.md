@@ -4,9 +4,9 @@
 Compare three distinct invitation treatments using images downloaded from the official Stadtball Bayreuth website, as requested by the user. Isolated React/Mantine prototype; no production changes.
 
 ## Revision and review
-- Revision: R4.
+- Revision: R5.
 - Status: in review; Midnight Gala is the preferred direction, not yet approved for implementation.
-- User prefers the first direction with less text and the title “21. Geburtstag”. R4 increases Midnight Gala's mobile typography: 48–64px title, 16px hosts/controls, 17px event details, 12–13px supporting labels, and 32px greeting. Event details and ticket action buttons stack instead of squeezing text into columns; action targets are at least 44px tall. Desktop and other directions remain unchanged. This is a request to iterate, not production approval.
+- User prefers the first direction with less text and the title “21. Geburtstag”. Midnight Gala's mobile typography uses: 48–64px title, 16px hosts/controls, 17px event details, 12–13px supporting labels, and 32px greeting. Event details stack; action targets are at least 44px tall. R5 keeps Apple Wallet and WhatsApp next to each other at every width, with equal-width mobile buttons and 14px labels. Desktop and other directions remain unchanged. This is a request to iterate, not production approval.
 
 ## Directions
 - `?variant=midnight`: Midnight Gala — navy/gold, wide blue-lit ballroom hero, expressive serif title; details and RSVP alongside each other below, stacked on mobile. R3 uses “21. Geburtstag” as the main title, with year, hosts, date/location, personalized greeting, and actions. Removes hero slogans, descriptive paragraphs, decorative guest number, RSVP explanation, and redundant confirmation label. Image attribution and prototype caveats remain in the review footer; ticket placeholder warning and useful errors remain visible.
