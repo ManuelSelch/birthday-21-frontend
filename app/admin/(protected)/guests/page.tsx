@@ -11,7 +11,6 @@ export default async function GuestsPage() {
             <Group>
                 <Title>Gästeliste</Title>
                 <Anchor href="/admin/scanner"><IconScan size="40"/></Anchor>
-                <Anchor href="/admin/points"><IconScoreboard size="40"/></Anchor>
                 <Anchor href="/admin/orders"><IconBeer size="40"/></Anchor>
             </Group>
 

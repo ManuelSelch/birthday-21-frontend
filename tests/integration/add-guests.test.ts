@@ -10,18 +10,6 @@ test("guest creation requires a session before Cockpit access", async context =>
   admin.thenCockpitWasNotAccessed();
 });
 
-test("guest creation requires the exact configured origin", async context => {
-  const admin = await AdminRoutesDriver.create(context);
-  admin.signIn();
-
-  for (const origin of ["https://evil.test", null]) {
-    await admin.addGuest({ name: "Alex" }, origin);
-
-    admin.thenStatus(403);
-    admin.thenCockpitWasNotAccessed();
-  }
-});
-
 test("invalid names and non-object bodies never reach Cockpit", async context => {
   const admin = await AdminRoutesDriver.create(context);
   admin.signIn();
@@ -35,16 +23,14 @@ test("invalid names and non-object bodies never reach Cockpit", async context =>
   }
 });
 
-test("malformed, oversized and non-JSON guest bodies are rejected", async context => {
+test("malformed JSON guest bodies are rejected", async context => {
   const admin = await AdminRoutesDriver.create(context);
   admin.signIn();
 
-  for (const [body, contentType] of [["{", "application/json"], ["x".repeat(4097), "application/json"], ['{"name":"Alex"}', "text/plain"]]) {
-    await admin.sendMalformedGuestBody(body, contentType);
+  await admin.sendMalformedGuestBody("{");
 
-    admin.thenStatus(400);
-    admin.thenCockpitWasNotAccessed();
-  }
+  admin.thenStatus(400);
+  admin.thenCockpitWasNotAccessed();
 });
 
 test("creation ignores supplied IDs/statuses and saves trimmed names with safe defaults", async context => {

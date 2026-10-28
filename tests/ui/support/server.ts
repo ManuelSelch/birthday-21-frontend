@@ -1,7 +1,6 @@
 import { createServer } from "node:http";
 import { spawn } from "node:child_process";
 import { appPort, cockpitPort, cockpitOrigin } from "./ports";
-import { createPasswordHash } from "../../../features/admin-auth/infra/security";
 
 let guest: Record<string, unknown>;
 let requests = 0;
@@ -43,9 +42,7 @@ const next = spawn(process.execPath, ["node_modules/next/dist/bin/next", product
     NEXT_TEST_DIST_DIR: production ? ".next-admin-build" : ".next-admin-tests",
     COCKPIT_API_URL: `${cockpitOrigin}/api`,
     COCKPIT_API_KEY: "isolated-test-key",
-    ADMIN_PASSWORD_HASH: createPasswordHash("birthday test password"),
-    ADMIN_SESSION_SECRET: "isolated-test-secret-".repeat(4),
-    APP_ORIGIN: `${production ? "https" : "http"}://localhost:${appPort}`,
+    ADMIN_PASSWORD: "birthday test password",
   },
 });
 

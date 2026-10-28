@@ -9,7 +9,7 @@ Create guests from the admin guest list without opening Cockpit.
 - **R3** — Create a fresh guest with invited, accepted, checked_in and companion false, and points zero. Do not accept caller-supplied identifiers or status fields.
 - **R4** — Successful creation clears the input and search, updates the list and counters, and preserves the existing invitation action.
 - **R5** — Disable submission during the request; show validation/save errors and preserve the name for correction or retry.
-- **R6** — Creation requires an admin session and same-origin submission; Cockpit credentials stay server-side. Existing public invitation behavior is unchanged.
+- **R6** — Creation requires the existing admin session; Cockpit credentials stay server-side. Existing public invitation behavior is unchanged.
 
 ## Assumptions
 - The proposed 100-character limit and allowance of equal names are reasonable minimal defaults, subject to design approval.

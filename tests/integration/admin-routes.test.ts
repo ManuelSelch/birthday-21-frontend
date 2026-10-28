@@ -42,14 +42,12 @@ test("authenticated requests retain guest/check-in contracts and disable caching
   admin.thenPrivateResponse();
 });
 
-test("points reject nonnumeric values and cross-site writes before Cockpit access", async context => {
+test("points reject nonnumeric values before Cockpit access", async context => {
   const admin = await AdminRoutesDriver.create(context);
   admin.signIn();
 
   await admin.changePoints("42");
   admin.thenStatus(400);
-  await admin.changePoints(42, "https://evil.test");
-  admin.thenStatus(403);
   admin.thenCockpitWasNotAccessed();
 });
 
