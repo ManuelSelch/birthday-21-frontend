@@ -30,10 +30,10 @@ export class AddGuestsDriver {
   async thenGuestAppears(name: string, count: number) {
     const row = this.row(name);
     await expect(row).toBeVisible();
-    await expect(row.locator("td").nth(4)).toHaveText("Offen");
+    await expect(row.getByRole("img", { name: "Offen", exact: true })).toBeVisible();
     await expect(row.getByRole("cell").last()).toContainText("Noch nicht erfasst");
     const existing = this.row("Alex Beispiel");
-    await expect(existing.locator("td").nth(4)).toHaveText("Abgesagt");
+    await expect(existing.getByRole("img", { name: "Abgesagt", exact: true })).toBeVisible();
     await expect(existing.getByRole("cell").last()).toContainText("Nicht eingecheckt");
     await this.thenTotalGuests(count);
     await expect(this.page.getByLabel("Zusagen: 0", { exact: true })).toBeVisible();
@@ -122,7 +122,8 @@ export class AddGuestsDriver {
         await expect(assignments).toContainText("Uni");
         await expect(assignments).toContainText("Manuel, Marco");
         await expect(assignments).toHaveCSS("font-size", "14px");
-        for (const [name, status, color] of [
+      }
+      for (const [name, status, color] of [
           ["Anna Weber", "Zugesagt", "rgb(22, 163, 74)"],
           ["Alex Beispiel", "Abgesagt", "rgb(240, 128, 128)"],
           ["Laura Fischer", "Offen", "rgb(100, 112, 132)"],
@@ -133,9 +134,6 @@ export class AddGuestsDriver {
           await expect(indicator).toHaveCSS("height", "14px");
           await expect(indicator).toHaveCSS("background-color", color);
           await expect(this.row(name).getByText(status, { exact: true })).not.toBeVisible();
-        }
-      } else {
-        await expect(this.row("Anna Weber").getByText("Zugesagt", { exact: true })).toBeVisible();
       }
       const cell = this.row("Anna Weber").getByRole("cell").last();
       const cellBounds = await cell.boundingBox();

@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@mantine/core";
 import { IconCheck } from "@tabler/icons-react";
 import type { Guest } from "../../domain/guest";
 import styles from "./guest-list.module.css";
@@ -18,10 +17,9 @@ export function GuestTable({ guests, onEdit }: { guests: Guest[]; onEdit: (guest
           <td className={styles.desktopColumn}><span className={styles.groupLabel}>{guest.groups.join(", ") || "—"}</span></td>
           <td className={styles.desktopColumn}>{guest.hosts.join(", ") || "—"}</td>
           <td className={styles.rsvpColumn}>
-            <span className={styles.mobileStatus} role="img" data-status={guest.accepted == null ? "unanswered" : guest.accepted ? "accepted" : "declined"}
+            <span className={styles.statusIndicator} role="img" data-status={guest.accepted == null ? "unanswered" : guest.accepted ? "accepted" : "declined"}
               aria-label={guest.accepted == null ? "Offen" : guest.accepted ? "Zugesagt" : "Abgesagt"}
-              title={guest.accepted == null ? "Offen" : guest.accepted ? "Zugesagt" : "Abgesagt"}/>
-            <Badge className={styles.desktopStatus} size="xs" variant="dot" color={guest.accepted == null ? "gray" : guest.accepted ? "teal" : "red"}>{guest.accepted == null ? "Offen" : guest.accepted ? "Zugesagt" : "Abgesagt"}</Badge></td>
+              title={guest.accepted == null ? "Offen" : guest.accepted ? "Zugesagt" : "Abgesagt"}/></td>
           <td className={styles.checkinColumn}><span className={guest.checked_in === true ? styles.checked : styles.muted}>
             <span aria-hidden="true">{guest.checked_in === true ? <IconCheck size={19}/> : "—"}</span>
             <span className={styles.srOnly}>{guest.checked_in === true ? "Eingecheckt" : guest.checked_in === false ? "Nicht eingecheckt" : "Noch nicht erfasst"}</span>
