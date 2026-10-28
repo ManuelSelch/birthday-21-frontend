@@ -1,0 +1,29 @@
+:root { color-scheme: dark; background: #0d1220; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.preview-page { --gold: #d9bd86; --muted: #b8bac3; --border: #ffffff24; min-height: 100dvh; display: flex; flex-direction: column; color: #f7f3ed; background: #0d1220; }
+.screen { flex: 1; display: grid; place-items: center; padding: 64px 24px; }
+.login-card { width: 100%; max-width: 440px; padding: 36px; background: #111827; border-color: var(--border); border-radius: 3px; }
+.lock-mark { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 3px; color: var(--gold); }
+.login-card .eyebrow { margin-bottom: 12px; color: var(--muted); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; }
+.login-card h1 { margin: 0; font: 400 36px/1.15 Georgia, serif; letter-spacing: -1px; color: #f7f3ed; }
+.login-card .mantine-InputWrapper-label { color: var(--muted); font-size: 12px; font-weight: 400; margin-bottom: 8px; }
+.login-card .mantine-Input-input { background: #0d1220; border-color: var(--border); color: #f7f3ed; font-size: 14px; }
+.login-card .mantine-Input-input::placeholder { color: #9398a7; }
+.login-card .mantine-PasswordInput-innerInput { color: #f7f3ed; }
+.login-card .mantine-PasswordInput-innerInput::placeholder { color: #9398a7; }
+.login-card .mantine-PasswordInput-visibilityToggle { color: var(--muted); }
+.login-card .mantine-Input-input:focus-within { border-color: var(--gold); }
+.login-card .mantine-Button-root { font-size: 13px; font-weight: 500; }
+.login-card .mantine-Button-root[data-variant="filled"] { background: var(--gold); color: #181521; }
+.login-card .mantine-Button-root[data-variant="filled"]:hover { background: #e5cb9c; }
+.login-card .mantine-Button-root[data-variant="outline"] { border-color: var(--border); color: var(--gold); }
+.login-card .mantine-Loader-root { --loader-color: #181521; }
+.preview-page :is(button,input,a):focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.review-tools { padding: 18px 20px; border-top: 1px dashed var(--border); text-align: center; color: var(--muted); }
+.review-tools a { color: var(--gold); }
+@media (max-width: 480px) {
+  .screen { padding: 32px 18px; }
+  .login-card { padding: 28px 22px; }
+  .login-card h1 { font-size: 32px; }
+}

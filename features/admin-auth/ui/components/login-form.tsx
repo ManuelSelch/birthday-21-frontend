@@ -13,15 +13,15 @@ export function LoginForm({ password, onPassword, onSubmit, loading, error }: {
 }) {
   return (
     <main className={styles.page}>
-      <Paper className={styles.card} p="xl" withBorder>
-        <Stack gap="lg">
-          <div className={styles.lockMark}><IconLock size={24} stroke={1.6} aria-hidden /></div>
-          <div>
-            <Text size="xs" fw={700} c="dimmed" tt="uppercase" mb={8}>21. Geburtstag</Text>
-            <Title order={1} size={28}>Admin-Anmeldung</Title>
-          </div>
+      <Paper className={styles.card} withBorder>
+        <Stack gap={28}>
+          <div className={styles.lockMark}><IconLock size={22} stroke={1.5} aria-hidden /></div>
+          <header>
+            <Text className={styles.eyebrow}>21. Geburtstag</Text>
+            <Title className={styles.heading} order={1}>Admin-Anmeldung</Title>
+          </header>
           <form onSubmit={(event) => { event.preventDefault(); onSubmit(); }}>
-            <Stack gap="md">
+            <Stack gap={20}>
               <PasswordInput
                 label="Admin-Passwort"
                 placeholder="Passwort eingeben"
@@ -32,9 +32,11 @@ export function LoginForm({ password, onPassword, onSubmit, loading, error }: {
                 onChange={(event) => onPassword(event.currentTarget.value)}
                 disabled={loading}
                 size="md"
+                radius="sm"
+                visibilityToggleButtonProps={{ "aria-label": "Passwort anzeigen oder verbergen" }}
               />
               {error && <Alert color="red" icon={<IconAlertCircle size={18} />} role="alert">{error}</Alert>}
-              <Button type="submit" fullWidth size="md" color="blue" loading={loading} rightSection={<IconArrowRight size={18} />}>Anmelden</Button>
+              <Button type="submit" variant="filled" fullWidth size="md" radius="sm" loading={loading} rightSection={<IconArrowRight size={17} />}>Anmelden</Button>
             </Stack>
           </form>
         </Stack>

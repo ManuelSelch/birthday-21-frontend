@@ -1,31 +1,82 @@
 .page {
+  --gold: #d9bd86;
+  --muted: #b8bac3;
+  --border: #ffffff24;
   min-height: 100dvh;
   margin-top: calc(-1 * var(--mantine-spacing-lg));
   display: grid;
   place-items: center;
-  padding: 48px 20px;
-  background: #f7f7f5;
-  color: #171717;
+  padding: 64px 24px;
+  background: #0d1220;
+  color: #f7f3ed;
+  color-scheme: dark;
 }
 
 .card {
   width: 100%;
-  max-width: 420px;
-  border-top: 3px solid var(--mantine-color-blue-6);
-  box-shadow: 0 12px 40px #17171708;
+  max-width: 440px;
+  padding: 36px;
+  background: #111827;
+  border-color: var(--border);
+  border-radius: 3px;
+  color: inherit;
 }
 
 .lockMark {
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  color: var(--mantine-color-blue-7);
-  background: var(--mantine-color-blue-0);
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--gold);
 }
 
+.eyebrow {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: 0;
+  font: 400 36px/1.15 Georgia, serif;
+  letter-spacing: -1px;
+  color: inherit;
+}
+
+.page :global(.mantine-InputWrapper-label) {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+.page :global(.mantine-Input-input) {
+  background: #0d1220;
+  border-color: var(--border);
+  color: #f7f3ed;
+  font-size: 14px;
+}
+
+.page :global(.mantine-PasswordInput-innerInput) { color: #f7f3ed; }
+.page :global(.mantine-PasswordInput-innerInput)::placeholder { color: #9398a7; }
+.page :global(.mantine-PasswordInput-visibilityToggle) { color: var(--muted); }
+.page :global(.mantine-PasswordInput-visibilityToggle):hover { background: #ffffff0d; }
+.page :global(.mantine-Input-input):focus-within { border-color: var(--gold); }
+.page :global(.mantine-Button-root) { font-size: 13px; font-weight: 500; }
+.page :global(.mantine-Button-root)[data-variant="filled"] { background: var(--gold); color: #181521; }
+.page :global(.mantine-Button-root)[data-variant="filled"]:hover { background: #e5cb9c; }
+.page :global(.mantine-Button-root)[data-loading]::before { background: #11182733; }
+.page :global(.mantine-Loader-root) { --loader-color: #181521; }
+.page :global(.mantine-Alert-root) { background: #fa52521a; color: #ffc9c9; }
+.page :global(.mantine-Alert-message) { color: inherit; }
+.page :is(button, input):focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
 @media (max-width: 480px) {
-  .page { padding: 32px 16px; }
-  .card { padding: 24px !important; }
+  .page { padding: 32px 18px; }
+  .card { padding: 28px 22px; }
+  .heading { font-size: 32px; }
 }
