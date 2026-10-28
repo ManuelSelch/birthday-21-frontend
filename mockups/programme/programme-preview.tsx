@@ -15,9 +15,9 @@ const entries: ProgrammeEntry[] = [
 function ProgrammeHeader() {
   return <header className="programme-header">
     <span className="eyebrow">MANUEL · MARCO · DAVID</span>
-    <h1>Ein Abend.<br /><em>Viele Lieblingsmomente.</em></h1>
+    <h1>Ein Abend.</h1>
     <p>Schön, dass du dabei bist.<br className="mobile-break" /> Das haben wir mit euch vor.</p>
-    <div className="header-meta"><span>21. Geburtstag</span><span className="meta-dot">·</span><span>Unser Programm</span></div>
+    <div className="header-meta"><span>21. Geburtstag</span></div>
   </header>;
 }
 
@@ -32,7 +32,7 @@ export function ProgrammePreview() {
   }
   return <>
     <div className="review-toolbar">
-      <div><strong>Programm · R1</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
+      <div><strong>Programm · R2</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
       <SegmentedControl aria-label="Designvariante" value={variant} onChange={changeVariant} data={[{ value: 'timeline', label: 'A · Timeline' }, { value: 'editorial', label: 'B · Programmheft' }]} />
     </div>
     <a className="skip-link" href="#programme">Zum Programm</a>
