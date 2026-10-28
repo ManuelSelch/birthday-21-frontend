@@ -1,10 +1,11 @@
-# Invitation details — R2
+# Invitation details — R3
 - Status: in review; not approved for production.
 - Scope: small mobile-first navy/gold invitation showing the proposed “Gut zu wissen” block, followed by the ticket.
 - Three always-visible rows with minimal wording: “WhatsApp-Gruppe” with “Gruppe beitreten” button, “Einlass nur mit Ticket”, and “Dresscode: Anzug”. No supporting descriptions, as requested by the user.
 - User-specified dress code: **Anzug** (required).
 - Fictional accepted guest Max Muster; date and venue remain “Folgt”. No RSVP changes or production edits.
-- WhatsApp/Wallet buttons show local explanatory messages only. QR icon is not scannable. No real links, API calls, authentication or persistence.
+- Date and location stay stacked as two rows. “Teilnahme absagen” is restored below the Wallet button.
+- WhatsApp/Wallet/cancellation buttons show local explanatory messages only. QR icon is not scannable. No real links, API calls, authentication or persistence.
 - Content uses a 430px maximum width, full-width on narrow screens. No animation.
 - Photo reused from the existing invitation mockup; source/rights documentation remains in ../invitation-2026/DESIGN.md. Not approved for publication.
 - This proposal moves WhatsApp into the contextual details block and leaves Wallet next to the ticket, rather than preserving adjacent Wallet/WhatsApp buttons. This layout change is for review only.

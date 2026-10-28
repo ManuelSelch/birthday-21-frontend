@@ -9,7 +9,7 @@ h1,h2{font-family:Georgia,'Times New Roman',serif;font-weight:400}
 h1{font-size:44px;line-height:1.08;letter-spacing:-1.5px;margin:13px 0 18px}
 .hero>p{font-size:12px;letter-spacing:1.8px;line-height:1.7}
 .content{padding:0 24px 20px}
-.event{display:flex;gap:36px;padding:22px 0;border-bottom:1px solid var(--line)}
+.event{display:flex;flex-direction:column;gap:20px;padding:22px 0;border-bottom:1px solid var(--line)}
 .event>div{display:flex;align-items:center;gap:10px;font-size:16px}
 .event svg{color:var(--gold);flex-shrink:0}
 .event small{display:block;font-size:9px;letter-spacing:1.3px;color:var(--muted);margin-bottom:6px}
@@ -31,9 +31,10 @@ h1{font-size:44px;line-height:1.08;letter-spacing:-1.5px;margin:13px 0 18px}
 .ticket-caption{font-size:11px;color:#5a6070}
 .ticket>svg{flex-shrink:0}
 .wallet-button{border-color:var(--line);color:var(--text);min-height:48px;margin-top:13px;font-size:14px}
+.cancel-button{color:var(--muted);min-height:44px;margin-top:14px;font-size:14px}
 .notice{font-size:13px;color:var(--gold);line-height:1.6}
 .notice:not(:empty){margin-top:16px}
 footer{font-size:10px;color:var(--muted);line-height:1.8;margin-top:25px;text-align:center}
 button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
 @media(max-width:460px){.mobile-preview{margin:0 auto;border:0;min-height:100dvh}}
-@media(max-width:350px){.content{padding-inline:18px}.hero{padding-inline:18px}h1{font-size:39px}.event{gap:24px}}
+@media(max-width:350px){.content{padding-inline:18px}.hero{padding-inline:18px}h1{font-size:39px}}

@@ -49,6 +49,7 @@ export function InvitationDetails() {
       <section className="greeting"><span className="confirmed"><IconCheck size={15} aria-hidden="true" /> Du bist dabei</span><h2>Schön, dass du kommst,<br />Max!</h2></section>
       <ImportantDetails onJoin={() => setNotice('Vorschau: Hier öffnet sich später die WhatsApp-Gruppe.')} />
       <GuestTicket onWallet={() => setNotice('Vorschau: Hier wird später dein Wallet-Ticket geladen.')} />
+      <Button className="cancel-button" variant="subtle" fullWidth onClick={() => setNotice('Vorschau: Hier kannst du deine Teilnahme absagen.')}>Teilnahme absagen</Button>
       <p className="notice" role="status">{notice}</p>
       <footer>Mobile Mockup · Keine echte Anmeldung<br />Foto: Stadtball Bayreuth · SW Bayreuth / Screenshot</footer>
     </div>
