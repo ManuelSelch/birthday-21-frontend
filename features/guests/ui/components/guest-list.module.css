@@ -1,6 +1,6 @@
 .screen { --gold: #d9bd86; --muted: #aeb6c6; --border: #ffffff20; margin-block-start: calc(-1 * var(--mantine-spacing-lg)); min-height: 100svh; color: #f7f3ed; background: #0d1220; padding: 0 12px 30px; font-size: 14px; }
 .screen, .screen * { box-sizing: border-box; }
-.topbar { max-width: 700px; margin: auto; height: 72px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+.topbar { max-width: 700px; margin: auto; min-height: 72px; padding-block: 12px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .brand { font: 22px Georgia, serif; }
 .eyebrow { font-size: 10px; letter-spacing: 2px; color: var(--muted); }
 .headerActions { display: flex; gap: 14px; align-items: center; }
@@ -45,9 +45,6 @@
 .empty { text-align: center; color: var(--muted); padding: 30px 0; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .notice { font-size: 12px; color: var(--muted); min-height: 18px; margin-top: 20px; }
-.secondaryLinks { display: flex; align-items: center; gap: 16px; font-size: 12px; }
-.secondaryLinks a { color: var(--muted); text-decoration: none; }
-.secondaryLinks a:hover { color: var(--gold); text-decoration: underline; }
 .sheet { --muted: #aeb6c6; --mantine-primary-color-filled: #426a9a; --mantine-primary-color-filled-hover: #365a85; --mantine-primary-color-light: #426a9a26; --mantine-primary-color-light-hover: #426a9a40; --mantine-primary-color-light-color: #acc7e8; background: #111a2a; border-radius: 20px 20px 0 0; color: #f7f3ed; }
 .sheetHeader { background: #111a2a; width: min(100%, 572px); margin-inline: auto; padding: 26px 16px 20px; gap: 16px; }
 .sheetTitle { font: 600 30px/1.2 Arial, Helvetica, sans-serif; color: #f1f4fa; overflow-wrap: anywhere; }

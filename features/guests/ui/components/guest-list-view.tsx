@@ -22,7 +22,9 @@ export function GuestListView(props: Props) {
   return <MantineProvider forceColorScheme="dark">
     <div className={styles.screen}>
       <header className={styles.topbar}><span className={styles.brand}>21. Geburtstag</span>
-        <div className={styles.headerActions}><span className={styles.eyebrow}>ADMIN</span>{props.logout}</div></header>
+        <div className={styles.headerActions}><span className={styles.eyebrow}>ADMIN</span>
+          <Button component="a" href="/admin/scanner" variant="subtle" leftSection={<IconScan size={17}/>}>Scanner</Button>
+          {props.logout}</div></header>
       <main className={styles.main}>
         <div className={styles.heading}><div><h1>Gäste</h1><p className={styles.summary} aria-label="Übersicht">
           <span aria-label={"Gäste: " + props.summary.total}>{props.summary.total} Gäste</span><span aria-hidden="true"> · </span>
@@ -48,10 +50,6 @@ export function GuestListView(props: Props) {
           <GuestTable guests={props.guests} onEdit={props.onEdit}/>
         </section>
         <p className={styles.notice} role="status">{props.notice}</p>
-        <nav className={styles.secondaryLinks} aria-label="Weitere Verwaltung">
-          <Button component="a" href="/admin/scanner" variant="subtle" leftSection={<IconScan size={17}/>}>Scanner</Button>
-          <a href="/admin/orders">Bestellungen</a>
-        </nav>
       </main>
     </div>
     {props.editor}

@@ -69,7 +69,7 @@ test("compact guest table uses invited name colors and fits narrow screens", asy
   await app.thenMixedSummaryIsVisible();
 });
 
-test("scanner, orders, logout and guest invitations remain available", async ({ page }) => {
+test("scanner is in the top bar, orders is removed and logout and invitations remain available", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();
 
