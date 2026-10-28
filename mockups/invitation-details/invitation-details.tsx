@@ -8,17 +8,17 @@ function ImportantDetails({ onJoin }: { onJoin: () => void }) {
     <h2 id="details-title">Gut zu wissen</h2>
     <div className="detail-row">
       <IconBrandWhatsapp size={23} stroke={1.5} aria-hidden="true" />
-      <div><h3>Sei in der WhatsApp-Gruppe dabei</h3><p>Alle Updates zum Abend teilen wir dort.</p>
+      <div><h3>WhatsApp-Gruppe</h3>
         <Button className="join-button" variant="subtle" onClick={onJoin} rightSection={<IconArrowUpRight size={17} />}>Gruppe beitreten</Button>
       </div>
     </div>
     <div className="detail-row">
       <IconTicket size={23} stroke={1.5} aria-hidden="true" />
-      <div><h3>Dein Ticket ist dein Einlass</h3><p>Halte es am Eingang bereit – in deiner Wallet oder direkt auf dieser Seite.</p></div>
+      <div><h3>Einlass nur mit Ticket</h3></div>
     </div>
     <div className="detail-row">
       <IconHanger size={23} stroke={1.5} aria-hidden="true" />
-      <div><h3>Dresscode: Anzug</h3><p>Wir freuen uns auf einen festlichen Abend mit dir.</p></div>
+      <div><h3>Dresscode: Anzug</h3></div>
     </div>
   </section>;
 }
