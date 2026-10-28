@@ -2,7 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/ui",
-  testMatch: process.env.ADMIN_TEST_PRODUCTION === "1" ? "admin-boundaries.spec.ts" : "*.spec.ts",
+  testMatch: process.env.ADMIN_TEST_PRODUCTION === "1" ? ["admin-boundaries.spec.ts", "invitation.spec.ts"] : "*.spec.ts",
   fullyParallel: false,
   workers: 1,
   retries: 0,

@@ -67,8 +67,8 @@ export class BirthdayAdminDriver {
     }).toBe(points);
   }
   async thenInvitationIsVisible() {
-    await expect(this.page.getByRole("heading", { name: "Willkommen, Alex Beispiel!" })).toBeVisible();
+    await expect(this.page.getByRole("heading", { name: "Alex Beispiel, bist du dabei?" })).toBeVisible();
   }
-  async acceptInvitation() { await this.page.getByRole("button", { name: /zusagen|teilnehmen|bestätigen/i }).click(); }
-  async thenInvitationIsAccepted() { await expect(this.page.getByText("Deine Teilnahme ist bestätigt!")).toBeVisible(); }
+  async acceptInvitation() { await this.page.getByRole("button", { name: "Ich bin dabei", exact: true }).click(); }
+  async thenInvitationIsAccepted() { await expect(this.page.getByRole("heading", { name: "Du bist dabei, Alex Beispiel." })).toBeVisible(); }
 }

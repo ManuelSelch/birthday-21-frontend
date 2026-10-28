@@ -1,0 +1,92 @@
+import { test } from "@playwright/test";
+import { InvitationDriver } from "./support/invitation-driver";
+
+test("personal invitation records viewing once and persists RSVP, companion and cancellation", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+  await invite.open();
+  await invite.thenPending();
+
+  await invite.acceptWithKeyboard();
+  await invite.thenAccepted();
+  await invite.thenTicketHasGuestLinks();
+  await invite.bringCompanion();
+  await invite.thenCompanionSaved();
+  await invite.thenTrackedOnce();
+
+  await invite.reload();
+  await invite.thenAccepted();
+  await invite.thenCompanionSaved();
+  await invite.cancel();
+  await invite.thenPending();
+  await invite.reload();
+  await invite.thenPending();
+});
+
+for (const width of [320, 375, 1280]) {
+  test(`invitation fits ${width}px and keeps ticket actions adjacent`, async ({ page }) => {
+    const invite = new InvitationDriver(page);
+    await invite.reset();
+    await invite.useViewport(width);
+    await invite.open();
+    await invite.thenLayoutFits();
+    if (width < 640) await invite.thenMobileTextIsReadable();
+
+    await invite.accept();
+
+    await invite.thenAccepted();
+    await invite.thenActionsAreAdjacent();
+    await invite.thenTicketHasGuestLinks();
+    await invite.captureLayout();
+  });
+}
+
+test("failed mutations retain saved state and can be retried", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+  await invite.open();
+  await invite.failAction("accept", "result");
+
+  await invite.accept();
+
+  await invite.thenErrorIsVisible();
+  await invite.thenPending();
+  await invite.restoreActions();
+  await invite.accept();
+  await invite.thenAccepted();
+  await invite.failAction("companion");
+  await invite.bringCompanion();
+  await invite.thenErrorIsVisible();
+  await invite.thenCompanionUnchanged();
+  await invite.failAction("cancel");
+  await invite.cancel();
+  await invite.thenErrorIsVisible();
+  await invite.thenAccepted();
+});
+
+test("attendance stays pending while a save is in progress", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+  await invite.open();
+  await invite.holdAcceptance();
+
+  await invite.accept();
+
+  await invite.thenSaving();
+  await invite.finishAcceptance();
+  await invite.thenAccepted();
+});
+
+test("missing, repeated and unknown guest IDs do not expose an invitation", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+
+  await invite.openWithoutId();
+  await invite.thenAccessDenied();
+  await invite.thenNoGuestRequest();
+  await invite.openRepeatedId();
+  await invite.thenAccessDenied();
+  await invite.thenNoGuestRequest();
+  await invite.openUnknownGuest();
+  await invite.thenAccessDenied();
+});
