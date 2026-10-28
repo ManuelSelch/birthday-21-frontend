@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, Stack } from "@mantine/core";
+import { ActionIcon, Alert, Stack } from "@mantine/core";
 import { IconLogout } from "@tabler/icons-react";
 
 export function LogoutButton({ loading, error, onLogout }: {
@@ -8,7 +8,9 @@ export function LogoutButton({ loading, error, onLogout }: {
 }) {
   return (
     <Stack gap="xs" align="flex-end">
-      <Button variant="default" leftSection={<IconLogout size={16} />} loading={loading} onClick={onLogout}>Abmelden</Button>
+      <ActionIcon variant="default" size={44} aria-label="Abmelden" title="Abmelden" loading={loading} onClick={onLogout}>
+        <IconLogout size={18} aria-hidden="true" />
+      </ActionIcon>
       {error && <Alert color="red" role="alert">{error}</Alert>}
     </Stack>
   );

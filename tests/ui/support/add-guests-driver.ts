@@ -193,7 +193,13 @@ export class AddGuestsDriver {
   async thenNavigationIsReal() {
     await expect(this.page.getByRole("banner").getByRole("link", { name: "Scanner", exact: true })).toHaveAttribute("href", "/admin/scanner");
     await expect(this.page.getByRole("link", { name: "Bestellungen", exact: true })).toHaveCount(0);
-    await expect(this.page.getByRole("button", { name: "Abmelden", exact: true })).toHaveCount(1);
+    const logout = this.page.getByRole("button", { name: "Abmelden", exact: true });
+    await expect(logout).toHaveCount(1);
+    await expect(logout).toHaveText("");
+    await expect(logout).toHaveAttribute("title", "Abmelden");
+    await expect(logout.locator("svg")).toBeVisible();
+    await expect(logout).toHaveCSS("width", "44px");
+    await expect(logout).toHaveCSS("height", "44px");
     await this.editGuest("Alex Beispiel");
     await this.page.getByRole("link", { name: "Einladung öffnen", exact: true }).click();
     await expect(this.page.getByRole("heading", { name: "Alex Beispiel, bist du dabei?" })).toBeVisible();
