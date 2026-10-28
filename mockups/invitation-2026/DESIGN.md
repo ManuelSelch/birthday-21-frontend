@@ -4,12 +4,12 @@
 Compare three distinct invitation treatments using images downloaded from the official Stadtball Bayreuth website, as requested by the user. Isolated React/Mantine prototype; no production changes.
 
 ## Revision and review
-- Revision: R1.
-- Status: in review; no direction approved for implementation.
-- User requested multiple mockups using Stadtball Bayreuth images. That request does not approve any design or production implementation.
+- Revision: R2.
+- Status: in review; Midnight Gala is the preferred direction, not yet approved for implementation.
+- User feedback: “first one looks good, but too much text.” R2 simplifies only Midnight Gala, preserving the other two comparisons. This is a request to iterate, not production approval.
 
 ## Directions
-- `?variant=midnight`: Midnight Gala — navy/gold, wide blue-lit ballroom hero, expressive serif title; details and RSVP alongside each other below, stacked on mobile.
+- `?variant=midnight`: Midnight Gala — navy/gold, wide blue-lit ballroom hero, expressive serif title; details and RSVP alongside each other below, stacked on mobile. R2 keeps only birthday/year, title, hosts, date/location, personalized greeting, and actions. Removes hero slogans, descriptive paragraphs, decorative guest number, RSVP explanation, and redundant confirmation label. Image attribution and prototype caveats remain in the review footer; ticket placeholder warning and useful errors remain visible.
 - `?variant=champagne`: Champagne Editorial — cream/brown, large serif headline, portrait ballroom photograph, birthday seal, editorial two-column composition; single column on mobile.
 - `?variant=afterdark`: After Dark — burgundy/coral, bokeh photograph, full-height party-poster composition and bold sans-serif title with serif accent; RSVP beside poster, below on mobile.
 - Shared review toolbar selects direction and state. Every direction includes provisional hosts/age, personalized greeting, unknown date/location, RSVP, companion control, ticket placeholder, simulated Wallet/WhatsApp actions, and cancellation.
