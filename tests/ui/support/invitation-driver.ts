@@ -19,7 +19,7 @@ export class InvitationDriver {
   }
   async open() { await this.page.goto("/invite?id=guest-1"); }
   async reload() { await this.page.reload(); }
-  async useViewport(width: number) { await this.page.setViewportSize({ width, height: 900 }); }
+  async useViewport(width: number) { await this.page.setViewportSize({ width, height: width < 640 ? 812 : 900 }); }
   async accept() { await this.page.getByRole("button", { name: "Ich bin dabei", exact: true }).click(); }
   async acceptWithKeyboard() {
     await this.page.getByRole("button", { name: "Ich bin dabei", exact: true }).focus();
@@ -67,6 +67,14 @@ export class InvitationDriver {
     expect(size).toBeGreaterThanOrEqual(16);
     const hosts = await this.page.getByText("MANUEL · MARCO · DAVID", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
     expect(hosts).toBeGreaterThanOrEqual(16);
+  }
+  async thenMobileLayoutIsCompact() {
+    const date = await this.page.getByText("WANN", { exact: true }).boundingBox();
+    const location = await this.page.getByText("WO", { exact: true }).boundingBox();
+    expect(date).not.toBeNull();
+    expect(location).not.toBeNull();
+    expect(Math.abs(date!.y - location!.y)).toBeLessThan(2);
+    expect(await this.page.evaluate(() => document.documentElement.scrollHeight <= window.innerHeight)).toBe(true);
   }
   async captureLayout() {
     await this.page.screenshot({ path: test.info().outputPath("invitation.png"), fullPage: true });

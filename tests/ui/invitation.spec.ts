@@ -30,12 +30,16 @@ for (const width of [320, 375, 1280]) {
     await invite.useViewport(width);
     await invite.open();
     await invite.thenLayoutFits();
-    if (width < 640) await invite.thenMobileTextIsReadable();
+    if (width < 640) {
+      await invite.thenMobileTextIsReadable();
+      await invite.thenMobileLayoutIsCompact();
+    }
 
     await invite.accept();
 
     await invite.thenAccepted();
     await invite.thenActionsAreAdjacent();
+    if (width < 640) await invite.thenMobileLayoutIsCompact();
     await invite.thenTicketHasGuestLinks();
     await invite.captureLayout();
   });
