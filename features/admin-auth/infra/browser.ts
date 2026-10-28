@@ -6,6 +6,6 @@ export async function submitAuthentication(action: "login" | "logout", body: Rec
     cache: "no-store",
     body: JSON.stringify(body),
   });
-  const data = await response.json() as { redirectTo?: string; retryAfter?: number };
+  const data = await response.json() as { redirectTo?: string };
   return { ok: response.ok, status: response.status, ...data };
 }

@@ -12,7 +12,7 @@
 
 ## Admin login
 - Open `/admin/login` to manage guests, check-in, and points.
-- Configure the shared password and session secret using [Admin setup](docs/admin-login/SETUP.md).
+- Set `ADMIN_PASSWORD` in `.env` using [Admin setup](docs/admin-login/SETUP.md).
 - Guest invitations do not require login.
 
 ## Tech Stack
