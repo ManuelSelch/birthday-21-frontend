@@ -1,6 +1,13 @@
 import { test } from "@playwright/test";
 import { InvitationDriver } from "./support/invitation-driver";
 
+test("WhatsApp receives the approved public preview without changing guest attendance", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+
+  await invite.thenSharePreviewIsPublic();
+});
+
 test("personal invitation records viewing once and persists RSVP, companion and cancellation", async ({ page }) => {
   const invite = new InvitationDriver(page);
   await invite.reset();

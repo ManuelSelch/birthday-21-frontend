@@ -2,7 +2,7 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { QRCodeSVG } from "qrcode.react";
-import { cockpitOrigin } from "./ports";
+import { browserOrigin, cockpitOrigin } from "./ports";
 
 export class InvitationDriver {
   private views = 0;
@@ -16,6 +16,37 @@ export class InvitationDriver {
 
   async reset() {
     await this.page.request.post(`${cockpitOrigin}/__test/reset`);
+  }
+  async thenSharePreviewIsPublic() {
+    const response = await this.page.request.get("/invite?id=guest-1", {
+      headers: { "user-agent": "WhatsApp/2.0" },
+    });
+    expect(response.ok()).toBe(true);
+    const html = await response.text();
+    const head = html.split("</head>")[0];
+    expect(head).toContain('<meta property="og:title" content="21. Geburtstag 🥂"');
+    expect(head).toContain('<meta property="og:description" content="Du bist eingeladen! Alle Infos &amp; deine Zusage findest du hier."');
+    expect(head).toContain('<meta property="og:image:width" content="1200"');
+    expect(head).toContain('<meta property="og:image:height" content="630"');
+    const imageUrl = head.match(/<meta property="og:image" content="([^"]+)"/)?.[1];
+    expect(imageUrl).toBeTruthy();
+    const image = new URL(imageUrl!.replaceAll("&amp;", "&"));
+    expect(image.origin).toBe(process.env.ADMIN_TEST_PRODUCTION === "1"
+      ? "https://geburtstag.manuelselch.de"
+      : browserOrigin);
+    expect(image.pathname).toBe("/invite/opengraph-image.jpg");
+    expect(image.search).not.toContain("guest-1");
+    const imageResponse = await this.page.request.get(image.pathname + image.search);
+    expect(imageResponse.ok()).toBe(true);
+    expect(imageResponse.headers()["content-type"]).toContain("image/jpeg");
+    expect((await imageResponse.body()).length).toBeGreaterThan(1000);
+    await this.thenNoGuestMutations();
+  }
+  private async thenNoGuestMutations() {
+    const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
+    const state = await response.json();
+    expect(state.guest.invited).toBe(false);
+    expect(state.guest.accepted).toBe(false);
   }
   async open() { await this.page.goto("/invite?id=guest-1"); }
   async reload() { await this.page.reload(); }
