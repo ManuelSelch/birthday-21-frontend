@@ -7,7 +7,10 @@ export type StatusResponse = {
 class API {
     async setPoints(guest: any, points: number) {
         try {
-            await this.get(`/api/points?id=${guest._id}&points=${points}`);
+            await this.post("/api/points", {
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: guest._id, points }),
+            });
         } catch (err: any) { }
     };
 
@@ -72,7 +75,7 @@ class API {
     }
 
     private async post(endpoint: string, body: RequestInit) {
-        return (await fetch(endpoint, { method: "POST", cache: 'no-store' })).json();
+        return (await fetch(endpoint, { ...body, method: "POST", cache: 'no-store' })).json();
     }
 }
 

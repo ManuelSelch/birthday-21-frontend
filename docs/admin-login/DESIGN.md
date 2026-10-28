@@ -37,7 +37,7 @@ Add a shared-password login and server-validated sessions around the existing Ne
 - Cookie: HttpOnly, SameSite=Lax, Path=/, no Domain, Secure in production; development permits loopback HTTP. Protected responses and auth responses are not cached.
 - Require exact configured `APP_ORIGIN` for state-changing admin/auth requests; reject missing/mismatched Origin. Do not trust arbitrary forwarded headers or support cross-origin admin clients.
 - Proposed limiter: at most 10 login attempts per 15-minute fixed window globally per process, counting successful and failed attempts. Avoid trusting client-supplied IP headers. This tiny shared-admin deployment accepts temporary global lockout as a trade-off.
-- The limiter resets on restart and cannot coordinate multiple workers. Existing deployment scripts use PM2 without an explicit cluster configuration, but actual production topology is unconfirmed (question 1). Multiple replicas require a revised shared limiter design.
+- Confirmed deployment: one PM2/Node process on one server, without clustering or replicas. The limiter resets on restart and cannot coordinate multiple workers. Multiple replicas require a revised shared limiter design.
 - Keep new feature code inside its slice; Next route files are thin wiring. Do not restructure unrelated invitation code or add user databases.
 
 ## Verification
@@ -47,4 +47,4 @@ Add a shared-password login and server-validated sessions around the existing Ne
 - Run the available lint/build checks and new scoped tests, reporting unrelated existing failures separately. No production behavior has been implemented or verified yet.
 
 ## Open Questions
-1. Will production run as a single PM2/Node process on one server, with no cluster or additional replicas? The proposed in-process login-attempt limiter depends on this.
+None. The user approved implementation and confirmed single-process deployment.

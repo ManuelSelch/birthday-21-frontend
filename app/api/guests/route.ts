@@ -1,8 +1,9 @@
-
 import cockpit from "@/lib/cockpit";
-import { NextResponse } from "next/server";
- 
+import { auth, privateJson } from "@/features/admin-auth/server";
+
 export async function GET(request: Request) {
-    const guests = await cockpit.getItems("guests")
-    return NextResponse.json(guests);
+  const denied = auth.authorize(request);
+  if (denied) return denied;
+
+  return privateJson(await cockpit.getItems("guests"));
 }
