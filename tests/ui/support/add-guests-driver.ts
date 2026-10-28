@@ -195,6 +195,28 @@ export class AddGuestsDriver {
     await expect(this.dialog()).not.toBeVisible();
   }
   async editGuest(name: string) { await this.details(name).click(); await expect(this.dialog()).toBeVisible(); }
+  async thenPopupMatchesApprovedStyle(title: string, action: string) {
+    const dialog = this.dialog();
+    const heading = dialog.getByRole("heading", { name: title, exact: true });
+    const save = dialog.getByRole("button", { name: action, exact: true });
+    await expect(heading).toHaveCSS("font-size", "30px");
+    await expect(heading).toHaveCSS("font-weight", "600");
+    await expect(save).toHaveCSS("background-color", "rgb(66, 106, 154)");
+    await expect(save).toHaveCSS("color", "rgb(255, 255, 255)");
+    await expect(dialog.getByRole("textbox", { name: "Einladungslink", exact: true })).toHaveCount(0);
+    const headingBounds = await heading.boundingBox();
+    const actionBounds = await save.boundingBox();
+    expect(headingBounds).not.toBeNull();
+    expect(actionBounds).not.toBeNull();
+    expect(Math.abs(headingBounds!.x - actionBounds!.x)).toBeLessThanOrEqual(4);
+    await expect(heading).toBeInViewport();
+    await expect(save).toBeInViewport();
+    expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  }
+  async closePopup() { await this.page.keyboard.press("Escape"); await expect(this.dialog()).not.toBeVisible(); }
+  async thenSelectedHostIsBlue(name: string) {
+    await expect(this.dialog().getByRole("button", { name, exact: true })).toHaveCSS("background-color", "rgb(66, 106, 154)");
+  }
   async createGroup(name: string) {
     await this.page.getByRole("textbox", { name: "Neue Gruppe", exact: true }).fill(name);
     await this.page.getByRole("button", { name: "Gruppe erstellen und auswählen" }).click();
@@ -223,11 +245,12 @@ export class AddGuestsDriver {
   async thenInvitationCanBeCopied(name: string) {
     await this.page.context().grantPermissions(["clipboard-read", "clipboard-write"]);
     await this.editGuest(name);
-    const link = this.dialog().getByRole("textbox", { name: "Einladungslink", exact: true });
-    await expect(link).toHaveValue(new URL("/invite?id=guest-1", this.page.url()).href);
+    const expectedLink = new URL("/invite?id=guest-1", this.page.url()).href;
+    await expect(this.dialog().getByRole("textbox", { name: "Einladungslink", exact: true })).toHaveCount(0);
+    await expect(this.dialog().getByRole("link", { name: "Einladung öffnen", exact: true })).toHaveAttribute("href", expectedLink);
     await this.dialog().getByRole("button", { name: "Einladungslink kopieren" }).click();
     await expect(this.dialog().getByRole("status")).toHaveText("Einladungslink kopiert.");
-    expect(await this.page.evaluate(() => navigator.clipboard.readText())).toBe(await link.inputValue());
+    expect(await this.page.evaluate(() => navigator.clipboard.readText())).toBe(expectedLink);
   }
   async useInvalidGuestAssignments(groups: unknown, hosts: unknown) {
     const data: Record<string, unknown> = { _id: "bad-guest", name: "Invalid Example" };
