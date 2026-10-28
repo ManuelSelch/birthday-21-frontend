@@ -42,6 +42,30 @@ export class GuestVideosDriver {
     await expect(this.page.getByText("Fehlt · " + missing, { exact: true })).toBeVisible();
     await expect(this.page.getByText("Vorhanden · " + available, { exact: true })).toBeVisible();
   }
+  async thenControlsHaveReadableText() {
+    for (const scheme of ["light", "dark"]) {
+      await this.page.evaluate(value => document.documentElement.setAttribute("data-mantine-color-scheme", value), scheme);
+      for (const width of [375, 1280]) {
+        await this.page.setViewportSize({ width, height: 812 });
+        await this.page.mouse.move(0, 0);
+        for (const text of ["Videos", "Alle"]) {
+          await expect(this.page.getByText(text, { exact: true })).toHaveCSS("color", "rgb(247, 243, 237)");
+        }
+        for (const text of ["Übersicht", "Fehlt · 4", "Vorhanden · 0"]) {
+          const label = this.page.getByText(text, { exact: true });
+          await expect(label).toHaveCSS("color", "rgb(174, 182, 198)");
+          await label.hover();
+          await expect(label).toHaveCSS("color", "rgb(247, 243, 237)");
+          await this.page.mouse.move(0, 0);
+        }
+        await this.filter("Fehlt · 4");
+        await this.page.mouse.move(0, 0);
+        await expect(this.page.getByText("Fehlt · 4", { exact: true })).toHaveCSS("color", "rgb(247, 243, 237)");
+        await expect(this.page.getByText("Alle", { exact: true })).toHaveCSS("color", "rgb(174, 182, 198)");
+        await this.filter("Alle");
+      }
+    }
+  }
   async thenOverviewIsIntact() { await expect(this.page.getByRole("table")).toBeVisible(); }
   async thenMinimalMobileView() {
     await expect(this.page.getByRole("columnheader", { name: "Video vorhanden" })).toBeVisible();

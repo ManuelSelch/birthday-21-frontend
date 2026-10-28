@@ -1,6 +1,13 @@
 import { test } from "@playwright/test";
 import { GuestVideosDriver } from "./support/guest-videos-driver";
 
+test("video view controls have readable text in either inherited color scheme", async ({ page }) => {
+  const app = new GuestVideosDriver(page);
+  await app.open();
+
+  await app.thenControlsHaveReadableText();
+});
+
 test("mobile video switches save in both directions and persist on reload", async ({ page }) => {
   const app = new GuestVideosDriver(page);
   await app.open();

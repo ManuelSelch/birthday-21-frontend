@@ -11,6 +11,8 @@
 .toolbar { display: grid; gap: 10px; }
 .viewTabs { margin-bottom: 20px; background: #141c2d; }
 .viewTabs :global(.mantine-SegmentedControl-indicator), .videoFilters :global(.mantine-SegmentedControl-indicator) { background: #293348; }
+:is(.viewTabs, .videoFilters) :global(.mantine-SegmentedControl-label) { color: var(--muted); }
+:is(.viewTabs, .videoFilters) :global(.mantine-SegmentedControl-label):is([data-active], :hover, :active) { color: #f7f3ed; }
 .videoFilters { grid-column: 1 / -1; background: #111a2a; }
 .videoTable { width: 100%; border-collapse: collapse; text-align: left; table-layout: fixed; }
 .videoTable th { color: var(--muted); font-size: 11px; font-weight: 400; padding-bottom: 8px; }
