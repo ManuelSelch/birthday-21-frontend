@@ -15,7 +15,7 @@ Provide a small admin login for birthday-party management, preventing unauthenti
 - **R9** — Verify invalid and valid login, direct protected-page access, direct API access, logout, expired/tampered sessions, safe redirects, attempt limiting, cross-site rejection, and continued public invitation access. No production implementation begins before a technical design is approved; the new login UI also requires an approved isolated mockup.
 
 ## Assumptions
-- A single shared admin password is sufficient for the party; individual accounts, roles, registration, password-reset emails, and Cockpit-user authentication are out of scope, pending Q1.
+- Confirmed in Q1: use one shared admin password. Individual accounts, roles, registration, password-reset emails, and Cockpit-user authentication are out of scope.
 - A 12-hour fixed session is suitable for party-day use. Per-device remote revocation and forced logout of all sessions are outside this small initial scope; the design must explain credential-rotation effects.
 - Existing admin features and the casino theme remain unchanged apart from the login and a minimal logout control.
 - The deployment will serve production traffic over HTTPS. The design must establish deployment topology before selecting an effective login-attempt limiter.
@@ -34,4 +34,4 @@ Description: After S2, enforce authentication before loading admin data and inde
 Description: After S3, complete end-to-end coverage for R9 and add concise placeholder-only configuration and deployment instructions for R8. Verify the protected browser/API flows and public invitation regression checks; run available project checks and report failures accurately. Do not modify or commit real environment secrets.
 
 ## Open Questions
-- **Q1** — Is one shared admin password enough, or do you need separate logins for each organizer? Recommendation: one shared password for this small party admin area.
+- **Q1 — Resolved** — Is one shared admin password enough, or do you need separate logins for each organizer? Resolution: the user approved the recommended single shared admin password and requirements plan. Technical design and mockup approval remain separate.
