@@ -24,7 +24,7 @@ export class InvitationDriver {
     expect(response.ok()).toBe(true);
     const html = await response.text();
     const head = html.split("</head>")[0];
-    expect(head).toContain('<meta property="og:title" content="21. Geburtstag 🥂"');
+    expect(head).toContain('<meta property="og:title" content="21. Geburtstag"');
     expect(head).toContain('<meta property="og:description" content="Du bist eingeladen! Alle Infos &amp; deine Zusage findest du hier."');
     expect(head).toContain('<meta property="og:image:width" content="1200"');
     expect(head).toContain('<meta property="og:image:height" content="630"');

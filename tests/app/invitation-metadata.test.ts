@@ -6,7 +6,7 @@ import { metadata } from "../../app/invite/layout";
 
 test("invitation previews have public, guest-independent German metadata", () => {
   assert.equal(metadata.metadataBase?.toString(), "https://geburtstag.manuelselch.de/");
-  assert.equal(metadata.title, "21. Geburtstag 🥂");
+  assert.equal(metadata.title, "21. Geburtstag");
   assert.equal(metadata.description, "Du bist eingeladen! Alle Infos & deine Zusage findest du hier.");
   assert.deepEqual(metadata.openGraph, {
     title: metadata.title,

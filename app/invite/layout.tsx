@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-const title = "21. Geburtstag 🥂";
+const title = "21. Geburtstag";
 const description = "Du bist eingeladen! Alle Infos & deine Zusage findest du hier.";
 
 export const metadata: Metadata = {
