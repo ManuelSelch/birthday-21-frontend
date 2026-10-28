@@ -1,6 +1,19 @@
 import { test } from "@playwright/test";
 import { AddGuestsDriver } from "./support/add-guests-driver";
 
+test("guest list refresh button reloads the page and removes ADMIN text", async ({ page }) => {
+  const app = new AddGuestsDriver(page);
+  await app.open();
+  await app.useMobileViewport();
+  await app.searchFor("Nobody");
+  await app.thenNoMatches();
+
+  await app.refreshPage();
+
+  await app.thenVisibleGuests(["Alex Beispiel"]);
+  await app.thenApprovedStyleAndMobileTableFit();
+});
+
 test("guest list renders server-passed logout without React key warnings", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();

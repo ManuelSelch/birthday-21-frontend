@@ -15,7 +15,6 @@ function GuestRefreshPreview() {
   }
   return <div className="screen">
     <header><span className="brand">21. Geburtstag</span><div className="actions">
-      <span className="eyebrow">ADMIN</span>
       <Tooltip label="Seite neu laden"><ActionIcon variant="subtle" color="gray" size={36} aria-label="Seite neu laden" loading={refreshing} onClick={refresh}><IconRefresh size={18}/></ActionIcon></Tooltip>
       <Button component="a" variant="subtle" color="gray" leftSection={<IconScan size={17}/>}>Scanner</Button>
       <Button variant="default" leftSection={<IconLogout size={16}/>}>Abmelden</Button>

@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Button, MantineProvider, Select, TextInput } from "@mantine/core";
-import { IconPlus, IconScan, IconSearch } from "@tabler/icons-react";
+import { ActionIcon, Button, MantineProvider, Select, TextInput, Tooltip } from "@mantine/core";
+import { IconPlus, IconRefresh, IconScan, IconSearch } from "@tabler/icons-react";
 import type { Guest } from "../../domain/guest";
 import { HOSTS } from "../../domain/assignments";
 import { UNASSIGNED, type GuestFilter } from "../../domain/guest-list";
@@ -14,7 +14,7 @@ type Props = {
   search: string; filter: GuestFilter; group: string; host: string; availableGroups: string[];
   onSearchChange: (value: string) => void; onFilterChange: (value: GuestFilter) => void;
   onGroupChange: (value: string) => void; onHostChange: (value: string) => void;
-  onCreate: () => void; onEdit: (guest: Guest) => void;
+  onCreate: () => void; onEdit: (guest: Guest) => void; onRefresh: () => void;
   editor: ReactNode; logout: ReactNode; notice: string; refreshing: boolean;
 };
 
@@ -22,7 +22,12 @@ export function GuestListView(props: Props) {
   return <MantineProvider forceColorScheme="dark">
     <div className={styles.screen}>
       <header className={styles.topbar}><span className={styles.brand}>21. Geburtstag</span>
-        <div className={styles.headerActions}><span className={styles.eyebrow}>ADMIN</span>
+        <div className={styles.headerActions}>
+          <Tooltip label="Seite neu laden">
+            <ActionIcon variant="subtle" color="gray" size={36} aria-label="Seite neu laden" onClick={props.onRefresh}>
+              <IconRefresh size={18} />
+            </ActionIcon>
+          </Tooltip>
           <Button component="a" href="/admin/scanner" variant="subtle" leftSection={<IconScan size={17}/>}>Scanner</Button>
           {props.logout}</div></header>
       <main className={styles.main}>

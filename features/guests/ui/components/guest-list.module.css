@@ -2,8 +2,7 @@
 .screen, .screen * { box-sizing: border-box; }
 .topbar { max-width: 700px; margin: auto; min-height: 72px; padding-block: 12px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .brand { font: 22px Georgia, serif; }
-.eyebrow { font-size: 10px; letter-spacing: 2px; color: var(--muted); }
-.headerActions { display: flex; gap: 14px; align-items: center; }
+.headerActions { display: flex; gap: 8px; align-items: center; }
 .headerActions :global(.mantine-Button-root) { color: var(--muted); background: transparent; border-color: var(--border); }
 .main { max-width: 700px; margin: auto; padding-top: 29px; }
 .heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 25px; }
@@ -61,7 +60,6 @@
 .error { font-size: 13px; color: #ffb4b4; margin: 0; }
 .screen :is(button,input,a):focus-visible { outline: 2px solid #d9bd86; outline-offset: 3px; }
 .sheet :is(button,input,a):focus-visible { outline: 2px solid #acc7e8; outline-offset: 3px; }
-@media (max-width: 640px) { .headerActions .eyebrow { display: none; } }
 @media (min-width: 700px) {
   .screen { padding-inline: 18px; }
   .main { padding-top: 40px; }

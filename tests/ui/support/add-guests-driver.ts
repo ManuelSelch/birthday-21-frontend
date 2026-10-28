@@ -19,6 +19,19 @@ export class AddGuestsDriver {
     await this.page.reload();
     await this.page.getByRole("button", { name: "Alle", exact: true }).click();
   }
+  async refreshPage() {
+    const refresh = this.page.getByRole("banner").getByRole("button", { name: "Seite neu laden", exact: true });
+    await expect(refresh).toBeVisible();
+    await expect(this.page.getByText("ADMIN", { exact: true })).toHaveCount(0);
+
+    await Promise.all([
+      this.page.waitForRequest(request => request.isNavigationRequest() && request.frame() === this.page.mainFrame()),
+      refresh.click(),
+    ]);
+    await expect(this.page.getByRole("heading", { name: "Gäste", exact: true })).toBeVisible();
+    await expect(this.page.getByRole("textbox", { name: "Gäste suchen" })).toHaveValue("");
+    expect(await this.page.evaluate(() => (performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming).type)).toBe("reload");
+  }
   async thenNoKeyWarnings() { expect(this.keyWarnings).toEqual([]); }
   async open() {
     const admin = new BirthdayAdminDriver(this.page);
