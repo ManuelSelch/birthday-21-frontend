@@ -8,5 +8,5 @@
 - States: `?state=idle`, `?state=error`, `?state=loading`, `?state=limited`, `?state=authenticated`.
 - Test password: `demo`. Any other nonempty value shows a generic error.
 - Fake behavior: all data and authentication are local React state; no APIs, secrets, persistence, camera, or real session. Review links and fake guest table are not production features.
-- Outstanding UI decisions: none. Production implementation still depends on the deployment question in the technical design.
+- Outstanding UI decisions: none. The user authorized implementation and confirmed single-process production deployment.
 - Approval evidence: the user approved revision 3 with “looks good. implement”. Approved source is preserved; the agent-owned preview was stopped and process shutdown verified.

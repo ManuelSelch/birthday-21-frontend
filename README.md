@@ -10,6 +10,11 @@
 - Order System (planned) -- order drinks& snacks during the party
 - Live Scoreboard (planned) -- track poker chips of each team
 
+## Admin login
+- Open `/admin/login` to manage guests, check-in, and points.
+- Configure the shared password and session secret using [Admin setup](docs/admin-login/SETUP.md).
+- Guest invitations do not require login.
+
 ## Tech Stack
 - NextJS
 - TailwindCSS & Mantine UI
