@@ -6,7 +6,7 @@ let guest: Record<string, unknown>;
 let requests = 0;
 let guests: Record<string, unknown>[];
 function reset() {
-  guest = { _id: "guest-1", name: "Alex Beispiel", groups: [], hosts: [], accepted: false, invited: false, companion: false, checked_in: false, points: 0 };
+  guest = { _id: "guest-1", video: false, name: "Alex Beispiel", groups: [], hosts: [], accepted: false, invited: false, companion: false, checked_in: false, points: 0 };
   guests = [guest];
   requests = 0;
 }
@@ -28,7 +28,11 @@ const cockpit = createServer(async (request, response) => {
   if (request.headers["api-key"] !== "isolated-test-key") { response.writeHead(401).end("{}"); return; }
 
   if (request.url?.startsWith("/api/content/items/guests")) response.end(JSON.stringify(guests));
-  else if (request.url === "/api/content/item/guests/guest-1") response.end(JSON.stringify(guest));
+  else if (request.url?.startsWith("/api/content/item/guests/")) {
+    const found = guests.find(item => item._id === request.url?.split("/").at(-1));
+    if (!found) { response.writeHead(404).end("{}"); return; }
+    response.end(JSON.stringify(found));
+  }
   else if (request.url === "/api/content/item/guests" && request.method === "POST") {
     let body = "";
     for await (const chunk of request) body += chunk;

@@ -1,5 +1,5 @@
 # Guest videos — R4
-- Status: in review. No approval for production implementation.
+- Status: approved. User approved R4: “perfect. implement it. keep it simple”.
 - Goal: mobile administration of the guest-level `video` boolean (at least one video available for that guest). Guests do not submit the videos themselves; use neutral availability wording, not receipt/submission wording.
 - Preserve navy/gold admin styling; add Übersicht/Videos view selection to avoid widening the mobile guest table.
 - Videos view: no progress overview or explanatory switch footnote; search, Alle/Fehlt/Vorhanden filters, individual switches with accessible labels and no status text below the toggles. All guests count, independent of RSVP.

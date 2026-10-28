@@ -9,6 +9,18 @@
 .heading h1 { margin: 0; font: 400 38px/1.1 Georgia, serif; }
 .summary { color: var(--muted); font-size: 12px; margin: 10px 0 0; line-height: 1.8; }
 .toolbar { display: grid; gap: 10px; }
+.viewTabs { margin-bottom: 20px; background: #141c2d; }
+.viewTabs :global(.mantine-SegmentedControl-indicator), .videoFilters :global(.mantine-SegmentedControl-indicator) { background: #293348; }
+.videoFilters { grid-column: 1 / -1; background: #111a2a; }
+.videoTable { width: 100%; border-collapse: collapse; text-align: left; table-layout: fixed; }
+.videoTable th { color: var(--muted); font-size: 11px; font-weight: 400; padding-bottom: 8px; }
+.videoTable th:last-child { width: 100px; text-align: center; }
+.videoTable td { border-bottom: 1px solid var(--border); padding: 17px 0; overflow-wrap: anywhere; }
+.videoTable td:last-child > * { display: flex; justify-content: center; }
+.videoTable strong { font-size: 14px; color: var(--gold); font-weight: 500; }
+.videoTable p { font-size: 11px; color: var(--muted); margin: 5px 0 0; line-height: 1.5; }
+.videoTable :global(.mantine-Switch-track) { cursor: pointer; }
+.videoTable :global(.mantine-Switch-input):checked + :global(.mantine-Switch-track) { background: var(--gold); border-color: var(--gold); }
 .filterPair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .filterPair > * { min-width: 0; }
 .screen :global(.mantine-Input-input), .sheet :global(.mantine-Input-input) { background: #111a2a; border-color: #ffffff25; color: #f7f3ed; }

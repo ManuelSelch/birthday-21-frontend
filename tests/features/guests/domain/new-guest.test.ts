@@ -5,7 +5,7 @@ import { newGuest } from "../../../../features/guests/domain/new-guest";
 test("new guests have trimmed names, assignments and explicit initial states", () => {
   assert.deepEqual(newGuest({ name: "  Alex Beispiel  ", groups: [" Uni "], hosts: ["Manuel", "David"] }), {
     name: "Alex Beispiel", groups: ["Uni"], hosts: ["Manuel", "David"], invited: false, accepted: null,
-    checked_in: null, companion: false, points: 0,
+    checked_in: null, companion: false, points: 0, video: false,
   });
 });
 

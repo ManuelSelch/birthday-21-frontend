@@ -12,6 +12,7 @@ export class AdminRoutesDriver {
   private constructor(private readonly routes: {
     guests: typeof import("../../../app/api/guests/route");
     assignments: typeof import("../../../app/api/guests/assignments/route");
+    video: typeof import("../../../app/api/guests/video/route");
     points: typeof import("../../../app/api/points/route");
     checkIn: typeof import("../../../app/api/check-in/route");
   }) {}
@@ -35,6 +36,7 @@ export class AdminRoutesDriver {
     const routes = {
       guests: await import("../../../app/api/guests/route"),
       assignments: await import("../../../app/api/guests/assignments/route"),
+      video: await import("../../../app/api/guests/video/route"),
       points: await import("../../../app/api/points/route"),
       checkIn: await import("../../../app/api/check-in/route"),
     };
@@ -68,6 +70,14 @@ export class AdminRoutesDriver {
       method: "POST", headers: { Cookie: this.cookie, "Content-Type": "application/json" }, body: JSON.stringify(body),
     }));
   }
+  async setVideo(body: unknown = { id: "guest-1", video: true }) {
+    this.response = await this.routes.video.POST(new Request("https://party.test/api/guests/video", {
+      method: "POST", headers: { Cookie: this.cookie, "Content-Type": "application/json" }, body: JSON.stringify(body),
+    }));
+  }
+  thenVideoWasSaved(video: boolean) {
+    assert.deepEqual(this.cockpitRequests.at(-1)?.data, { data: { _id: "guest-1", video } });
+  }
   thenAssignmentsWereSaved() {
     assert.deepEqual(this.cockpitRequests.at(-1)?.data, { data: { _id: "guest-1", groups: ["Uni"], hosts: ["Manuel", "Marco"] } });
   }
@@ -82,7 +92,7 @@ export class AdminRoutesDriver {
   thenGuestWasCreated() {
     assert.equal(this.cockpitRequests.length, 1);
     assert.deepEqual(this.cockpitRequests[0].data, { data: {
-      name: "New Guest", groups: [], hosts: [], invited: false, accepted: null, checked_in: null, companion: false, points: 0,
+      name: "New Guest", groups: [], hosts: [], invited: false, accepted: null, checked_in: null, companion: false, points: 0, video: false,
     } });
   }
   async thenCreationSucceeded() { assert.deepEqual(await this.response!.json(), { success: true }); }

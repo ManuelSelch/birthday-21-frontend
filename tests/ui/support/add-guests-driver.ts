@@ -94,10 +94,10 @@ export class AddGuestsDriver {
   }
   async useMixedGuestList() {
     const response = await this.page.request.post(cockpitOrigin + "/__test/guests", { data: [
-      { _id: "guest-1", name: "Alex Beispiel", groups: [], hosts: [], invited: false, accepted: false, checked_in: false },
-      { _id: "guest-2", name: "Anna Weber", groups: ["Uni"], hosts: ["Manuel", "Marco"], invited: true, accepted: true, checked_in: true, companion: true },
-      { _id: "guest-3", name: "Felix Schneider", groups: ["Fußball"], hosts: ["David"], accepted: true, checked_in: false },
-      { _id: "guest-4", name: "Laura Fischer", groups: [], hosts: [], accepted: null, checked_in: null },
+      { _id: "guest-1", video: false, name: "Alex Beispiel", groups: [], hosts: [], invited: false, accepted: false, checked_in: false },
+      { _id: "guest-2", video: false, name: "Anna Weber", groups: ["Uni"], hosts: ["Manuel", "Marco"], invited: true, accepted: true, checked_in: true, companion: true },
+      { _id: "guest-3", video: false, name: "Felix Schneider", groups: ["Fußball"], hosts: ["David"], accepted: true, checked_in: false },
+      { _id: "guest-4", video: false, name: "Laura Fischer", groups: [], hosts: [], accepted: null, checked_in: null },
     ] });
     expect(response.ok()).toBe(true); await this.page.reload();
   }

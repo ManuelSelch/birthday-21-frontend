@@ -4,11 +4,11 @@ import { filterGuests, guestSummary } from "../../../../features/guests/domain/g
 import type { Guest } from "../../../../features/guests/domain/guest";
 
 const guests: Guest[] = [
-  { _id: "1", groups: ["Uni"], hosts: ["Manuel"], name: "Anna Weber", accepted: true, companion: true, checked_in: true },
-  { _id: "2", groups: ["Uni"], hosts: ["Manuel"], name: "Felix", accepted: true },
-  { _id: "3", groups: ["Uni"], hosts: ["Manuel"], name: "Laura", accepted: null },
-  { _id: "4", groups: ["Uni"], hosts: ["Manuel"], name: "Sophie", accepted: false, companion: true },
-  { _id: "5", groups: ["Uni"], hosts: ["Manuel"], name: "Max" },
+  { _id: "1", video: false, groups: ["Uni"], hosts: ["Manuel"], name: "Anna Weber", accepted: true, companion: true, checked_in: true },
+  { _id: "2", video: false, groups: ["Uni"], hosts: ["Manuel"], name: "Felix", accepted: true },
+  { _id: "3", video: false, groups: ["Uni"], hosts: ["Manuel"], name: "Laura", accepted: null },
+  { _id: "4", video: false, groups: ["Uni"], hosts: ["Manuel"], name: "Sophie", accepted: false, companion: true },
+  { _id: "5", video: false, groups: ["Uni"], hosts: ["Manuel"], name: "Max" },
 ];
 
 test("summary counts accepted guests and only their companions", () => {
@@ -25,13 +25,13 @@ test("search combines with accepted filter without mutating guests", () => {
 });
 
 test("group names cannot collide with the unassigned filter", () => {
-  const grouped: Guest = { _id: "6", name: "Alex", groups: ["__unassigned"], hosts: ["David"] };
+  const grouped: Guest = { _id: "6", video: false, name: "Alex", groups: ["__unassigned"], hosts: ["David"] };
 
   assert.deepEqual(filterGuests([grouped], "", "all", "__unassigned"), [grouped]);
 });
 
 test("group and host filters combine with RSVP and support shared friends", () => {
-  const shared: Guest = { _id: "6", name: "Alex", groups: ["Uni"], hosts: ["Manuel", "David"], accepted: true };
+  const shared: Guest = { _id: "6", video: false, name: "Alex", groups: ["Uni"], hosts: ["Manuel", "David"], accepted: true };
 
   assert.deepEqual(filterGuests([shared], "ALEX", "accepted", "Uni", "David"), [shared]);
   assert.deepEqual(filterGuests([shared], "", "declined", "Uni", "David"), []);

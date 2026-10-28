@@ -6,7 +6,7 @@ export function newGuest(value: unknown) {
   const assignments = guestAssignments(value);
   if (!name || name.length > 100 || !assignments) return;
 
-  return { name, ...assignments, invited: false, accepted: null, checked_in: null, companion: false, points: 0 };
+  return { name, ...assignments, invited: false, accepted: null, checked_in: null, companion: false, points: 0, video: false };
 }
 
 export type NewGuest = NonNullable<ReturnType<typeof newGuest>>;

@@ -5,10 +5,34 @@ import type { Guest } from "../domain/guest";
 import { guestAssignments, type Host } from "../domain/assignments";
 import { newGuest } from "../domain/new-guest";
 import { filterGuests, guestSummary, type GuestFilter } from "../domain/guest-list";
-import { copyInvitation, invitationLink, submitAssignments, submitGuest } from "../infra/browser";
+import { copyInvitation, invitationLink, submitAssignments, submitGuest, submitVideo } from "../infra/browser";
+import { filterGuestVideos, type VideoFilter } from "../domain/guest-videos";
 
 export function useGuestManagement(guests: Guest[], onSaved: () => void) {
   const [search, setSearch] = useState("");
+  const [view, setView] = useState("guests");
+  const [videoFilter, setVideoFilter] = useState<VideoFilter>("all");
+  const [savedVideos, setSavedVideos] = useState<Record<string, boolean>>({});
+  const [videoPending, setVideoPending] = useState(false);
+  const [videoError, setVideoError] = useState("");
+  const savingVideo = useRef(false);
+  const currentGuests = guests.map(guest => guest._id in savedVideos ? { ...guest, video: savedVideos[guest._id] } : guest);
+  const videoCount = currentGuests.filter(guest => guest.video).length;
+  async function toggleVideo(guest: Guest) {
+    if (savingVideo.current) return;
+    savingVideo.current = true;
+    setVideoPending(true);
+    setVideoError("");
+    try {
+      await submitVideo(guest._id, !guest.video);
+      setSavedVideos(current => ({ ...current, [guest._id]: !guest.video }));
+    } catch {
+      setVideoError("Video-Status konnte nicht gespeichert werden. Bitte versuche es erneut.");
+    } finally {
+      savingVideo.current = false;
+      setVideoPending(false);
+    }
+  }
   const [filter, setFilter] = useState<GuestFilter>("all");
   const [group, setGroup] = useState("");
   const [host, setHost] = useState("");
@@ -56,7 +80,7 @@ export function useGuestManagement(guests: Guest[], onSaved: () => void) {
     try {
       if (editor === "new") await submitGuest(created!);
       else await submitAssignments(editor._id, assignments);
-      if (editor === "new") { setSearch(""); setFilter("all"); setGroup(""); setHost(""); }
+      if (editor === "new") { setSearch(""); setFilter("all"); setVideoFilter("all"); setGroup(""); setHost(""); }
       setNotice(editor === "new" ? "Gast hinzugefügt." : "");
       setEditor(null);
       onSaved();
@@ -67,7 +91,9 @@ export function useGuestManagement(guests: Guest[], onSaved: () => void) {
     }
   }
   return {
-    guests: filterGuests(guests, search, filter, group, host), summary: guestSummary(guests),
+    guests: view === "videos" ? filterGuestVideos(currentGuests, search, videoFilter) : filterGuests(currentGuests, search, filter, group, host),
+    summary: guestSummary(guests),
+    view, setView, videoFilter, setVideoFilter, videoCount, videoPending, videoError, toggleVideo,
     search, setSearch, filter, setFilter, group, setGroup, host, setHost,
     editor, open, close, name, setName, groups, setGroups, hosts, setHosts,
     groupName, setGroupName, availableGroups, addGroup, pending, error, notice,

@@ -19,6 +19,10 @@ export function submitAssignments(id: string, assignments: GuestAssignments) {
   return save("/api/guests/assignments", { id, ...assignments }, 200);
 }
 
+export function submitVideo(id: string, video: boolean) {
+  return save("/api/guests/video", { id, video }, 200);
+}
+
 export function invitationLink(id: string) {
   return new URL("/invite?id=" + encodeURIComponent(id), window.location.origin).href;
 }

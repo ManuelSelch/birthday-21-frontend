@@ -13,6 +13,9 @@ export function GuestManagement({ guests, logout }: { guests: Guest[]; logout: R
   const state = useGuestManagement(guests, () => startRefresh(() => router.refresh()));
 
   return <GuestListView guests={state.guests} summary={state.summary} search={state.search} filter={state.filter}
+    view={state.view} onViewChange={state.setView} videoFilter={state.videoFilter} onVideoFilterChange={state.setVideoFilter}
+    videoCount={state.videoCount} videoPending={state.videoPending} videoError={state.videoError}
+    onToggleVideo={guest => { void state.toggleVideo(guest); }}
     group={state.group} host={state.host} availableGroups={state.availableGroups} onSearchChange={state.setSearch}
     onFilterChange={state.setFilter} onGroupChange={state.setGroup} onHostChange={state.setHost}
     onCreate={() => state.open("new")} onEdit={state.open} onRefresh={() => window.location.reload()}

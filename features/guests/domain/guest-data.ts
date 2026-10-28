@@ -12,7 +12,7 @@ export function parseGuestList(value: unknown): GuestListResult {
     const id = record && "_id" in record && typeof record._id === "string" ? record._id : "";
     const name = record && "name" in record && typeof record.name === "string" ? record.name : "";
     const assignments = guestAssignments(record);
-    if (!id || !name.trim() || !assignments) {
+    if (!id || !name.trim() || !assignments || !record || !("video" in record) || typeof record.video !== "boolean") {
       invalidIds.push(id || `#${index + 1}`);
       return;
     }
