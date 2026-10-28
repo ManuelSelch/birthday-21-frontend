@@ -30,10 +30,10 @@ export class AddGuestsDriver {
   async thenGuestAppears(name: string, count: number) {
     const row = this.row(name);
     await expect(row).toBeVisible();
-    await expect(row.locator("td").nth(3)).toHaveText("Offen");
+    await expect(row.locator("td").nth(4)).toHaveText("Offen");
     await expect(row.getByRole("cell").last()).toContainText("Noch nicht erfasst");
     const existing = this.row("Alex Beispiel");
-    await expect(existing.locator("td").nth(3)).toHaveText("Abgesagt");
+    await expect(existing.locator("td").nth(4)).toHaveText("Abgesagt");
     await expect(existing.getByRole("cell").last()).toContainText("Nicht eingecheckt");
     await this.thenTotalGuests(count);
     await expect(this.page.getByLabel("Zusagen: 0", { exact: true })).toBeVisible();
@@ -90,15 +90,15 @@ export class AddGuestsDriver {
   }
   async thenCompactInvitationLinksAreVisible() {
     const table = this.page.getByRole("table");
-    await expect(table.locator("thead th")).toHaveText(["Gast", "Gruppen", "Hosts", "Status", "Check-in"]);
+    await expect(table.locator("thead th")).toHaveText(["Gast", "Gruppen / Hosts", "Gruppen", "Hosts", "Status", "Check-in"]);
     await expect(table.getByText("+1 Begleitung", { exact: true })).toHaveCount(0);
     await expect(this.details("Alex Beispiel")).toHaveCSS("color", "rgb(217, 189, 134)");
     await expect(this.details("Anna Weber")).toHaveCSS("color", "rgb(174, 182, 198)");
     await expect(table.getByRole("columnheader").last()).toHaveCSS("text-align", "center");
     await expect(this.page.getByText(/\d+ von \d+ Gästen/)).toHaveCount(0);
-    await expect(this.row("Alex Beispiel").locator("td").nth(1)).toHaveText("—");
     await expect(this.row("Alex Beispiel").locator("td").nth(2)).toHaveText("—");
-    await expect(this.details("Alex Beispiel").getByText("—", { exact: true })).toHaveCount(2);
+    await expect(this.row("Alex Beispiel").locator("td").nth(3)).toHaveText("—");
+    await expect(this.details("Alex Beispiel")).toHaveText("Alex Beispiel");
     await expect(this.page.getByRole("button", { name: "Auswählen", exact: true })).toHaveCount(0);
     await expect(table.getByRole("checkbox")).toHaveCount(0);
     for (const width of [320, 375, 390, 640, 1280]) {
@@ -106,7 +106,30 @@ export class AddGuestsDriver {
       expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
       const region = this.page.getByRole("region", { name: "Gästetabelle" });
       expect(await region.evaluate(element => element.scrollWidth <= element.clientWidth)).toBe(true);
-      await expect(table.getByRole("columnheader")).toHaveCount(width < 700 ? 3 : 5);
+      await expect(table.getByRole("columnheader")).toHaveText(width < 700
+        ? ["Gast", "Gruppen / Hosts", "Status", "Check-in"]
+        : ["Gast", "Gruppen", "Hosts", "Status", "Check-in"]);
+      if (width < 700) {
+        await expect(this.details("Anna Weber").locator("strong")).toHaveCSS("font-size", "15px");
+        const assignments = this.row("Anna Weber").getByRole("cell").nth(1);
+        await expect(assignments).toContainText("Uni");
+        await expect(assignments).toContainText("Manuel, Marco");
+        await expect(assignments).toHaveCSS("font-size", "14px");
+        for (const [name, status, color] of [
+          ["Anna Weber", "Zugesagt", "rgb(89, 198, 164)"],
+          ["Alex Beispiel", "Abgesagt", "rgb(240, 128, 128)"],
+          ["Laura Fischer", "Offen", "rgb(174, 182, 198)"],
+        ]) {
+          const indicator = this.row(name).getByRole("img", { name: status, exact: true });
+          await expect(indicator).toBeVisible();
+          await expect(indicator).toHaveCSS("width", "14px");
+          await expect(indicator).toHaveCSS("height", "14px");
+          await expect(indicator).toHaveCSS("background-color", color);
+          await expect(this.row(name).getByText(status, { exact: true })).not.toBeVisible();
+        }
+      } else {
+        await expect(this.row("Anna Weber").getByText("Zugesagt", { exact: true })).toBeVisible();
+      }
       const cell = this.row("Anna Weber").getByRole("cell").last();
       const cellBounds = await cell.boundingBox();
       const iconBounds = await cell.locator("svg").boundingBox();

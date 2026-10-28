@@ -1,4 +1,4 @@
-.screen { --gold: #d9bd86; --muted: #aeb6c6; --border: #ffffff20; margin-block-start: calc(-1 * var(--mantine-spacing-lg)); min-height: 100svh; color: #f7f3ed; background: #0d1220; padding: 0 18px 30px; font-size: 14px; }
+.screen { --gold: #d9bd86; --muted: #aeb6c6; --border: #ffffff20; margin-block-start: calc(-1 * var(--mantine-spacing-lg)); min-height: 100svh; color: #f7f3ed; background: #0d1220; padding: 0 12px 30px; font-size: 14px; }
 .screen, .screen * { box-sizing: border-box; }
 .topbar { max-width: 700px; margin: auto; height: 72px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .brand { font: 22px Georgia, serif; }
@@ -22,17 +22,22 @@
 .guestPanel { margin-top: 22px; }
 .tableScroll { overflow-x: auto; }
 .tableScroll table { width: 100%; border-collapse: collapse; table-layout: fixed; text-align: left; }
-.tableScroll th { font-size: 10px; font-weight: 400; color: var(--muted); padding: 12px 0; border-block: 1px solid var(--border); }
-.tableScroll td { border-bottom: 1px solid var(--border); padding: 10px 0; font-size: 12px; color: var(--muted); vertical-align: middle; overflow-wrap: anywhere; }
-.tableScroll .rsvpColumn { width: 77px; padding-left: 5px; }
-.tableScroll .checkinColumn { width: 56px; text-align: center; }
+.tableScroll th { font-size: 12px; font-weight: 400; color: var(--muted); padding: 12px 0; border-block: 1px solid var(--border); }
+.tableScroll td { border-bottom: 1px solid var(--border); padding: 14px 0; font-size: 14px; color: var(--muted); vertical-align: middle; overflow-wrap: anywhere; }
+.tableScroll .rsvpColumn { width: 44px; text-align: center; }
+.tableScroll .checkinColumn { width: 49px; text-align: center; }
+.tableScroll .mobileColumn { width: 32%; padding-inline: 6px; }
+.combinedAssignment { display: flex; flex-direction: column; gap: 6px; line-height: 1.45; overflow-wrap: normal; }
+.mobileStatus { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--muted); vertical-align: middle; }
+.mobileStatus[data-status="accepted"] { background: #59c6a4; }
+.mobileStatus[data-status="declined"] { background: #f08080; }
+.tableScroll .desktopStatus { display: none; }
 .checkinColumn > span { display: flex; align-items: center; justify-content: center; }
 .checkinColumn svg { display: block; }
 .desktopColumn { display: none; }
 .guestDetails { display: block; width: 100%; min-height: 44px; padding: 0 8px 0 0; border: 0; background: transparent; color: var(--gold); text-align: left; cursor: pointer; font: inherit; }
 .guestDetails[data-invited="true"] { color: var(--muted); }
-.guestDetails strong { font-size: 13px; line-height: 1.4; font-weight: 500; }
-.mobileMeta { display: flex; flex-direction: column; gap: 2px; font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+.guestDetails strong { font-size: 15px; line-height: 1.4; font-weight: 500; }
 .groupLabel { color: var(--gold); }
 .tableScroll :global(.mantine-Badge-root) { background: transparent; border: 0; padding: 0; text-transform: none; font-size: 10px; font-weight: 400; color: #c4cbd7; }
 .checked { color: #a9d9c8; }
@@ -58,13 +63,17 @@
 .screen :is(button,input,a):focus-visible, .sheet :is(button,input,a):focus-visible { outline: 2px solid #d9bd86; outline-offset: 3px; }
 @media (max-width: 640px) { .headerActions .eyebrow { display: none; } }
 @media (min-width: 700px) {
+  .screen { padding-inline: 18px; }
   .main { padding-top: 40px; }
   .heading h1 { font-size: 44px; }
   .toolbar { grid-template-columns: 1fr 1.3fr; }
   .filters { grid-column: 1 / -1; max-width: 360px; }
   .tableScroll .desktopColumn { display: table-cell; width: 140px; padding-right: 12px; }
-  .tableScroll .rsvpColumn { width: 85px; }
-  .mobileMeta { display: none; }
+  .tableScroll .rsvpColumn { width: 85px; padding-left: 5px; text-align: left; }
+  .tableScroll .checkinColumn { width: 56px; }
+  .tableScroll .mobileColumn, .mobileStatus { display: none; }
+  .tableScroll .desktopStatus { display: inline-flex; }
+  .tableScroll th { font-size: 10px; }
   .guestDetails strong { font-size: 14px; }
-  .tableScroll td { padding-block: 8px; }
+  .tableScroll td { padding-block: 8px; font-size: 12px; }
 }
