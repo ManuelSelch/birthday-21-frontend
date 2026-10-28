@@ -73,6 +73,7 @@
 }
 .invitation .secondary:hover { background: #ffffff12; }
 .invitation .cancel { color: var(--invitation-muted); font-size: 11px; min-height: 44px; }
+.invitation .cancel:disabled { background: transparent; }
 .invitation .companionChoice {
   display: flex;
   align-items: center;

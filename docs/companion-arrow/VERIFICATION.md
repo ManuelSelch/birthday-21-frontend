@@ -11,4 +11,10 @@
 - Full browser suite: 15 passed, 4 unrelated add-guests tests failed. Their unchanged driver expects the textbox name `Name`; the unchanged form exposes `Name des Gastes`. No guest-management changes made.
 - Existing desktop screenshot inspected; row matches approved composition inside the actual invitation. Browser layout assertions pass for mobile widths.
 - Dependency installation reported 21 existing audit findings (including one critical); dependency upgrades are outside this task.
+## Disabled cancellation flash fix
+
+- Regression assertion reproduced the light disabled background (`rgb(233, 236, 239)`) during a held companion save.
+- Scoped disabled-background override keeps cancellation transparent and still disabled.
+- After fix: all 8 invitation browser tests, typecheck, scoped test-driver lint and diff whitespace check passed. Build and full suites were not rerun for this CSS-only fix.
+
 - No push or deployment.
