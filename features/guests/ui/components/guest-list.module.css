@@ -14,8 +14,10 @@
 .filterPair > * { min-width: 0; }
 .screen :global(.mantine-Input-input), .sheet :global(.mantine-Input-input) { background: #111a2a; border-color: #ffffff25; color: #f7f3ed; }
 .screen :global(.mantine-Input-input)::placeholder, .sheet :global(.mantine-Input-input)::placeholder { color: #aeb6c6; opacity: 1; }
-.screen :global(.mantine-Button-root)[data-variant="filled"]:not(:disabled), .sheet :global(.mantine-Button-root)[data-variant="filled"]:not(:disabled) { background: #d9bd86; color: #191822; }
-.screen :global(.mantine-Button-root)[data-variant="subtle"], .sheet :global(.mantine-Button-root)[data-variant="subtle"] { color: #d9bd86; }
+.screen :global(.mantine-Button-root)[data-variant="filled"]:not(:disabled) { background: #d9bd86; color: #191822; }
+.screen :global(.mantine-Button-root)[data-variant="subtle"] { color: #d9bd86; }
+.sheet :global(.mantine-Button-root)[data-variant="filled"]:not(:disabled) { background: #426a9a; color: #fff; }
+.sheet :global(.mantine-Button-root)[data-variant="subtle"] { color: #acc7e8; }
 .filters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; background: #111a2a; padding: 4px; border-radius: 8px; margin-top: 3px; }
 .filters button { padding: 10px 2px; border: 0; border-radius: 5px; background: transparent; color: var(--muted); cursor: pointer; font: inherit; font-size: 12px; min-height: 40px; }
 .filters button[aria-pressed="true"] { color: #f7f3ed; background: #293348; }
@@ -43,9 +45,11 @@
 .secondaryLinks { display: flex; align-items: center; gap: 16px; font-size: 12px; }
 .secondaryLinks a { color: var(--muted); text-decoration: none; }
 .secondaryLinks a:hover { color: var(--gold); text-decoration: underline; }
-.sheet { --gold: #d9bd86; --muted: #aeb6c6; background: #111a2a; border-radius: 20px 20px 0 0; color: #f7f3ed; }
-.sheetHeader { background: #111a2a; padding: 23px 20px 10px; }
-.sheetTitle { font: 25px Georgia, serif; }
+.sheet { --muted: #aeb6c6; --mantine-primary-color-filled: #426a9a; --mantine-primary-color-filled-hover: #365a85; --mantine-primary-color-light: #426a9a26; --mantine-primary-color-light-hover: #426a9a40; --mantine-primary-color-light-color: #acc7e8; background: #111a2a; border-radius: 20px 20px 0 0; color: #f7f3ed; }
+.sheetHeader { background: #111a2a; width: min(100%, 572px); margin-inline: auto; padding: 26px 16px 20px; gap: 16px; }
+.sheetTitle { font: 600 30px/1.2 Arial, Helvetica, sans-serif; color: #f1f4fa; overflow-wrap: anywhere; }
+.sheetClose { flex-shrink: 0; align-self: flex-start; color: #aeb6c6; }
+.sheetBody { padding-inline: 16px; }
 .sheetContent { max-width: 540px; margin: auto; display: flex; flex-direction: column; gap: 20px; padding: 0 4px max(22px, env(safe-area-inset-bottom)); }
 .newGroup { display: flex; gap: 8px; margin-top: -10px; }
 .newGroup > :first-child { flex: 1; min-width: 0; }
@@ -55,7 +59,8 @@
 .guestUtilities { display: grid; gap: 12px; padding-bottom: 20px; border-bottom: 1px solid #ffffff20; }
 .hint { font-size: 12px; color: #aeb6c6; margin: 0; }
 .error { font-size: 13px; color: #ffb4b4; margin: 0; }
-.screen :is(button,input,a):focus-visible, .sheet :is(button,input,a):focus-visible { outline: 2px solid #d9bd86; outline-offset: 3px; }
+.screen :is(button,input,a):focus-visible { outline: 2px solid #d9bd86; outline-offset: 3px; }
+.sheet :is(button,input,a):focus-visible { outline: 2px solid #acc7e8; outline-offset: 3px; }
 @media (max-width: 640px) { .headerActions .eyebrow { display: none; } }
 @media (min-width: 700px) {
   .main { padding-top: 40px; }

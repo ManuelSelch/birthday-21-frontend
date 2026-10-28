@@ -19,12 +19,11 @@ export function GuestEditor(props: GuestEditorProps) {
   const existing = props.editor && props.editor !== "new" ? props.editor : null;
   return <Drawer opened={props.editor !== null} onClose={props.onClose} position="bottom" size="auto"
     title={existing ? existing.name : "Gast hinzufügen"} closeOnClickOutside={!props.pending} closeOnEscape={!props.pending}
-    withCloseButton={!props.pending} classNames={{ content: styles.sheet, header: styles.sheetHeader, title: styles.sheetTitle }}>
+    withCloseButton={!props.pending} classNames={{ content: styles.sheet, header: styles.sheetHeader, title: styles.sheetTitle, close: styles.sheetClose, body: styles.sheetBody }}>
     <form className={styles.sheetContent} onSubmit={event => { event.preventDefault(); props.onSubmit(); }}>
       {existing ? <div className={styles.guestUtilities}>
         <span className={existing.checked_in ? styles.checked : styles.muted}>{existing.checked_in && <IconCheck size={14}/>} {existing.checked_in ? "Eingecheckt" : "Nicht eingecheckt"}</span>
         <Button type="button" variant="default" size="md" leftSection={<IconCopy size={17}/>} onClick={props.onCopy}>Einladungslink kopieren</Button>
-        <TextInput label="Einladungslink" readOnly value={props.link}/>
         <Button component="a" href={props.link} variant="subtle" leftSection={<IconExternalLink size={16}/>}>Einladung öffnen</Button>
         {props.copyMessage && <p className={styles.hint} role="status">{props.copyMessage}</p>}
       </div> : <TextInput label="Name" placeholder="Vor- und Nachname" data-autofocus size="md" maxLength={100}

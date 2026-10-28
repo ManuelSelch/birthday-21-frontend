@@ -30,6 +30,23 @@ test("individual assignment edits persist and invitation links stay accessible",
   await app.thenInvitationCanBeCopied("Alex Beispiel");
 });
 
+test("guest popups use muted blue actions and a prominent form-aligned title on desktop and mobile", async ({ page }) => {
+  const app = new AddGuestsDriver(page);
+  await app.open();
+  await app.editGuest("Alex Beispiel");
+
+  await app.thenPopupMatchesApprovedStyle("Alex Beispiel", "Speichern");
+  await app.toggleHost("Manuel");
+  await app.thenSelectedHostIsBlue("Manuel");
+  await app.useMobileViewport();
+  await app.thenPopupMatchesApprovedStyle("Alex Beispiel", "Speichern");
+  await app.closePopup();
+
+  await app.enterName("New Guest");
+
+  await app.thenPopupMatchesApprovedStyle("Gast hinzufügen", "Gast hinzufügen");
+});
+
 test("group, host, RSVP and search filters combine, including unassigned", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();
