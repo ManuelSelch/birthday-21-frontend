@@ -31,7 +31,7 @@ export function ProgrammePreview() {
   }
   return <>
     <div className="review-toolbar">
-      <div><strong>Programm · R6</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
+      <div><strong>Programm · R7</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
       <SegmentedControl aria-label="Designvariante" value={variant} onChange={changeVariant} data={[{ value: 'timeline', label: 'A · Timeline' }, { value: 'editorial', label: 'B · Programmheft' }]} />
     </div>
     <a className="skip-link" href="#programme">Zum Programm</a>
@@ -43,7 +43,6 @@ export function ProgrammePreview() {
       <main id="programme">
         <ProgrammeHeader />
         <section className="schedule" aria-label="Ablauf des Abends">
-          <div className="schedule-heading"><span className="eyebrow">DER ABEND IM ÜBERBLICK</span></div>
           <ol className="programme-list">{entries.map((entry) => <ProgrammeItem key={entry.time} entry={entry} />)}</ol>
         </section>
         <footer className="page-footer"><span>Wir freuen uns auf euch.</span><p>Manuel, Marco & David</p></footer>
