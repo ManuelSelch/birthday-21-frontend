@@ -1,0 +1,11 @@
+# Login UI — Midnight Gala
+- Revision: 1.
+- Review status: approved for implementation.
+- Scope: restyle only the shared-password login to match the approved admin guest list. Authentication behavior stays unchanged.
+- Layout: centered compact panel; navy background #0d1220, panel #111827, gold #d9bd86, subtle borders, Georgia serif heading, small uppercase birthday label. Keep the existing minimal header and lock mark; no introductory copy or footer in production.
+- Mobile: fluid panel with 18px page gutters; smaller heading and padding.
+- Interactions: password visibility, keyboard submit, disabled/loading button, semantic error. No animation added.
+- Review states: default, ?state=error, ?state=loading, ?state=success.
+- Fake behavior: demo succeeds locally; other passwords show a generic error. No API, credentials, persistence or session. Success message and review links are mockup-only.
+- Previous approved blue login remains unchanged in ../admin-login.
+- Approval: user approved revision 1 with “perfect. implement”. Approved source preserved; agent-owned preview stopped and process/listener shutdown verified.

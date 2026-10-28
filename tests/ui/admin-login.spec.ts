@@ -36,6 +36,19 @@ test("login fits a narrow screen and ignores unsafe return destinations", async 
   await app.thenGuestsAreVisible();
 });
 
+test("login matches the Midnight Gala admin styling on desktop and mobile", async ({ page }) => {
+  const app = new BirthdayAdminDriver(page);
+  await app.openLogin();
+
+  await app.thenLoginHasGalaStyling();
+  await app.togglePasswordVisibility();
+  await app.thenPasswordIsVisible();
+
+  await app.useMobileViewport();
+  await app.thenLoginHasGalaStyling();
+  await app.thenLoginFitsViewport();
+});
+
 test("points uses the authenticated POST endpoint", async ({ page }) => {
   const app = new BirthdayAdminDriver(page);
   await app.resetParty();

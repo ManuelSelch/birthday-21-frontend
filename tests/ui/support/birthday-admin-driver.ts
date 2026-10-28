@@ -57,6 +57,23 @@ export class BirthdayAdminDriver {
     await expect(this.page.getByRole("button", { name: "Anmelden", exact: true })).toBeInViewport();
     expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   }
+  async thenLoginHasGalaStyling() {
+    const main = this.page.getByRole("main");
+    const heading = this.page.getByRole("heading", { name: "Admin-Anmeldung" });
+    const submit = this.page.getByRole("button", { name: "Anmelden", exact: true });
+
+    await expect(main).toHaveCSS("background-color", "rgb(13, 18, 32)");
+    await expect(heading).toHaveCSS("font-family", "Georgia, serif");
+    await expect(heading).toHaveCSS("font-weight", "400");
+    await expect(submit).toHaveCSS("background-color", "rgb(217, 189, 134)");
+    await expect(this.page.getByLabel(/Admin-Passwort/)).toHaveAttribute("autocomplete", "current-password");
+  }
+  async togglePasswordVisibility() {
+    await this.page.getByRole("button", { name: "Passwort anzeigen oder verbergen" }).click();
+  }
+  async thenPasswordIsVisible() {
+    await expect(this.page.getByLabel(/Admin-Passwort/)).toHaveAttribute("type", "text");
+  }
   async savePoints(points: number) {
     await this.page.getByPlaceholder("new").fill(String(points));
     await this.page.getByRole("button", { name: "Save", exact: true }).click();
