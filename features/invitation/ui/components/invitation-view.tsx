@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { IconArrowUpRight } from "@tabler/icons-react";
 import { EventDetails } from "./event-details";
 import { GuestResponse, type GuestResponseProps } from "./guest-response";
 import { InvitationHero } from "./invitation-hero";
@@ -11,7 +13,10 @@ export function InvitationView(props: GuestResponseProps) {
         <InvitationHero />
         <InvitationHosts />
         <div className={styles.content}>
-          <EventDetails />
+          <div>
+            <EventDetails />
+            <Link href={props.links.timeline} className={styles.programmeLink}>Programm ansehen <IconArrowUpRight size={17} aria-hidden="true" /></Link>
+          </div>
           <GuestResponse {...props} />
         </div>
       </div>

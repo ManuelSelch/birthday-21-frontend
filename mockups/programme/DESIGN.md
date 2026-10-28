@@ -1,10 +1,10 @@
 # Programme page · R8
-- Status: in review. No approval for production implementation.
+- Status: approved for implementation. User: “okay UI looks good. implement it. I called the cockpit collection \"timeline\"”. Approval covers timeline A with simpler wording proposed in chat.
 - Goal: guest-facing evening programme for an elegant, relaxed birthday gala with 45–70 guests.
 - Existing language: Midnight Gala navy/gold, serif headings, German copy, readable mobile typography.
 - Two concepts at /programme/?variant=timeline (A) and ?variant=editorial (B).
-- Selected direction: A, split introduction / connected timeline on desktop; single column on mobile. Still iterating, not approved for implementation.
-- Header simplified to “Ein Abend.” with “Schön, dass du dabei bist.”; “Viele Lieblingsmomente.”, “Unser Programm” and “Das haben wir mit euch vor.” removed at user request.
+- Approved direction: A, split introduction / connected timeline on desktop; single column on mobile.
+- Reviewed R8 source retains “Ein Abend.”; user subsequently approved the proposed simpler copy including “Programm” heading and “Schön, dass du dabei bist.”. “Viele Lieblingsmomente.”, “Unser Programm” and “Das haben wir mit euch vor.” remain removed.
 - B: centered introduction and warm paper programme within the navy site.
 - No “21. Geburtstag” metadata beneath the introduction, no timing disclaimer beneath the timeline, and no “DER ABEND IM ÜBERBLICK” section heading or its decorative sparkles.
 - Entries are static: time, chapter, title and short summary. No plus/minus buttons, expandable details or clickable rows. Variant selector updates the query string. Reduced motion respected.
@@ -12,6 +12,9 @@
 - Fake content: remaining times and descriptions are illustrative. No actual date/location, automatic live status, voting, backend, authentication, or persistence.
 - Surprise details and performers omitted. Confirm whether the retrospective video should be named publicly or kept a surprise.
 - Back link opens the existing invitation-details mockup, not production.
-- Proposed eventual source: published Cockpit programme entries. No model/API work in this mockup.
-- Open questions: final heading/copy and actual order/times.
+- Implementation contract confirmed: Cockpit collection timeline; title, subtitle, description, start (date and time). Subtitle is the smaller label above the title. All entries are guest-facing; no published/highlight fields.
+- Route /timeline, linked from invitations; retain invitation ID for return navigation. Use simpler proposed titles/descriptions and “Programm” page heading.
+- Actual content/order/times are managed in Cockpit, not seeded from the mockup. Small subtitle labels retained by explicit confirmation; no highlight field or hardcoded show emphasis in production.
+- Preview stopped and owned listener/process shutdown verified before production changes. Approved mockup source is preserved.
+- Verification: 64 unit/integration tests passed; all 7 new timeline browser tests passed (full browser suite: 53/54, unchanged admin-boundaries driver fails on relative redirect URL); typecheck, production build and scoped ESLint passed.
 - Review: user-led browser review; no automated visual/interaction verification requested.

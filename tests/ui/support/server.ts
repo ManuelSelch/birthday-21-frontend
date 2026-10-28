@@ -5,10 +5,14 @@ import { appPort, cockpitPort, cockpitOrigin } from "./ports";
 let guest: Record<string, unknown>;
 let requests = 0;
 let guests: Record<string, unknown>[];
+let timeline: unknown = [];
+let timelineFails = false;
 function reset() {
   guest = { _id: "guest-1", name: "Alex Beispiel", groups: [], hosts: [], accepted: false, invited: false, companion: false, checked_in: false, points: 0 };
   guests = [guest];
   requests = 0;
+  timeline = [];
+  timelineFails = false;
 }
 reset();
 
@@ -24,10 +28,23 @@ const cockpit = createServer(async (request, response) => {
     response.end("{}");
     return;
   }
+  if (request.url === "/__test/timeline" && request.method === "POST") {
+    let body = "";
+    for await (const chunk of request) body += chunk;
+    const data = JSON.parse(body);
+    timeline = data.entries;
+    timelineFails = data.fail === true;
+    response.end("{}");
+    return;
+  }
   requests += 1;
   if (request.headers["api-key"] !== "isolated-test-key") { response.writeHead(401).end("{}"); return; }
 
-  if (request.url?.startsWith("/api/content/items/guests")) response.end(JSON.stringify(guests));
+  if (request.url === "/api/content/items/timeline") {
+    if (timelineFails) response.writeHead(503).end(JSON.stringify({ error: "private upstream detail" }));
+    else response.end(JSON.stringify(timeline));
+  }
+  else if (request.url?.startsWith("/api/content/items/guests")) response.end(JSON.stringify(guests));
   else if (request.url === "/api/content/item/guests/guest-1") response.end(JSON.stringify(guest));
   else if (request.url === "/api/content/item/guests" && request.method === "POST") {
     let body = "";

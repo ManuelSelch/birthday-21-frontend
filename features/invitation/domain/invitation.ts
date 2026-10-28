@@ -28,6 +28,7 @@ export function ticketLinks(id: string) {
   const encoded = encodeURIComponent(id);
   return {
     invitation: `https://geburtstag.manuelselch.de/invite?id=${encoded}`,
+    timeline: `/timeline?id=${encoded}`,
     wallet: `https://geburtstag.manuelselch.de/api/apple-pass?id=${encoded}`,
     whatsapp: "https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt",
   };
