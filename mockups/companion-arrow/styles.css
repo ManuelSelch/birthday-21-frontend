@@ -19,7 +19,9 @@ h1 { font: 400 32px/1.25 Georgia, serif; margin: 0 0 26px; }
   transition: background 160ms ease, border-color 160ms ease;
 }
 .companion-choice:hover { background: #1a2a43; border-color: #9fc6ff90; }
-.companion-choice[data-selected="true"] { background: #1b304c; border-color: #9fc6ff9c; }
+.companion-choice[data-selected="true"] { background: #142d29; border-color: #69d6a075; }
+.companion-choice[data-selected="true"]:hover { background: #19382f; }
+.companion-choice[data-selected="true"] .choice-icon { color: #88e5b2; }
 .companion-choice:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
 .choice-copy { display: grid; gap: 6px; }
 .choice-title { font-size: 17px; line-height: 1.4; }

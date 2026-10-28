@@ -26,7 +26,46 @@ export class InvitationDriver {
     await this.page.keyboard.press("Enter");
   }
   async cancel() { await this.page.getByRole("button", { name: "Teilnahme absagen" }).click(); }
-  async bringCompanion() { await this.page.getByText("Ich bringe eine Begleitung mit", { exact: true }).click(); }
+  private companionChoice() { return this.page.getByRole("button", { name: "Ich bringe eine Begleitung mit", exact: true }); }
+  async bringCompanion() { await this.companionChoice().click(); }
+  async toggleCompanionWithKeyboard() {
+    await this.companionChoice().focus();
+    await this.page.keyboard.press("Space");
+  }
+  async thenCompanionChoiceFits() {
+    const choice = this.companionChoice();
+    await expect(choice).toHaveAttribute("aria-pressed", "false");
+    await expect(choice).toContainText("Zu zweit feiern");
+    const box = await choice.boundingBox();
+    expect(box!.height).toBeGreaterThanOrEqual(88);
+    expect(box!.x).toBeGreaterThanOrEqual(0);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(this.page.viewportSize()!.width);
+    await expect(choice.locator("svg")).toHaveAttribute("width", "32");
+    await expect(choice.locator("svg")).toHaveClass(/icon-arrow-right/);
+  }
+  async holdCompanionSave() {
+    await this.page.route("**/api/companion?*", (route: Route) => {
+      return new Promise<void>(resolve => {
+        this.release = async () => { await route.continue(); resolve(); };
+      });
+    });
+  }
+  async thenCompanionSaving() {
+    await expect(this.companionChoice()).toBeDisabled();
+    await expect(this.companionChoice()).toHaveAttribute("aria-pressed", "false");
+    await expect(this.page.getByRole("button", { name: "Teilnahme absagen" })).toBeDisabled();
+  }
+  async finishCompanionSave() {
+    await expect.poll(() => !!this.release).toBe(true);
+    await this.release!();
+  }
+  async thenCompanionRemoved() {
+    await this.thenCompanionUnchanged();
+    await expect.poll(async () => {
+      const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
+      return (await response.json()).guest.companion;
+    }).toBe(false);
+  }
   async thenPending() {
     await expect(this.page.getByRole("heading", { name: "Alex Beispiel, bist du dabei?" })).toBeVisible();
     await expect(this.page.getByRole("button", { name: "Ich bin dabei", exact: true })).toBeEnabled();
@@ -37,13 +76,19 @@ export class InvitationDriver {
     await expect(this.page.getByRole("button", { name: "Teilnahme absagen" })).toBeEnabled();
   }
   async thenCompanionSaved() {
-    await expect(this.page.getByRole("switch")).toBeChecked();
+    await this.page.mouse.move(0, 0);
+    const choice = this.companionChoice();
+    await expect(choice).toHaveAttribute("aria-pressed", "true");
+    await expect(choice).toContainText("Deine Begleitung ist dabei");
+    await expect(choice).toHaveCSS("background-color", "rgb(20, 45, 41)");
+    await expect(choice.locator("svg")).toHaveClass(/icon-check/);
+    await expect(choice.locator("svg")).toHaveCSS("color", "rgb(136, 229, 178)");
     await expect.poll(async () => {
       const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
       return (await response.json()).guest.companion;
     }).toBe(true);
   }
-  async thenCompanionUnchanged() { await expect(this.page.getByRole("switch")).not.toBeChecked(); }
+  async thenCompanionUnchanged() { await expect(this.companionChoice()).toHaveAttribute("aria-pressed", "false"); }
   async thenTrackedOnce() {
     await expect.poll(() => this.views).toBe(1);
   }

@@ -35,6 +35,7 @@ for (const width of [320, 375, 1280]) {
     await invite.accept();
 
     await invite.thenAccepted();
+    await invite.thenCompanionChoiceFits();
     await invite.thenActionsAreAdjacent();
     await invite.thenTicketHasGuestLinks();
     await invite.captureLayout();
@@ -62,6 +63,31 @@ test("failed mutations retain saved state and can be retried", async ({ page }) 
   await invite.cancel();
   await invite.thenErrorIsVisible();
   await invite.thenAccepted();
+});
+
+test("companion row supports keyboard toggle, green saved state and removal", async ({ page }) => {
+  const invite = new InvitationDriver(page);
+  await invite.reset();
+  await invite.open();
+  await invite.accept();
+  await invite.thenAccepted();
+  await invite.thenCompanionChoiceFits();
+  await invite.holdCompanionSave();
+
+  await invite.toggleCompanionWithKeyboard();
+
+  await invite.thenCompanionSaving();
+  await invite.finishCompanionSave();
+  await invite.thenCompanionSaved();
+  await invite.restoreActions();
+  await invite.reload();
+  await invite.thenCompanionSaved();
+
+  await invite.toggleCompanionWithKeyboard();
+
+  await invite.thenCompanionRemoved();
+  await invite.reload();
+  await invite.thenCompanionRemoved();
 });
 
 test("attendance stays pending while a save is in progress", async ({ page }) => {
