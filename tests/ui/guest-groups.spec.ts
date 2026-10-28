@@ -44,10 +44,21 @@ test("group, host, RSVP and search filters combine, including unassigned", async
 
   await app.searchFor("");
   await app.filterBy("Alle");
-  await app.filterByGroup("Ohne Gruppe");
-  await app.filterByHost("Ohne Hosts");
+  await app.filterByGroup("—");
+  await app.filterByHost("—");
 
   await app.thenVisibleGuests(["Alex Beispiel", "Laura Fischer"]);
+});
+
+test("missing or malformed Cockpit arrays show actionable record IDs instead of crashing dropdowns", async ({ page }) => {
+  const app = new AddGuestsDriver(page);
+  await app.open();
+
+  for (const [groups, hosts] of [[undefined, undefined], [null, []], [{}, []], ["[]", []], [[null], []], [[], null]]) {
+    await app.useInvalidGuestAssignments(groups, hosts);
+
+    await app.thenGuestDataErrorIsVisible();
+  }
 });
 
 test("failed assignment saves preserve selections and allow retry on mobile", async ({ page }) => {

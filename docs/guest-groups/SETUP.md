@@ -31,5 +31,5 @@ Group choices come from names assigned to existing guests; a new name can be ent
 - Individual editing only; no bulk operations, renaming guests or deletion.
 - Copy/open the real invitation link from guest details.
 - POST /api/guests creates; POST /api/guests/assignments updates only groups/hosts. Both require the existing admin session.
-- No legacy fallback: stored guests and creation requests must provide both arrays.
+- No legacy fallback: stored guests and creation requests must provide both arrays. Invalid/missing stored arrays produce a “Gästedaten prüfen” message listing affected record IDs instead of passing malformed options to Mantine. Correct those records in Cockpit and reload.
 - Cockpit itself is not modified by the frontend implementation or tests.
