@@ -3,7 +3,22 @@ import { BirthdayAdminDriver } from "./birthday-admin-driver";
 import { cockpitOrigin } from "./ports";
 
 export class AddGuestsDriver {
-  constructor(private readonly page: Page) {}
+  private readonly keyWarnings: string[] = [];
+
+  constructor(private readonly page: Page) {
+    page.on("console", message => {
+      if (/Each child in a list|same key/.test(message.text())) this.keyWarnings.push(message.text());
+    });
+  }
+
+  async reloadGuests() {
+    await this.page.reload();
+    await this.page.getByRole("button", { name: "Alle", exact: true }).click();
+  }
+
+  async thenNoKeyWarnings() {
+    expect(this.keyWarnings).toEqual([]);
+  }
 
   async open() {
     const admin = new BirthdayAdminDriver(this.page);
