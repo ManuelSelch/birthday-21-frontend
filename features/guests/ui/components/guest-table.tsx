@@ -13,10 +13,10 @@ export function GuestTable({ guests, total, onEdit }: { guests: Guest[]; total: 
           <td><button className={styles.guestDetails} data-invited={guest.invited === true} onClick={() => onEdit(guest)}
             aria-label={guest.name + " · Details und Einladungslink"}>
             <strong>{guest.name}</strong>
-            <span className={styles.mobileMeta}><span className={styles.groupLabel}>{guest.groups.join(" · ") || "Ohne Gruppe"}</span><span>{guest.hosts.join(", ") || "Ohne Hosts"}</span></span>
+            <span className={styles.mobileMeta}><span className={styles.groupLabel}>{guest.groups.join(" · ") || "—"}</span><span>{guest.hosts.join(", ") || "—"}</span></span>
           </button></td>
-          <td className={styles.desktopColumn}><span className={styles.groupLabel}>{guest.groups.join(", ") || "Ohne Gruppe"}</span></td>
-          <td className={styles.desktopColumn}>{guest.hosts.join(", ") || "Ohne Hosts"}</td>
+          <td className={styles.desktopColumn}><span className={styles.groupLabel}>{guest.groups.join(", ") || "—"}</span></td>
+          <td className={styles.desktopColumn}>{guest.hosts.join(", ") || "—"}</td>
           <td className={styles.rsvpColumn}><Badge size="xs" variant="dot" color={guest.accepted == null ? "gray" : guest.accepted ? "teal" : "red"}>{guest.accepted == null ? "Offen" : guest.accepted ? "Zugesagt" : "Abgesagt"}</Badge></td>
           <td className={styles.checkinColumn}><span className={guest.checked_in === true ? styles.checked : styles.muted}>
             <span aria-hidden="true">{guest.checked_in === true ? <IconCheck size={19}/> : "—"}</span>

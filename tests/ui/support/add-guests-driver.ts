@@ -93,6 +93,9 @@ export class AddGuestsDriver {
     await expect(this.details("Alex Beispiel")).toHaveCSS("color", "rgb(217, 189, 134)");
     await expect(this.details("Anna Weber")).toHaveCSS("color", "rgb(174, 182, 198)");
     await expect(table.getByRole("columnheader").last()).toHaveCSS("text-align", "center");
+    await expect(this.row("Alex Beispiel").locator("td").nth(1)).toHaveText("—");
+    await expect(this.row("Alex Beispiel").locator("td").nth(2)).toHaveText("—");
+    await expect(this.details("Alex Beispiel").getByText("—", { exact: true })).toHaveCount(2);
     await expect(this.page.getByRole("button", { name: "Auswählen", exact: true })).toHaveCount(0);
     await expect(table.getByRole("checkbox")).toHaveCount(0);
     for (const width of [320, 375, 390, 640, 1280]) {

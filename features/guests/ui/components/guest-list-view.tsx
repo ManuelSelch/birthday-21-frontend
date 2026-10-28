@@ -35,10 +35,10 @@ export function GuestListView(props: Props) {
             value={props.search} onChange={event => props.onSearchChange(event.currentTarget.value)}/>
           <div className={styles.filterPair}>
             <Select aria-label="Gruppe filtern" size="md" placeholder="Alle Gruppen" clearable
-              data={[...props.availableGroups.map(value => ({ value, label: value })), { value: UNASSIGNED, label: "Ohne Gruppe" }]}
+              data={[...props.availableGroups.map(value => ({ value, label: value })), { value: UNASSIGNED, label: "—" }]}
               value={props.group || null} onChange={value => props.onGroupChange(value ?? "")}/>
             <Select aria-label="Hosts filtern" size="md" placeholder="Alle Hosts" clearable
-              data={[...HOSTS.map(value => ({ value, label: value })), { value: UNASSIGNED, label: "Ohne Hosts" }]}
+              data={[...HOSTS.map(value => ({ value, label: value })), { value: UNASSIGNED, label: "—" }]}
               value={props.host || null} onChange={value => props.onHostChange(value ?? "")}/>
           </div>
           <div className={styles.filters}>{([["all", "Alle"], ["accepted", "Zugesagt"], ["unanswered", "Offen"], ["declined", "Abgesagt"]] as const).map(([value, label]) =>
