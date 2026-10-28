@@ -24,12 +24,12 @@
 .tableScroll table { width: 100%; border-collapse: collapse; table-layout: fixed; text-align: left; }
 .tableScroll th { font-size: 12px; font-weight: 400; color: var(--muted); padding: 12px 0; border-block: 1px solid var(--border); }
 .tableScroll td { border-bottom: 1px solid var(--border); padding: 14px 0; font-size: 14px; color: var(--muted); vertical-align: middle; overflow-wrap: anywhere; }
-.tableScroll .rsvpColumn { width: 44px; text-align: center; }
+.tableScroll .rsvpColumn { width: 56px; padding-right: 12px; text-align: center; }
 .tableScroll .checkinColumn { width: 49px; text-align: center; }
 .tableScroll .mobileColumn { width: 32%; padding-inline: 6px; }
 .combinedAssignment { display: flex; flex-direction: column; gap: 6px; line-height: 1.45; overflow-wrap: normal; }
-.mobileStatus { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--muted); vertical-align: middle; }
-.mobileStatus[data-status="accepted"] { background: #59c6a4; }
+.mobileStatus { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #647084; vertical-align: middle; }
+.mobileStatus[data-status="accepted"] { background: #16a34a; }
 .mobileStatus[data-status="declined"] { background: #f08080; }
 .tableScroll .desktopStatus { display: none; }
 .checkinColumn > span { display: flex; align-items: center; justify-content: center; }
@@ -69,7 +69,7 @@
   .toolbar { grid-template-columns: 1fr 1.3fr; }
   .filters { grid-column: 1 / -1; max-width: 360px; }
   .tableScroll .desktopColumn { display: table-cell; width: 140px; padding-right: 12px; }
-  .tableScroll .rsvpColumn { width: 85px; padding-left: 5px; text-align: left; }
+  .tableScroll .rsvpColumn { width: 85px; padding-left: 5px; padding-right: 0; text-align: left; }
   .tableScroll .checkinColumn { width: 56px; }
   .tableScroll .mobileColumn, .mobileStatus { display: none; }
   .tableScroll .desktopStatus { display: inline-flex; }

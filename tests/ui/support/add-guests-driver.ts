@@ -116,9 +116,9 @@ export class AddGuestsDriver {
         await expect(assignments).toContainText("Manuel, Marco");
         await expect(assignments).toHaveCSS("font-size", "14px");
         for (const [name, status, color] of [
-          ["Anna Weber", "Zugesagt", "rgb(89, 198, 164)"],
+          ["Anna Weber", "Zugesagt", "rgb(22, 163, 74)"],
           ["Alex Beispiel", "Abgesagt", "rgb(240, 128, 128)"],
-          ["Laura Fischer", "Offen", "rgb(174, 182, 198)"],
+          ["Laura Fischer", "Offen", "rgb(100, 112, 132)"],
         ]) {
           const indicator = this.row(name).getByRole("img", { name: status, exact: true });
           await expect(indicator).toBeVisible();
@@ -135,6 +135,11 @@ export class AddGuestsDriver {
       const iconBounds = await cell.locator("svg").boundingBox();
       expect(cellBounds).not.toBeNull();
       expect(iconBounds).not.toBeNull();
+      if (width < 700) {
+        const statusBounds = await this.row("Anna Weber").getByRole("img", { name: "Zugesagt", exact: true }).boundingBox();
+        expect(statusBounds).not.toBeNull();
+        expect(iconBounds!.x - (statusBounds!.x + statusBounds!.width)).toBeGreaterThan(36);
+      }
       expect(Math.abs(iconBounds!.x + iconBounds!.width / 2 - (cellBounds!.x + cellBounds!.width / 2))).toBeLessThan(1);
       expect(Math.abs(iconBounds!.y + iconBounds!.height / 2 - (cellBounds!.y + cellBounds!.height / 2))).toBeLessThan(1);
     }
