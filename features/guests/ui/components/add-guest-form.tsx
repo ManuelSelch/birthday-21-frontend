@@ -20,9 +20,9 @@ export function AddGuestForm({ name, pending, error, success, onNameChange, onSu
 
   return (
     <Stack gap="xs">
-      <form onSubmit={submit} className="flex flex-col items-stretch gap-3 min-[481px]:flex-row min-[481px]:items-end">
+      <form onSubmit={submit} className="flex items-end gap-3">
         <TextInput
-          className="flex-1"
+          className="min-w-0 flex-1"
           label="Name"
           placeholder="Name des Gastes"
           value={name}
@@ -31,7 +31,7 @@ export function AddGuestForm({ name, pending, error, success, onNameChange, onSu
           disabled={pending}
           error={error ? <span role="alert">{error}</span> : undefined}
         />
-        <Button type="submit" loading={pending} disabled={pending}>Gast hinzufügen</Button>
+        <Button className="shrink-0" type="submit" loading={pending} disabled={pending}>Add</Button>
       </form>
       {success && <Text role="status" size="sm" c="green">{success}</Text>}
     </Stack>

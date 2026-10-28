@@ -63,7 +63,7 @@ export class AdminRoutesDriver {
   thenGuestWasCreated() {
     assert.equal(this.cockpitRequests.length, 1);
     assert.deepEqual(this.cockpitRequests[0].data, { data: {
-      name: "New Guest", invited: false, accepted: false, checked_in: false, companion: false, points: 0,
+      name: "New Guest", invited: false, accepted: null, checked_in: null, companion: false, points: 0,
     } });
   }
   async thenCreationSucceeded() { assert.deepEqual(await this.response!.json(), { success: true }); }

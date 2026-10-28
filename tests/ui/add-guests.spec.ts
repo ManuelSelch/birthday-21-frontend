@@ -4,6 +4,7 @@ import { AddGuestsDriver } from "./support/add-guests-driver";
 test("add a guest by name and refresh the list, counters and search", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();
+  await app.thenFormFitsViewport();
   await app.searchFor("No matching guest");
   await app.enterName("  New Guest  ");
 
