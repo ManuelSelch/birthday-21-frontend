@@ -73,8 +73,30 @@
 }
 .invitation .secondary:hover { background: #ffffff12; }
 .invitation .cancel { color: var(--invitation-muted); font-size: 11px; min-height: 44px; }
-.invitation .companionLabel { color: inherit; font-size: 13px; }
-.invitation .companionTrack[data-checked] { background: var(--invitation-accent); border-color: var(--invitation-accent); }
+.invitation .companionChoice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  min-height: 88px;
+  padding: 18px 20px;
+  background: #142035;
+  border: 1px solid #8bb8ff45;
+  border-radius: 12px;
+  color: inherit;
+  touch-action: manipulation;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.invitation .companionChoice:hover:not(:disabled) { background: #1a2a43; border-color: #9fc6ff90; }
+.invitation .companionChoice[data-selected="true"] { background: #142d29; border-color: #69d6a075; }
+.invitation .companionChoice[data-selected="true"]:hover:not(:disabled) { background: #19382f; }
+.invitation .companionChoice:disabled { cursor: wait; opacity: .65; }
+.companionCopy { display: grid; gap: 6px; min-width: 0; }
+.companionTitle { font-size: 17px; line-height: 1.4; overflow-wrap: anywhere; }
+.companionHint { color: var(--invitation-muted); font-size: 13px; line-height: 1.4; }
+.companionIcon { color: #9fc6ff; display: grid; place-items: center; flex-shrink: 0; }
+.companionChoice[data-selected="true"] .companionIcon { color: #88e5b2; }
 .invitation :is(a, button, input):focus-visible { outline: 3px solid var(--invitation-accent); outline-offset: 4px; }
 .unavailable { max-width: 600px; padding: 80px 24px; margin: auto; }
 .unavailable h1 { font-family: Georgia, serif; font-size: 32px; line-height: 1.2; font-weight: 400; }
@@ -99,13 +121,15 @@
   .details dd { font-size: 17px; line-height: 1.5; }
   .response h2 { font-size: 32px; line-height: 1.25; margin-bottom: 22px; }
   .invitation .rsvp { font-size: 17px; min-height: 52px; }
-  .invitation .companionLabel { font-size: 16px; line-height: 1.5; }
   .ticket { flex-direction: column; align-items: center; padding: 16px; gap: 12px; }
   .ticketName { text-align: center; }
   .ticketName span { font-size: 12px; }
   .ticketName strong { font-size: 24px; }
   .invitation .secondary { padding: 0 6px; font-size: 14px; min-height: 48px; }
   .invitation .cancel { font-size: 15px; }
+}
+@media (max-width: 380px) {
+  .invitation .companionChoice { padding: 16px; gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .invitation *, .invitation *::before, .invitation *::after { animation: none !important; transition: none !important; }

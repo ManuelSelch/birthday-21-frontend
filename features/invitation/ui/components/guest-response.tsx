@@ -1,5 +1,5 @@
-import { Alert, Button, Stack, Switch } from "@mantine/core";
-import { IconArrowRight } from "@tabler/icons-react";
+import { Alert, Button, Stack, UnstyledButton } from "@mantine/core";
+import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { GuestTicket, type GuestTicketProps } from "./guest-ticket";
 import styles from "./invitation.module.css";
 
@@ -20,13 +20,22 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
       <h2 aria-live="polite">{accepted ? `Du bist dabei, ${name}.` : `${name}, bist du dabei?`}</h2>
       {accepted ? (
         <Stack gap="lg">
-          <Switch
-            label="Ich bringe eine Begleitung mit"
-            checked={companion}
+          <UnstyledButton
+            className={styles.companionChoice}
+            aria-label="Ich bringe eine Begleitung mit"
+            aria-pressed={companion}
+            data-selected={companion}
             disabled={busy}
-            onChange={event => onCompanionChange(event.currentTarget.checked)}
-            classNames={{ label: styles.companionLabel, track: styles.companionTrack }}
-          />
+            onClick={() => onCompanionChange(!companion)}
+          >
+            <span className={styles.companionCopy}>
+              <span className={styles.companionTitle}>{companion ? "Deine Begleitung ist dabei" : "Ich bringe eine Begleitung mit"}</span>
+              <span className={styles.companionHint}>{companion ? "Erneut tippen zum Entfernen" : "Zu zweit feiern"}</span>
+            </span>
+            <span className={styles.companionIcon} aria-hidden="true">
+              {companion ? <IconCheck size={32} stroke={1.7} /> : <IconArrowRight size={32} stroke={1.7} />}
+            </span>
+          </UnstyledButton>
           <GuestTicket name={name} links={links} />
           <Button variant="subtle" className={styles.cancel} disabled={busy} loading={pending === "cancel"} onClick={onCancel}>
             Teilnahme absagen
