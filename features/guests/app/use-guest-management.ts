@@ -91,7 +91,7 @@ export function useGuestManagement(guests: Guest[], onSaved: () => void) {
     }
   }
   return {
-    guests: view === "videos" ? filterGuestVideos(currentGuests, search, videoFilter) : filterGuests(currentGuests, search, filter, group, host),
+    guests: view === "videos" ? filterGuestVideos(currentGuests, search, videoFilter, group, host) : filterGuests(currentGuests, search, filter, group, host),
     summary: guestSummary(guests),
     view, setView, videoFilter, setVideoFilter, videoCount, videoPending, videoError, toggleVideo,
     search, setSearch, filter, setFilter, group, setGroup, host, setHost,

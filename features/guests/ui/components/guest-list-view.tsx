@@ -46,16 +46,16 @@ export function GuestListView(props: Props) {
         <SegmentedControl className={styles.viewTabs} fullWidth size="md" value={props.view} onChange={props.onViewChange}
           aria-label="Ansicht" data={[{ value: "guests", label: "Übersicht" }, { value: "videos", label: "Videos" }]}/>
         <section className={styles.toolbar} aria-label="Gäste filtern">
-          <TextInput aria-label="Gäste suchen" size="md" leftSection={<IconSearch size={18}/>} placeholder={props.view === "videos" ? "Name, Gruppe oder Host suchen" : "Namen suchen"}
+          <TextInput aria-label="Gäste suchen" size="md" leftSection={<IconSearch size={18}/>} placeholder="Namen suchen"
             value={props.search} onChange={event => props.onSearchChange(event.currentTarget.value)}/>
-          {props.view !== "videos" && <div className={styles.filterPair}>
+          <div className={styles.filterPair}>
             <Select aria-label="Gruppe filtern" size="md" placeholder="Alle Gruppen" clearable
               data={[...props.availableGroups.map(value => ({ value, label: value })), { value: UNASSIGNED, label: "—" }]}
               value={props.group || null} onChange={value => props.onGroupChange(value ?? "")}/>
             <Select aria-label="Hosts filtern" size="md" placeholder="Alle Hosts" clearable
               data={[...HOSTS.map(value => ({ value, label: value })), { value: UNASSIGNED, label: "—" }]}
               value={props.host || null} onChange={value => props.onHostChange(value ?? "")}/>
-          </div>}
+          </div>
           {props.view === "videos" ? <SegmentedControl className={styles.videoFilters} fullWidth
             value={props.videoFilter} onChange={value => props.onVideoFilterChange(value as VideoFilter)}
             aria-label="Video-Status" data={[{ value: "all", label: "Alle" },

@@ -28,7 +28,7 @@ test("mobile video switches save in both directions and persist on reload", asyn
   await app.thenVideo("Anna Weber", false);
 });
 
-test("video filters and name/group/host search are independent of overview filters", async ({ page }) => {
+test("videos and overview share name, group and host filters", async ({ page }) => {
   const app = new GuestVideosDriver(page);
   await app.open();
   await app.toggleVideo("Anna Weber");
@@ -38,15 +38,22 @@ test("video filters and name/group/host search are independent of overview filte
   await app.thenVideoCount(3);
   await app.filter("Vorhanden · 1");
   await app.thenVideoCount(1);
-  await app.search("MARCO");
+  await app.search("ANNA");
+  await app.selectGroup("Uni");
+  await app.selectHost("Marco");
   await app.thenVideo("Anna Weber", true);
-  await app.search("uni");
   await app.thenVideoCount(1);
-  await app.search("nobody");
-  await app.thenVideoCount(0);
-  await app.search("");
   await app.showOverview();
   await app.thenOverviewIsIntact();
+  await app.thenSharedFilters("ANNA", "Uni", "Marco");
+  await app.thenOverviewGuestCount(1);
+  await app.selectHost("David");
+  await app.thenOverviewGuestCount(0);
+  await app.showVideos();
+  await app.thenSharedFilters("ANNA", "Uni", "David");
+  await app.thenVideoCount(0);
+  await app.selectHost("Manuel");
+  await app.thenVideo("Anna Weber", true);
 });
 
 test("failed video saves keep the flag and can be retried", async ({ page }) => {

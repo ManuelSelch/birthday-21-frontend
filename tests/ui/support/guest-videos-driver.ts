@@ -15,6 +15,22 @@ export class GuestVideosDriver {
   async showVideos() { await this.page.getByText("Videos", { exact: true }).click(); }
   async showOverview() { await this.page.getByText("Übersicht", { exact: true }).click(); }
   async filter(label: string) { await this.page.getByText(label, { exact: true }).click(); }
+  async selectGroup(value: string) {
+    await this.page.getByRole("textbox", { name: "Gruppe filtern", exact: true }).click();
+    await this.page.getByRole("option", { name: value, exact: true }).click();
+  }
+  async selectHost(value: string) {
+    await this.page.getByRole("textbox", { name: "Hosts filtern", exact: true }).click();
+    await this.page.getByRole("option", { name: value, exact: true }).click();
+  }
+  async thenSharedFilters(name: string, group: string, host: string) {
+    await expect(this.page.getByRole("textbox", { name: "Gäste suchen" })).toHaveValue(name);
+    await expect(this.page.getByRole("textbox", { name: "Gruppe filtern", exact: true })).toHaveValue(group);
+    await expect(this.page.getByRole("textbox", { name: "Hosts filtern", exact: true })).toHaveValue(host);
+  }
+  async thenOverviewGuestCount(count: number) {
+    await expect(this.page.getByRole("table").locator("tbody tr")).toHaveCount(count);
+  }
   async search(value: string) { await this.page.getByRole("textbox", { name: "Gäste suchen" }).fill(value); }
   async toggleVideo(name: string) { await this.toggle(name).locator("..").click(); }
   async toggleVideoWithKeyboard(name: string) { await this.toggle(name).focus(); await this.toggle(name).press("Space"); }
