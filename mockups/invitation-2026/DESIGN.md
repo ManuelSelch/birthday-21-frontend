@@ -1,0 +1,38 @@
+# Invitation 2026 — Mockup
+
+## Goal and scope
+Compare three distinct invitation treatments using images downloaded from the official Stadtball Bayreuth website, as requested by the user. Isolated React/Mantine prototype; no production changes.
+
+## Revision and review
+- Revision: R1.
+- Status: in review; no direction approved for implementation.
+- User requested multiple mockups using Stadtball Bayreuth images. That request does not approve any design or production implementation.
+
+## Directions
+- `?variant=midnight`: Midnight Gala — navy/gold, wide blue-lit ballroom hero, expressive serif title; details and RSVP alongside each other below, stacked on mobile.
+- `?variant=champagne`: Champagne Editorial — cream/brown, large serif headline, portrait ballroom photograph, birthday seal, editorial two-column composition; single column on mobile.
+- `?variant=afterdark`: After Dark — burgundy/coral, bokeh photograph, full-height party-poster composition and bold sans-serif title with serif accent; RSVP beside poster, below on mobile.
+- Shared review toolbar selects direction and state. Every direction includes provisional hosts/age, personalized greeting, unknown date/location, RSVP, companion control, ticket placeholder, simulated Wallet/WhatsApp actions, and cancellation.
+- No intentional animation; reduced-motion CSS is included. Mantine controls provide standard keyboard interactions, with explicit focus styling for buttons/links.
+
+## Supported states
+Append `&state=pending`, `&state=accepted`, `&state=loading`, or `&state=error` to a variant URL. State selection is retained in the URL on change. Confirm/cancel switches local state; companion selection is local only. Loading is a deliberately frozen review state. Error shows a sample failure, not an actual request failure.
+
+## Assets and attribution
+Locally cached images are used to avoid third-party requests while reviewing. All are from https://www.stadtballbayreuth.de/ and its public media library:
+- `assets/gala.jpg`: https://www.stadtballbayreuth.de/wp-content/uploads/2024/11/431191859_7427335603992299_3082343921711553263_n-1536x864.jpg . Visible embedded credit: SW Bayreuth / Screenshot.
+- `assets/lights.jpg`: https://www.stadtballbayreuth.de/wp-content/uploads/2024/01/image05_stadtball-bayreuth.jpg . Red-lit ballroom.
+- `assets/ballroom.jpg`: https://www.stadtballbayreuth.de/wp-content/uploads/2024/01/image01_stadtball-bayreuth-1024x680.jpg . Bokeh lights, despite the local filename.
+
+Image reuse was requested for this private mockup; publication rights have not been established. The footer links the source and states this is not affiliated with the event. Photographs illustrate atmosphere, not a confirmed birthday venue. Do not publish these images in production without confirming permission and required attribution.
+
+## Fake or omitted behavior
+- Sophie Muster is fictional. Hosts and 21st-birthday wording are provisional; date, time, venue, dress code, real photos, and WhatsApp destination remain unconfirmed.
+- No guest backend, tracking, credentials, persistence, generated pass, or external messaging. QR icon is explicitly labeled as a non-scannable placeholder.
+- Wallet/WhatsApp buttons display explanatory messages. RSVP/loading/error do not exercise real API calls.
+- No public Stadtball event date or branding is presented as the birthday event.
+
+## Verification and next step
+- Feature entry served successfully over HTTP; shared mockup TypeScript check passes.
+- No browser automation or visual/interaction verification performed; review is user-led.
+- Select a direction and request changes; explicit revision approval is required before production work. Agent-owned managed preview remains running during review and must be stopped at approval/cancellation, with approved files preserved.
