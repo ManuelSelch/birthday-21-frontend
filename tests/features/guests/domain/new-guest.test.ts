@@ -4,8 +4,8 @@ import { newGuest } from "../../../../features/guests/domain/new-guest";
 
 test("new guests have trimmed names and explicit initial states", () => {
   assert.deepEqual(newGuest("  Alex Beispiel  "), {
-    name: "Alex Beispiel", invited: false, accepted: false,
-    checked_in: false, companion: false, points: 0,
+    name: "Alex Beispiel", invited: false, accepted: null,
+    checked_in: null, companion: false, points: 0,
   });
 });
 

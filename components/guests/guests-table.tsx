@@ -48,7 +48,7 @@ export default function GuestsTable({guests}: {guests: Guest[]}) {
     )
 }
 
-function parse(value: boolean | undefined) {
+function parse(value: boolean | null | undefined) {
     if(value == undefined)
         return "--"
     return (value == true) ? "✓" : "✖"

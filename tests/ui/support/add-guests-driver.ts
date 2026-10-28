@@ -18,6 +18,11 @@ export class AddGuestsDriver {
   async thenGuestAppears(name: string, count: number) {
     const row = this.page.getByRole("row").filter({ has: this.page.getByRole("cell", { name, exact: true }) });
     await expect(row).toBeVisible();
+    await expect(row.getByRole("cell").nth(1)).toHaveText("--");
+    await expect(row.getByRole("cell").nth(2)).toHaveText("--");
+    const existing = this.page.getByRole("row").filter({ has: this.page.getByRole("cell", { name: "Alex Beispiel", exact: true }) });
+    await expect(existing.getByRole("cell").nth(1)).toHaveText("✖");
+    await expect(existing.getByRole("cell").nth(2)).toHaveText("✖");
     await expect(row.getByRole("button", { name: "Invite", exact: true })).toBeVisible();
     await expect(this.page.getByText("Gäste: " + count, { exact: true })).toBeVisible();
     await expect(this.page.getByText("Angenommen: 0", { exact: true })).toBeVisible();
@@ -40,7 +45,7 @@ export class AddGuestsDriver {
   async thenSaveFailedWithName(name: string) {
     await expect(this.page.getByRole("alert").filter({ hasText: "Gast konnte nicht hinzugefügt werden." })).toContainText("Gast konnte nicht hinzugefügt werden.");
     await expect(this.page.getByRole("textbox", { name: "Name", exact: true })).toHaveValue(name);
-    await expect(this.page.getByRole("button", { name: "Gast hinzufügen" })).toBeEnabled();
+    await expect(this.page.getByRole("button", { name: "Add", exact: true })).toBeEnabled();
     await expect(this.page.getByText("Gäste: 1", { exact: true })).toBeVisible();
   }
   async holdSave() {
@@ -54,12 +59,20 @@ export class AddGuestsDriver {
     return release;
   }
   async thenSubmissionIsDisabled() {
-    await expect(this.page.getByRole("button", { name: "Gast hinzufügen" })).toBeDisabled();
+    await expect(this.page.getByRole("button", { name: "Add", exact: true })).toBeDisabled();
     await expect(this.page.getByRole("textbox", { name: "Name", exact: true })).toBeDisabled();
   }
   async useMobileViewport() { await this.page.setViewportSize({ width: 375, height: 812 }); }
   async thenFormFitsViewport() {
     await expect(this.page.getByRole("textbox", { name: "Name", exact: true })).toBeInViewport();
-    await expect(this.page.getByRole("button", { name: "Gast hinzufügen" })).toBeInViewport();
+    const input = this.page.getByRole("textbox", { name: "Name", exact: true });
+    const button = this.page.getByRole("button", { name: "Add", exact: true });
+    await expect(button).toBeInViewport();
+    const fieldBounds = await input.boundingBox();
+    const buttonBounds = await button.boundingBox();
+    expect(fieldBounds).not.toBeNull();
+    expect(buttonBounds).not.toBeNull();
+    expect(buttonBounds!.x).toBeGreaterThanOrEqual(fieldBounds!.x + fieldBounds!.width);
+    expect(Math.abs(buttonBounds!.y - fieldBounds!.y)).toBeLessThan(3);
   }
 }
