@@ -1,6 +1,18 @@
 import { test } from "@playwright/test";
 import { AddGuestsDriver } from "./support/add-guests-driver";
 
+test("guest list renders server-passed logout without React key warnings", async ({ page }) => {
+  const app = new AddGuestsDriver(page);
+  await app.open();
+
+  await app.reloadGuests();
+  await app.enterName("New Guest");
+  await app.submit();
+
+  await app.thenGuestAppears("New Guest", 2);
+  await app.thenNoKeyWarnings();
+});
+
 test("guest filters distinguish accepted, unanswered and declined and combine with search", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();

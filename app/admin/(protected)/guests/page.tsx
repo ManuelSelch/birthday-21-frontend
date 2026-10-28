@@ -5,5 +5,5 @@ import cockpit from "@/lib/cockpit";
 
 export default async function GuestsPage() {
   const guests = await cockpit.getItems<Guest>("guests");
-  return <GuestManagement guests={guests} logout={<LogoutContainer />} />;
+  return <GuestManagement guests={guests} logout={<LogoutContainer key="admin-logout" />} />;
 }
