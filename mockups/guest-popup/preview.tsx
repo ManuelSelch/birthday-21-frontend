@@ -46,7 +46,7 @@ export function GuestGroupsPreview() {
       await navigator.clipboard.writeText(`https://example.invalid/invitation/${activeGuest.id}`);
       setLinkMessage('Beispiellink kopiert · keine echte Einladung');
     } catch {
-      setLinkMessage('Kopieren nicht möglich. Bitte den Beispiellink unten markieren.');
+      setLinkMessage('Kopieren nicht möglich. Bitte erneut versuchen.');
     }
   }
   function openEditor(guest: Guest) {
@@ -94,7 +94,6 @@ export function GuestGroupsPreview() {
         {activeGuest && <div className="guest-utilities">
           <span className={'checkin-status' + (activeGuest.checkedIn ? ' checked-in' : '')}>{activeGuest.checkedIn && <IconCheck size={14}/>} {activeGuest.checkedIn ? 'Eingecheckt' : 'Nicht eingecheckt'}</span>
           <Button variant="default" size="md" leftSection={<IconCopy size={17}/>} onClick={copyInvitation}>Einladungslink kopieren</Button>
-          <TextInput label="Beispiellink · keine echte Einladung" readOnly value={`https://example.invalid/invitation/${activeGuest.id}`} aria-label="Beispiel-Einladungslink"/>
           {linkMessage && <p className="sheet-hint" role="status">{linkMessage}</p>}
         </div>}
         <MultiSelect label="Gruppen" placeholder="Gruppen auswählen" data={groups} value={draftGroups} onChange={setDraftGroups} size="md" clearable/>
