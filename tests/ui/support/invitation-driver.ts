@@ -126,6 +126,18 @@ export class InvitationDriver {
   async thenMobileLayoutIsCompact() {
     await this.thenDateAndLocationAreAdjacent();
     expect(await this.page.evaluate(() => document.documentElement.scrollHeight - window.innerHeight)).toBeLessThanOrEqual(0);
+    const layout = await this.page.getByRole("main").locator(":scope > div").boundingBox();
+    expect(layout!.y + layout!.height).toBeGreaterThanOrEqual(this.page.viewportSize()!.height - 1);
+  }
+  async thenHeroGrowsWithScreen() {
+    const hero = this.page.getByRole("main").locator("header");
+    const before = await hero.boundingBox();
+    const viewport = this.page.viewportSize()!;
+
+    await this.page.setViewportSize({ width: viewport.width, height: viewport.height + 120 });
+
+    await expect.poll(async () => (await hero.boundingBox())!.height - before!.height).toBeCloseTo(120, 0);
+    await this.thenMobileLayoutIsCompact();
   }
   async captureLayout() {
     await this.page.screenshot({ path: test.info().outputPath("invitation.png"), fullPage: true });
