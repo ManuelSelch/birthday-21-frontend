@@ -1,3 +1,5 @@
-export default async function Home() {
-  return (<div></div>)
+import { redirect } from "next/navigation";
+
+export default function Home() {
+  redirect("/admin/login");
 }
