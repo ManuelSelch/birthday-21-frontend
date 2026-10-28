@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "suites": {
+    "tests": {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "cwd": ".",
+      "timeoutSeconds": 120,
+      "auto": "after-agent"
+    },
+    "typecheck": {
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": ".",
+      "timeoutSeconds": 120,
+      "auto": "after-agent"
+    },
+    "ui": {
+      "command": [
+        "npm",
+        "run",
+        "test:ui"
+      ],
+      "cwd": ".",
+      "timeoutSeconds": 600,
+      "auto": "manual"
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "cwd": ".",
+      "timeoutSeconds": 120,
+      "auto": "manual"
+    },
+    "build": {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": ".",
+      "timeoutSeconds": 600,
+      "auto": "manual"
+    }
+  },
+  "prepare": {
+    "command": [
+      "npm",
+      "ci"
+    ],
+    "cwd": ".",
+    "timeoutSeconds": 600
+  }
+}
