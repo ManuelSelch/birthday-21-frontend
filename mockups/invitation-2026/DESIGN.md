@@ -5,7 +5,7 @@ Compare three distinct invitation treatments using images downloaded from the of
 
 ## Revision and review
 - Revision: R7. Sample guest is Max Muster; visible QR placeholder disclaimer removed as requested.
-- Status: in review; Midnight Gala is the preferred direction, not yet approved for implementation.
+- Status: approved. User approved Midnight Gala R7: “approved. merge main into this branch. Then implement the invite like this”. Approval covers the first direction only; other mockups are comparison material.
 - User prefers the first direction with less text and the title “21. Geburtstag”. Midnight Gala's mobile typography uses: 48–64px title, 16px hosts/controls, 17px event details, 12–13px supporting labels, and 32px greeting. Event details stack; action targets are at least 44px tall. R5 keeps Apple Wallet and WhatsApp next to each other at every width, with equal-width mobile buttons and 14px labels. Desktop and other directions remain unchanged. This is a request to iterate, not production approval.
 
 ## Directions
@@ -35,4 +35,4 @@ Image reuse was requested for this private mockup; publication rights have not b
 ## Verification and next step
 - Feature entry served successfully over HTTP; shared mockup TypeScript check passes.
 - No browser automation or visual/interaction verification performed; review is user-led.
-- Select a direction and request changes; explicit revision approval is required before production work. Agent-owned managed preview remains running during review and must be stopped at approval/cancellation, with approved files preserved.
+- Midnight Gala R7 approved; source preserved. Agent-owned Vite process 10159 was verified against command/workspace and stopped through the managed preview service. Process exit and absence of a listener on port 5173 confirmed. Technical design approval is still required before production edits.
