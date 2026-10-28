@@ -1,0 +1,13 @@
+body { margin: 0; background: #0d1220; color: #f7f3ed; }
+.screen { padding: 0 12px 30px; min-height: 100dvh; }
+header { max-width: 700px; margin: auto; min-height: 72px; padding-block: 12px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; border-bottom: 1px solid #ffffff20; }
+.brand { font: 22px Georgia, serif; }
+.actions { display: flex; align-items: center; gap: 8px; }
+.eyebrow { font-size: 10px; letter-spacing: 2px; color: #aeb6c6; }
+main { max-width: 700px; margin: auto; padding-top: 29px; }
+.heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+h1 { margin: 0; font: 400 38px Georgia, serif; }
+p { font-size: 12px; color: #aeb6c6; }
+.guests div { padding: 18px 0; border-bottom: 1px solid #ffffff20; color: #d9bd86; }
+.note { margin-top: 28px; }
+@media(max-width: 640px) { .eyebrow { display: none; } }
