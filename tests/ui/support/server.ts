@@ -16,6 +16,14 @@ const cockpit = createServer(async (request, response) => {
   response.setHeader("Content-Type", "application/json");
   if (request.url === "/__test/reset") { reset(); response.end("{}"); return; }
   if (request.url === "/__test/state") { response.end(JSON.stringify({ guest, guests, requests })); return; }
+  if (request.url === "/__test/guests" && request.method === "POST") {
+    let body = "";
+    for await (const chunk of request) body += chunk;
+    guests = JSON.parse(body);
+    guest = guests[0];
+    response.end("{}");
+    return;
+  }
   requests += 1;
   if (request.headers["api-key"] !== "isolated-test-key") { response.writeHead(401).end("{}"); return; }
 

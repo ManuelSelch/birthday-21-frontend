@@ -1,7 +1,9 @@
 "use client";
 
-import { Button, Stack, Text, TextInput } from "@mantine/core";
+import { Button, TextInput } from "@mantine/core";
+import { IconPlus } from "@tabler/icons-react";
 import type { FormEvent } from "react";
+import styles from "./guest-list.module.css";
 
 type Props = {
   name: string;
@@ -19,21 +21,17 @@ export function AddGuestForm({ name, pending, error, success, onNameChange, onSu
   }
 
   return (
-    <Stack gap="xs">
-      <form onSubmit={submit} className="flex items-end gap-3">
-        <TextInput
-          className="min-w-0 flex-1"
-          label="Name"
-          placeholder="Name des Gastes"
-          value={name}
-          onChange={event => onNameChange(event.currentTarget.value)}
-          maxLength={100}
-          disabled={pending}
-          error={error ? <span role="alert">{error}</span> : undefined}
-        />
-        <Button className="shrink-0" type="submit" loading={pending} disabled={pending}>Add</Button>
+    <div className={styles.creation}>
+      <form onSubmit={submit} className={styles.addForm}>
+        <TextInput aria-label="Name" placeholder="Name des neuen Gasts" radius="xs"
+          value={name} onChange={event => onNameChange(event.currentTarget.value)}
+          maxLength={100} disabled={pending} aria-invalid={!!error}
+          aria-describedby={error ? "add-guest-error" : undefined} />
+        <Button radius="xs" type="submit" leftSection={<IconPlus size={16} />} loading={pending}
+          disabled={pending}>Hinzufügen</Button>
       </form>
-      {success && <Text role="status" size="sm" c="green">{success}</Text>}
-    </Stack>
+      {error && <p id="add-guest-error" role="alert" className={styles.error}>{error}</p>}
+      {success && <p role="status" className={styles.success}>{success}</p>}
+    </div>
   );
 }

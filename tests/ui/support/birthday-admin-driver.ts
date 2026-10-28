@@ -39,7 +39,7 @@ export class BirthdayAdminDriver {
   async thenGuestsAreVisible() {
     await expect(this.page).toHaveURL(/\/admin\/guests$/);
     await expect(this.page.getByRole("heading", { name: "Gästeliste" })).toBeVisible();
-    await expect(this.page.getByRole("cell", { name: "Alex Beispiel" })).toBeVisible();
+    await expect(this.page.getByRole("cell", { name: "Alex Beispiel", exact: true })).toBeVisible();
   }
   async thenNoCockpitAccess() {
     const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
