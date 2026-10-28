@@ -1,14 +1,15 @@
 import { expect, type Page } from "@playwright/test";
+import { appPort, cockpitOrigin } from "./ports";
 
 export class BirthdayAdminDriver {
   constructor(private readonly page: Page) {}
 
   async resetParty() {
-    const response = await this.page.request.post("http://127.0.0.1:3188/__test/reset");
+    const response = await this.page.request.post(`${cockpitOrigin}/__test/reset`);
     expect(response.ok()).toBe(true);
   }
   async thenAllAdminPagesRequireLogin() {
-    const origin = "http://localhost:3187";
+    const origin = `http://localhost:${appPort}`;
     for (const path of ["/admin", "/admin/guests", "/admin/orders", "/admin/points", "/admin/scanner"]) {
       const response = await this.page.request.get(path, { maxRedirects: 0 });
       expect(response.status(), path).toBe(307);
@@ -41,7 +42,7 @@ export class BirthdayAdminDriver {
     await expect(this.page.getByRole("cell", { name: "Alex Beispiel" })).toBeVisible();
   }
   async thenNoCockpitAccess() {
-    const response = await this.page.request.get("http://127.0.0.1:3188/__test/state");
+    const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
     expect((await response.json()).requests).toBe(0);
   }
   async thenGuestApiIsUnauthorized() {
@@ -62,7 +63,7 @@ export class BirthdayAdminDriver {
   }
   async thenPointsAreSaved(points: number) {
     await expect.poll(async () => {
-      const response = await this.page.request.get("http://127.0.0.1:3188/__test/state");
+      const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
       return (await response.json()).guest.points;
     }).toBe(points);
   }

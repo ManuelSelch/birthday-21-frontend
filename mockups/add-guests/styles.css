@@ -1,0 +1,4 @@
+body { margin: 0; }
+.guest-form { display: flex; gap: 12px; align-items: flex-end; }
+.guest-form > :first-child { flex: 1; }
+@media (max-width: 480px) { .guest-form { align-items: stretch; flex-direction: column; } }

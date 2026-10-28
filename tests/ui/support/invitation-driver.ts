@@ -2,6 +2,7 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { QRCodeSVG } from "qrcode.react";
+import { cockpitOrigin } from "./ports";
 
 export class InvitationDriver {
   private views = 0;
@@ -14,7 +15,7 @@ export class InvitationDriver {
   }
 
   async reset() {
-    await this.page.request.post("http://127.0.0.1:3188/__test/reset");
+    await this.page.request.post(`${cockpitOrigin}/__test/reset`);
   }
   async open() { await this.page.goto("/invite?id=guest-1"); }
   async reload() { await this.page.reload(); }
@@ -38,7 +39,7 @@ export class InvitationDriver {
   async thenCompanionSaved() {
     await expect(this.page.getByRole("switch")).toBeChecked();
     await expect.poll(async () => {
-      const response = await this.page.request.get("http://127.0.0.1:3188/__test/state");
+      const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
       return (await response.json()).guest.companion;
     }).toBe(true);
   }
@@ -109,7 +110,7 @@ export class InvitationDriver {
     await expect(this.page.getByRole("button", { name: "Ich bin dabei" })).toHaveCount(0);
   }
   async thenNoGuestRequest() {
-    const response = await this.page.request.get("http://127.0.0.1:3188/__test/state");
+    const response = await this.page.request.get(`${cockpitOrigin}/__test/state`);
     expect((await response.json()).requests).toBe(0);
   }
 }

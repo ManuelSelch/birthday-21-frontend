@@ -5,6 +5,8 @@ import { createSession } from "../../../features/admin-auth/infra/session";
 export class AdminRoutesDriver {
   private response?: Response;
   private cookie = "";
+  private failCockpit = false;
+  private savedResult: unknown = { _id: "new-guest" };
   private cockpitRequests: { url: string; method: string; data?: unknown }[] = [];
 
   private constructor(private readonly routes: {
@@ -17,6 +19,8 @@ export class AdminRoutesDriver {
     context.mock.method(globalThis, "fetch", async (input: string | URL | Request, options?: RequestInit) => {
       const url = String(input);
       driver.cockpitRequests.push({ url, method: options?.method ?? "GET", data: options?.body ? JSON.parse(String(options.body)) : undefined });
+      if (driver.failCockpit) return new Response("private upstream detail", { status: 500 });
+      if (options?.method === "POST" && url.endsWith("/item/guests")) return Response.json(driver.savedResult);
       return Response.json(url.includes("/items/") ? [{ _id: "guest-1", name: "Alex", accepted: true }] : { _id: "guest-1", name: "Alex", accepted: true });
     });
     const original = process.env;
@@ -39,6 +43,32 @@ export class AdminRoutesDriver {
 
   async readGuests() {
     this.response = await this.routes.guests.GET(new Request("https://party.test/api/guests", { headers: { Cookie: this.cookie } }));
+  }
+
+  async addGuest(body: unknown = { name: "  New Guest  " }, origin: string | null = "https://party.test") {
+    this.response = await this.routes.guests.POST(new Request("https://party.test/api/guests", {
+      method: "POST", headers: { Cookie: this.cookie, ...(origin === null ? {} : { Origin: origin }), "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    }));
+  }
+
+  async sendMalformedGuestBody(body: string, contentType = "application/json") {
+    this.response = await this.routes.guests.POST(new Request("https://party.test/api/guests", {
+      method: "POST", headers: { Cookie: this.cookie, Origin: "https://party.test", "Content-Type": contentType }, body,
+    }));
+  }
+
+  makeCockpitFail() { this.failCockpit = true; }
+  returnUnconfirmedSave() { this.savedResult = { error: "private upstream detail" }; }
+  thenGuestWasCreated() {
+    assert.equal(this.cockpitRequests.length, 1);
+    assert.deepEqual(this.cockpitRequests[0].data, { data: {
+      name: "New Guest", invited: false, accepted: false, checked_in: false, companion: false, points: 0,
+    } });
+  }
+  async thenCreationSucceeded() { assert.deepEqual(await this.response!.json(), { success: true }); }
+  async thenGenericSaveError() {
+    assert.deepEqual(await this.response!.json(), { error: "Gast konnte nicht hinzugefügt werden. Bitte versuche es erneut." });
   }
 
   async changePoints(points: unknown = 42, origin = "https://party.test") {
