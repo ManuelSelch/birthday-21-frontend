@@ -11,7 +11,7 @@ export class TimelineDriver {
   }
   async useExampleSchedule() {
     await this.setSchedule([
-      { _id: "dance", title: "Musik & Tanz", subtitle: "", description: "Wer mag, tanzt.", start: "2026-11-15 00:30", internalNote: "private test marker" },
+      { _id: "dance", title: "Musik & Tanz", subtitle: null, description: null, start: "2026-11-15 00:30", internalNote: "private test marker" },
       { _id: "arrival", title: "Empfang", subtitle: "Ankommen", description: "Erst mal ankommen, etwas trinken und Hallo sagen.", start: "2026-11-14 19:00" },
       { _id: "dinner", title: "Abendessen", subtitle: "Gemeinsam genießen", description: "Wir essen gemeinsam.", start: "2026-11-14T18:45:00Z" },
     ]);

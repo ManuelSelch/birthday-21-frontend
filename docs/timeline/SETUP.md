@@ -7,8 +7,8 @@ One record per guest-facing programme item:
 | Field | Type | Content |
 | --- | --- | --- |
 | title | Text | Main heading, e.g. Empfang |
-| subtitle | Text | Small label above the title, e.g. Ankommen; may be an empty string |
-| description | Textarea | Short plain-text description; may be an empty string |
+| subtitle | Text | Small label above the title, e.g. Ankommen; may be empty or null |
+| description | Textarea | Short plain-text description; may be empty or null |
 | start | Date with time enabled | Full date and time, including the next day's date for entries after midnight |
 
 All four fields must be stored on each record. Cockpit supplies _id.

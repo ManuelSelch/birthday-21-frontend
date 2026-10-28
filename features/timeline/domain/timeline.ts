@@ -35,15 +35,15 @@ export function parseTimeline(value: unknown): TimelineEntry[] {
     if (!row || typeof row !== "object" ||
         !("_id" in row) || typeof row._id !== "string" || !row._id.trim() ||
         !("title" in row) || typeof row.title !== "string" || !row.title.trim() ||
-        !("subtitle" in row) || typeof row.subtitle !== "string" ||
-        !("description" in row) || typeof row.description !== "string" ||
+        !("subtitle" in row) || (row.subtitle !== null && typeof row.subtitle !== "string") ||
+        !("description" in row) || (row.description !== null && typeof row.description !== "string") ||
         !("start" in row) || typeof row.start !== "string") {
       throw new Error("Invalid timeline entry");
     }
     const start = venueStart(row.start);
     return {
-      id: row._id, title: row.title.trim(), subtitle: row.subtitle.trim(),
-      description: row.description.trim(), start, time: start.slice(11, 16),
+      id: row._id, title: row.title.trim(), subtitle: row.subtitle?.trim() ?? "",
+      description: row.description?.trim() ?? "", start, time: start.slice(11, 16),
     };
   });
   return entries.sort((a, b) => a.start.localeCompare(b.start));

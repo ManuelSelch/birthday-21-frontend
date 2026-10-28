@@ -30,6 +30,14 @@ test("accepts blank subtitle and description and an empty collection", () => {
   assert.equal(parseTimeline([{ ...item(), subtitle: "", description: "" }])[0].subtitle, "");
 });
 
+test("Cockpit null text fields render as empty without rejecting valid entries", () => {
+  const entries = parseTimeline([{ ...item(), subtitle: null, description: null }]);
+
+  assert.equal(entries[0].title, "Empfang");
+  assert.equal(entries[0].subtitle, "");
+  assert.equal(entries[0].description, "");
+});
+
 test("rejects invalid collection data rather than rendering a broken schedule", () => {
   for (const value of [null, {}, { items: [] }, [null], [{ ...item(), title: " " }], [{ ...item(), subtitle: undefined }], [{ ...item(), description: {} }], [{ ...item(), _id: "" }]]) {
     assert.throws(() => parseTimeline(value), /timeline/i);
