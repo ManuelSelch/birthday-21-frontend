@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Badge, Progress, SegmentedControl, TextInput } from '@mantine/core';
-import { IconSearch, IconVideo } from '@tabler/icons-react';
+import { Badge, SegmentedControl, TextInput } from '@mantine/core';
+import { IconSearch } from '@tabler/icons-react';
 import { GuestRow, type SampleGuest } from './guest-row';
 
 const initialGuests: SampleGuest[] = [
@@ -36,11 +36,6 @@ export function GuestVideos() {
       <div className="heading"><h1>Gäste</h1><span>{guests.length} Gäste</span></div>
       <SegmentedControl className="view-tabs" fullWidth size="md" value={view} onChange={setView}
         aria-label="Ansicht" data={[{value:'guests',label:'Übersicht'},{value:'videos',label:'Videos'}]}/>
-      {videos && <section className="summary" aria-label="Video-Fortschritt">
-        <div className="summary-title"><span><IconVideo size={18}/> Gäste mit Video</span><strong>{received} <span>/ {guests.length}</span></strong></div>
-        <Progress value={received / guests.length * 100} size={4} aria-label={received + ' von ' + guests.length + ' Gästen mit Video'}/>
-        <p>Zu {guests.length - received} Gästen fehlt noch ein Video.</p>
-      </section>}
       <TextInput className="search" size="md" placeholder="Name, Gruppe oder Host suchen"
         aria-label="Gäste suchen" leftSection={<IconSearch size={17}/>} value={query} onChange={event => setQuery(event.currentTarget.value)}/>
       {videos && <SegmentedControl className="filters" fullWidth value={filter} onChange={setFilter} aria-label="Video-Status"
@@ -49,7 +44,7 @@ export function GuestVideos() {
       <ul className="guest-list">{visible.map(guest => <GuestRow key={guest.id} guest={guest} videos={videos} onToggle={() => toggle(guest.id)}/>)}</ul>
       {!visible.length && <p className="empty">Keine Gäste gefunden.</p>}
       <div className="sr-only" role="status" aria-live="polite">{announcement}</div>
-      <p className="footnote">{videos ? 'Ein Schalter pro Gast – unabhängig von der Zusage.' : 'Übersicht für diese Vorschau vereinfacht.'}<br/>Mockup · Beispieldaten · Änderungen nur lokal</p>
+      <p className="footnote">Mockup · Beispieldaten · Änderungen nur lokal</p>
     </main>
   </div>;
 }
