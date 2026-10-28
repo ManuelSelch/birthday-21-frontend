@@ -17,7 +17,6 @@ function ProgrammeHeader() {
     <span className="eyebrow">MANUEL · MARCO · DAVID</span>
     <h1>Ein Abend.</h1>
     <p>Schön, dass du dabei bist.</p>
-    <div className="header-meta"><span>21. Geburtstag</span></div>
   </header>;
 }
 
@@ -32,7 +31,7 @@ export function ProgrammePreview() {
   }
   return <>
     <div className="review-toolbar">
-      <div><strong>Programm · R5</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
+      <div><strong>Programm · R6</strong><span>Entwurf · Alle Zeiten sind Beispiele</span></div>
       <SegmentedControl aria-label="Designvariante" value={variant} onChange={changeVariant} data={[{ value: 'timeline', label: 'A · Timeline' }, { value: 'editorial', label: 'B · Programmheft' }]} />
     </div>
     <a className="skip-link" href="#programme">Zum Programm</a>
