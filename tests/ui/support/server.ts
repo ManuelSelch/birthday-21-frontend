@@ -6,7 +6,7 @@ let guest: Record<string, unknown>;
 let requests = 0;
 let guests: Record<string, unknown>[];
 function reset() {
-  guest = { _id: "guest-1", name: "Alex Beispiel", accepted: false, invited: false, companion: false, checked_in: false, points: 0 };
+  guest = { _id: "guest-1", name: "Alex Beispiel", groups: [], hosts: [], accepted: false, invited: false, companion: false, checked_in: false, points: 0 };
   guests = [guest];
   requests = 0;
 }

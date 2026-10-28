@@ -11,6 +11,7 @@ export class AdminRoutesDriver {
 
   private constructor(private readonly routes: {
     guests: typeof import("../../../app/api/guests/route");
+    assignments: typeof import("../../../app/api/guests/assignments/route");
     points: typeof import("../../../app/api/points/route");
     checkIn: typeof import("../../../app/api/check-in/route");
   }) {}
@@ -20,7 +21,10 @@ export class AdminRoutesDriver {
       const url = String(input);
       driver.cockpitRequests.push({ url, method: options?.method ?? "GET", data: options?.body ? JSON.parse(String(options.body)) : undefined });
       if (driver.failCockpit) return new Response("private upstream detail", { status: 500 });
-      if (options?.method === "POST" && url.endsWith("/item/guests")) return Response.json(driver.savedResult);
+      if (options?.method === "POST" && url.endsWith("/item/guests")) {
+        const data = JSON.parse(String(options.body)).data;
+        return Response.json(data._id && !driver.failCockpit && driver.savedResult && typeof driver.savedResult === "object" && "_id" in driver.savedResult ? { _id: data._id } : driver.savedResult);
+      }
       return Response.json(url.includes("/items/") ? [{ _id: "guest-1", name: "Alex", accepted: true }] : { _id: "guest-1", name: "Alex", accepted: true });
     });
     const original = process.env;
@@ -30,6 +34,7 @@ export class AdminRoutesDriver {
     process.env.COCKPIT_API_KEY = "fake-api-key";
     const routes = {
       guests: await import("../../../app/api/guests/route"),
+      assignments: await import("../../../app/api/guests/assignments/route"),
       points: await import("../../../app/api/points/route"),
       checkIn: await import("../../../app/api/check-in/route"),
     };
@@ -45,7 +50,7 @@ export class AdminRoutesDriver {
     this.response = await this.routes.guests.GET(new Request("https://party.test/api/guests", { headers: { Cookie: this.cookie } }));
   }
 
-  async addGuest(body: unknown = { name: "  New Guest  " }, origin: string | null = "https://party.test") {
+  async addGuest(body: unknown = { name: "  New Guest  ", groups: [], hosts: [] }, origin: string | null = "https://party.test") {
     this.response = await this.routes.guests.POST(new Request("https://party.test/api/guests", {
       method: "POST", headers: { Cookie: this.cookie, ...(origin === null ? {} : { Origin: origin }), "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -58,12 +63,26 @@ export class AdminRoutesDriver {
     }));
   }
 
+  async assignGuest(body: unknown = { id: "guest-1", groups: [" Uni ", "Uni"], hosts: ["Manuel", "Marco"] }) {
+    this.response = await this.routes.assignments.POST(new Request("https://party.test/api/guests/assignments", {
+      method: "POST", headers: { Cookie: this.cookie, "Content-Type": "application/json" }, body: JSON.stringify(body),
+    }));
+  }
+  thenAssignmentsWereSaved() {
+    assert.deepEqual(this.cockpitRequests.at(-1)?.data, { data: { _id: "guest-1", groups: ["Uni"], hosts: ["Manuel", "Marco"] } });
+  }
+  thenCreatedAssignments(groups: string[], hosts: string[]) {
+    const saved = (this.cockpitRequests.at(-1)?.data as { data: Record<string, unknown> }).data;
+    assert.deepEqual(saved.groups, groups);
+    assert.deepEqual(saved.hosts, hosts);
+  }
+
   makeCockpitFail() { this.failCockpit = true; }
   returnUnconfirmedSave() { this.savedResult = { error: "private upstream detail" }; }
   thenGuestWasCreated() {
     assert.equal(this.cockpitRequests.length, 1);
     assert.deepEqual(this.cockpitRequests[0].data, { data: {
-      name: "New Guest", invited: false, accepted: null, checked_in: null, companion: false, points: 0,
+      name: "New Guest", groups: [], hosts: [], invited: false, accepted: null, checked_in: null, companion: false, points: 0,
     } });
   }
   async thenCreationSucceeded() { assert.deepEqual(await this.response!.json(), { success: true }); }
@@ -90,6 +109,7 @@ export class AdminRoutesDriver {
   }
 
   thenStatus(status: number) { assert.equal(this.response?.status, status); }
+  thenNoCockpitWrites() { assert.equal(this.cockpitRequests.filter(request => request.method === "POST").length, 0); }
   thenCockpitWasNotAccessed() { assert.equal(this.cockpitRequests.length, 0); }
   thenPrivateResponse() { assert.equal(this.response!.headers.get("cache-control"), "no-store"); }
   thenPointsWereSaved() { assert.deepEqual(this.cockpitRequests.at(-1)?.data, { data: { _id: "guest-1", points: 42 } }); }

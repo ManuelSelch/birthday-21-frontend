@@ -37,7 +37,7 @@ test("creation ignores supplied IDs/statuses and saves trimmed names with safe d
   const admin = await AdminRoutesDriver.create(context);
   admin.signIn();
 
-  await admin.addGuest({ name: "  New Guest  ", _id: "existing-guest", accepted: true, invited: true, checked_in: true, companion: true, points: 999 });
+  await admin.addGuest({ name: "  New Guest  ", groups: [], hosts: [], _id: "existing-guest", accepted: true, invited: true, checked_in: true, companion: true, points: 999 });
 
   admin.thenStatus(201);
   admin.thenPrivateResponse();

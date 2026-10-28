@@ -1,0 +1,14 @@
+# Guest groups — R7
+- Status: approved for production (R7).
+- Goal: simple mobile-first organization of a large guest list, preserving the existing navy/gold visual language.
+- Compact aligned table: Guest, Status, Check-in on mobile; groups and hosts appear as small stacked metadata under the name. Desktop exposes separate Gruppen and Hosts columns. No horizontal scrolling intended; names wrap. Check-in uses a checkmark or dash with accessible status text.
+- Search, independent group/host filters (including unassigned), and RSVP filters combine.
+- Tap a guest to edit groups and one or more hosts in a bottom sheet. New groups can be created inline. Label hosts as “Hosts” throughout; omit the single-guest explanatory hint.
+- Individual editing only: tap a guest name to change groups/hosts or copy the invitation link. No bulk editing, selection checkboxes, or bottom action bar. Shared friends remain one guest.
+- Create guests in one bottom sheet with Name, Gruppen (multi-select and inline creation), and Hosts (multi-select buttons). “Gast hinzufügen” saves all assignments together; no follow-up assignment step. Name is required; assignments may remain empty. Lists and counts update locally.
+- Responsive: full-width mobile controls; centered wider list on desktop. Touch-oriented controls; no hover-dependent actions.
+- Each row retains check-in status, and the summary includes the checked-in count. Individual details expose the same status plus an invitation-copy button and selectable example URL. Clipboard writes only the explicitly marked example.invalid URL, never a real invitation; success/failure feedback is shown.
+- Fake data and React state only; reload resets changes. No backend, persistence, real invitations, check-in mutations or authentication in this focused mockup.
+- Assumption: groups and hosts are independent, multi-select, admin-only metadata.
+- Review: user-led in browser; no automated visual or interaction verification requested.
+- Approval: user explicitly requested implementation of the reviewed design: “looks good. Now tell me what I need to add and change in cockpit for this new feature. Then implement it”.
