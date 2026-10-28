@@ -30,7 +30,7 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
           >
             <span className={styles.companionCopy}>
               <span className={styles.companionTitle}>{companion ? "Deine Begleitung ist dabei" : "Ich bringe eine Begleitung mit"}</span>
-              <span className={styles.companionHint}>{companion ? "Erneut tippen zum Entfernen" : "Zu zweit feiern"}</span>
+              <span className={styles.companionHint}>{companion ? "Erneut tippen zum Entfernen" : "Nur ohne eigene Einladung – sonst bitte über den eigenen Link zusagen."}</span>
             </span>
             <span className={styles.companionIcon} aria-hidden="true">
               {companion ? <IconCheck size={32} stroke={1.7} /> : <IconArrowRight size={32} stroke={1.7} />}

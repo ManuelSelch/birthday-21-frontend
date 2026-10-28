@@ -35,7 +35,7 @@ export class InvitationDriver {
   async thenCompanionChoiceFits() {
     const choice = this.companionChoice();
     await expect(choice).toHaveAttribute("aria-pressed", "false");
-    await expect(choice).toContainText("Zu zweit feiern");
+    await expect(choice).toContainText("Nur ohne eigene Einladung – sonst bitte über den eigenen Link zusagen.");
     const box = await choice.boundingBox();
     expect(box!.height).toBeGreaterThanOrEqual(88);
     expect(box!.x).toBeGreaterThanOrEqual(0);
