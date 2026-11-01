@@ -130,7 +130,7 @@ export class InvitationDriver {
   }
   async thenTicketHasGuestLinks() {
     const invitation = "https://geburtstag.manuelselch.de/invite?id=guest-1";
-    await expect(this.page.getByRole("link", { name: "Apple Wallet" })).toHaveAttribute("href", "https://geburtstag.manuelselch.de/api/apple-pass?id=guest-1");
+    await expect(this.page.getByRole("link", { name: "Apple Wallet" })).toHaveAttribute("href", "/api/apple-pass?id=guest-1");
     await expect(this.page.getByRole("link", { name: "Gruppe beitreten" })).toHaveAttribute("href", "https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt");
     const reference = renderToStaticMarkup(createElement(QRCodeSVG, { value: invitation, size: 200, marginSize: 4, level: "M" }));
     const path = reference.match(/<path fill="#000000" d="([^"]+)"/)?.[1];
