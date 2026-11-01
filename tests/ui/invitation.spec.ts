@@ -65,6 +65,13 @@ test("invitation shows a Google map of Reichshof before and after RSVP", async (
   await invite.thenReichshofMapIsVisible();
 });
 
+test("the venue map appears below Apple Wallet after RSVP", async () => {
+  await invite.open();
+  await invite.accept();
+
+  await invite.thenReichshofMapIsBelowWallet();
+});
+
 test("the venue map fits a narrow mobile invitation", async () => {
   await invite.useViewport(320);
   await invite.open();

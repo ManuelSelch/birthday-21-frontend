@@ -2,6 +2,7 @@ import { Alert, Button, Stack, UnstyledButton } from "@mantine/core";
 import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { GuestTicket, type GuestTicketProps } from "./guest-ticket";
 import { ImportantDetails } from "./important-details";
+import { VenueMap } from "./venue-map";
 import styles from "./invitation.module.css";
 
 export interface GuestResponseProps extends GuestTicketProps {
@@ -40,14 +41,18 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
           </UnstyledButton>
           <ImportantDetails whatsapp={links.whatsapp} />
           <GuestTicket name={name} links={links} />
+          <VenueMap />
           <Button variant="subtle" className={styles.cancel} disabled={busy} loading={pending === "cancel"} onClick={onCancel}>
             Teilnahme absagen
           </Button>
         </Stack>
       ) : (
-        <Button fullWidth size="lg" className={styles.rsvp} disabled={busy} loading={pending === "accept"} rightSection={<IconArrowRight size={19} aria-hidden="true" />} onClick={onAccept}>
-          Ich bin dabei
-        </Button>
+        <>
+          <Button fullWidth size="lg" className={styles.rsvp} disabled={busy} loading={pending === "accept"} rightSection={<IconArrowRight size={19} aria-hidden="true" />} onClick={onAccept}>
+            Ich bin dabei
+          </Button>
+          <VenueMap />
+        </>
       )}
       {error && <Alert color="red" mt="md" title="Das hat nicht geklappt" role="alert">{error}</Alert>}
     </section>

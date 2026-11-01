@@ -166,6 +166,14 @@ export class InvitationDriver {
     expect(src.searchParams.get("q")).toContain("Bayreuth");
     expect(src.searchParams.get("output")).toBe("embed");
   }
+  async thenReichshofMapIsBelowWallet() {
+    await this.thenAccepted();
+    const map = await this.page.locator('iframe[title="Karte: Reichshof Bayreuth"]').boundingBox();
+    const wallet = await this.page.getByRole("link", { name: "Apple Wallet" }).boundingBox();
+    expect(map).not.toBeNull();
+    expect(wallet).not.toBeNull();
+    expect(map!.y).toBeGreaterThanOrEqual(wallet!.y + wallet!.height);
+  }
   async thenReichshofMapFits() {
     const map = this.page.locator('iframe[title="Karte: Reichshof Bayreuth"]');
     await expect(map).toBeVisible();
