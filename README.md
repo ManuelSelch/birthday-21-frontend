@@ -11,7 +11,7 @@
 - Live Scoreboard (planned) -- track poker chips of each team
 
 ## Apple Wallet certificates
-- Place the Apple-issued pass certificate at `certificates/pass.cer` and download the matching Apple WWDR intermediate certificate from [Apple Certificate Authority](https://www.apple.com/certificateauthority/).
+- Place the Apple-issued pass certificate at `certificates/pass.cer`. Run `./scripts/download-wallet-certificate.sh` to download Apple's WWDR G4 intermediate certificate. It replaces an existing `certificates/AppleWWDRCAG4.cer`; check the pass certificate issuer if it is not G4.
 - Place the intermediate `.cer` in `certificates/` and run `bash scripts/convert-wallet-certificates.sh` from the project root. It selects the single certificate whose subject matches the pass certificate issuer, then creates `certificates/pass.pem` and `certificates/wwdr.pem`. Existing PEM files are not overwritten; remove them first if they should be replaced.
 - Keep signing credentials and private keys out of Git. Conversion does not create or change the private key.
 
