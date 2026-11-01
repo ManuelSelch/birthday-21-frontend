@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import { WalletCertificatesDriver } from "./support/wallet-certificates-driver";
 
-test("converts the pass and selected Apple intermediate certificates to PEM", async () => {
+test("automatically finds the matching intermediate and converts both certificates to PEM", async () => {
   const certificates = new WalletCertificatesDriver();
   await certificates.givenValidCertificates();
 
@@ -24,7 +24,7 @@ test("preserves existing PEM files and converts after they are removed", async (
   await certificates.thenBothPemFilesMatchTheirCertificates();
 });
 
-test("reports a missing or invalid certificate without creating PEM files", async () => {
+test("reports a missing matching intermediate without creating PEM files", async () => {
   const certificates = new WalletCertificatesDriver();
   await certificates.givenAnInvalidIntermediate();
 
