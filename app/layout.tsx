@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0d1220",
+  themeColor: "#1a1919",
 };
 
 export default function RootLayout({
@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
     <html lang="de" {...mantineHtmlProps}>
      <head>
-        <ColorSchemeScript />
+        <ColorSchemeScript forceColorScheme="dark" />
       </head>
       <body>
-        <MantineProvider>
-          <Paper pt="lg" c="black">
+        <MantineProvider forceColorScheme="dark">
+          <Paper pt="lg" bg="var(--site-background)" c="var(--site-text)" mih="100vh">
             {children}
           </Paper>
         </MantineProvider>

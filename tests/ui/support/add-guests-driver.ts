@@ -105,8 +105,8 @@ export class AddGuestsDriver {
     const table = this.page.getByRole("table");
     await expect(table.locator("thead th")).toHaveText(["Gast", "Gruppen / Hosts", "Gruppen", "Hosts", "Status", "Check-in"]);
     await expect(table.getByText("+1 Begleitung", { exact: true })).toHaveCount(0);
-    await expect(this.details("Alex Beispiel")).toHaveCSS("color", "rgb(217, 189, 134)");
-    await expect(this.details("Anna Weber")).toHaveCSS("color", "rgb(174, 182, 198)");
+    await expect(this.details("Alex Beispiel")).toHaveCSS("color", "rgb(230, 212, 183)");
+    await expect(this.details("Anna Weber")).toHaveCSS("color", "rgb(194, 188, 186)");
     await expect(table.getByRole("columnheader").last()).toHaveCSS("text-align", "center");
     await expect(this.page.getByText(/\d+ von \d+ Gästen/)).toHaveCount(0);
     await expect(this.row("Alex Beispiel").locator("td").nth(2)).toHaveText("—");
@@ -212,7 +212,7 @@ export class AddGuestsDriver {
   }
   async thenApprovedStyleAndMobileTableFit() {
     const main = this.page.getByRole("main");
-    await expect(main.locator("..")).toHaveCSS("background-color", "rgb(13, 18, 32)");
+    await expect(main.locator("..")).toHaveCSS("background-color", "rgb(26, 25, 25)");
     await expect(main.getByRole("heading", { name: "Gäste", exact: true })).toHaveCSS("font-family", /Georgia/);
     expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     const region = this.page.getByRole("region", { name: "Gästetabelle" });
@@ -240,8 +240,8 @@ export class AddGuestsDriver {
     const save = dialog.getByRole("button", { name: action, exact: true });
     await expect(heading).toHaveCSS("font-size", "30px");
     await expect(heading).toHaveCSS("font-weight", "600");
-    await expect(save).toHaveCSS("background-color", "rgb(66, 106, 154)");
-    await expect(save).toHaveCSS("color", "rgb(255, 255, 255)");
+    await expect(save).toHaveCSS("background-color", "rgb(230, 212, 183)");
+    await expect(save).toHaveCSS("color", "rgb(26, 25, 25)");
     await expect(dialog.getByRole("textbox", { name: "Einladungslink", exact: true })).toHaveCount(0);
     const headingBounds = await heading.boundingBox();
     const actionBounds = await save.boundingBox();
@@ -254,7 +254,7 @@ export class AddGuestsDriver {
   }
   async closePopup() { await this.page.keyboard.press("Escape"); await expect(this.dialog()).not.toBeVisible(); }
   async thenSelectedHostIsBlue(name: string) {
-    await expect(this.dialog().getByRole("button", { name, exact: true })).toHaveCSS("background-color", "rgb(66, 106, 154)");
+    await expect(this.dialog().getByRole("button", { name, exact: true })).toHaveCSS("background-color", "rgb(230, 212, 183)");
   }
   async createGroup(name: string) {
     await this.page.getByRole("textbox", { name: "Neue Gruppe", exact: true }).fill(name);

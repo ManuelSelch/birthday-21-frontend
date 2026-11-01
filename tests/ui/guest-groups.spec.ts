@@ -30,7 +30,7 @@ test("individual assignment edits persist and invitation links stay accessible",
   await app.thenInvitationCanBeCopied("Alex Beispiel");
 });
 
-test("guest popups use muted blue actions and a prominent form-aligned title on desktop and mobile", async ({ page }) => {
+test("guest popups use champagne actions and a prominent form-aligned title on desktop and mobile", async ({ page }) => {
   const app = new AddGuestsDriver(page);
   await app.open();
   await app.editGuest("Alex Beispiel");

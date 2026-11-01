@@ -23,7 +23,7 @@ export default async function Order({searchParams}: {
                     <Select data={menu} label="Getränk auswählen"/>
                     <NumberInput label="Menge" min={1} value={1}/>
                     <NumberInput label="Tischnummer" min={1}/>
-                    <Button color="yellow" mt="md">Bestellen</Button>
+                    <Button bg="var(--site-accent)" c="var(--site-background)" mt="md">Bestellen</Button>
                 </Stack>
             </Card>
         </Stack>

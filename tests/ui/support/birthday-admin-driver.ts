@@ -13,7 +13,7 @@ export class BirthdayAdminDriver {
     for (const path of ["/admin", "/admin/guests", "/admin/orders", "/admin/points", "/admin/scanner"]) {
       const response = await this.page.request.get(path, { maxRedirects: 0 });
       expect(response.status(), path).toBe(307);
-      const destination = new URL(response.headers().location);
+      const destination = new URL(response.headers().location, origin);
       expect(destination.origin).toBe(origin);
       expect(destination.pathname).toBe("/admin/login");
       expect(destination.searchParams.get("returnTo")).toBe(path);
@@ -62,10 +62,10 @@ export class BirthdayAdminDriver {
     const heading = this.page.getByRole("heading", { name: "Admin-Anmeldung" });
     const submit = this.page.getByRole("button", { name: "Anmelden", exact: true });
 
-    await expect(main).toHaveCSS("background-color", "rgb(13, 18, 32)");
+    await expect(main).toHaveCSS("background-color", "rgb(26, 25, 25)");
     await expect(heading).toHaveCSS("font-family", "Georgia, serif");
     await expect(heading).toHaveCSS("font-weight", "400");
-    await expect(submit).toHaveCSS("background-color", "rgb(217, 189, 134)");
+    await expect(submit).toHaveCSS("background-color", "rgb(230, 212, 183)");
     await expect(this.page.getByLabel(/Admin-Passwort/)).toHaveAttribute("autocomplete", "current-password");
   }
   async togglePasswordVisibility() {

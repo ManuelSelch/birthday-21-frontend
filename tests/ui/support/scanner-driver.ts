@@ -55,7 +55,7 @@ export class ScannerDriver {
 
   async thenApprovedDesignIsVisible() {
     const main = this.page.getByRole("main");
-    await expect(main.locator("..")).toHaveCSS("background-color", "rgb(13, 18, 32)");
+    await expect(main.locator("..")).toHaveCSS("background-color", "rgb(26, 25, 25)");
     await expect(main.getByRole("heading")).toHaveCSS("font-family", /Georgia/);
     await expect(this.page.getByText("21. Geburtstag", { exact: true })).toBeVisible();
     await expect(this.page.getByText("WILLKOMMEN AM EINGANG")).toHaveCount(0);

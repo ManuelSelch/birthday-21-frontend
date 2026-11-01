@@ -12,8 +12,8 @@ test("the installed admin app opens the guest list in standalone mode", () => {
   assert.equal(app.scope, "/admin/");
   assert.equal(app.display, "standalone");
   assert.equal(app.lang, "de");
-  assert.equal(app.theme_color, "#0d1220");
-  assert.equal(app.background_color, "#0d1220");
+  assert.equal(app.theme_color, "#1a1919");
+  assert.equal(app.background_color, "#1a1919");
 });
 
 test("install icons exist as correctly sized PNGs", async () => {

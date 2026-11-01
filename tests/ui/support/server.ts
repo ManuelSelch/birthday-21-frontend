@@ -40,7 +40,8 @@ const cockpit = createServer(async (request, response) => {
   requests += 1;
   if (request.headers["api-key"] !== "isolated-test-key") { response.writeHead(401).end("{}"); return; }
 
-  if (request.url === "/api/content/items/timeline") {
+  if (request.url === "/api/content/items/drinks") response.end(JSON.stringify([]));
+  else if (request.url === "/api/content/items/timeline") {
     if (timelineFails) response.writeHead(503).end(JSON.stringify({ error: "private upstream detail" }));
     else response.end(JSON.stringify(timeline));
   }

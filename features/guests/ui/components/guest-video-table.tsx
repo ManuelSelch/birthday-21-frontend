@@ -15,7 +15,7 @@ export function GuestVideoTable({ guests, pending, onToggle }: {
         <td><strong>{guest.name}</strong><p>{[guest.groups.join(", "), guest.hosts.join(", ")].filter(Boolean).join(" · ") || "—"}</p></td>
         <td><Switch role="switch" size="md" checked={guest.video} disabled={pending}
           aria-label={"Video zu " + guest.name + " vorhanden"} onChange={() => onToggle(guest)}
-          thumbIcon={guest.video ? <IconCheck size={12} color="#0d1220"/> : null}/></td>
+          thumbIcon={guest.video ? <IconCheck size={12} color="var(--site-background)"/> : null}/></td>
       </tr>)}</tbody>
     </table>
     {!guests.length && <p className={styles.empty}>Keine Gäste gefunden.</p>}

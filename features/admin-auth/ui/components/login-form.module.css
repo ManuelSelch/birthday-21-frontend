@@ -1,14 +1,14 @@
 .page {
-  --gold: #d9bd86;
-  --muted: #b8bac3;
-  --border: #ffffff24;
+  --gold: var(--site-accent);
+  --muted: var(--site-muted);
+  --border: var(--site-border);
   min-height: 100dvh;
   margin-top: calc(-1 * var(--mantine-spacing-lg));
   display: grid;
   place-items: center;
   padding: 64px 24px;
-  background: #0d1220;
-  color: #f7f3ed;
+  background: var(--site-background);
+  color: var(--site-text);
   color-scheme: dark;
 }
 
@@ -16,7 +16,7 @@
   width: 100%;
   max-width: 440px;
   padding: 36px;
-  background: #111827;
+  background: var(--site-surface);
   border-color: var(--border);
   border-radius: 3px;
   color: inherit;
@@ -55,7 +55,7 @@
 }
 
 .page :global(.mantine-Input-input) {
-  background: #0d1220;
+  background: var(--site-background);
   border-color: var(--border);
   color: #f7f3ed;
   font-size: 14px;

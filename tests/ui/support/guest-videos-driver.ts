@@ -69,7 +69,7 @@ export class GuestVideosDriver {
         }
         for (const text of ["Übersicht", "Fehlt · 4", "Vorhanden · 0"]) {
           const label = this.page.getByText(text, { exact: true });
-          await expect(label).toHaveCSS("color", "rgb(174, 182, 198)");
+          await expect(label).toHaveCSS("color", "rgb(194, 188, 186)");
           await label.hover();
           await expect(label).toHaveCSS("color", "rgb(247, 243, 237)");
           await this.page.mouse.move(0, 0);
@@ -77,7 +77,7 @@ export class GuestVideosDriver {
         await this.filter("Fehlt · 4");
         await this.page.mouse.move(0, 0);
         await expect(this.page.getByText("Fehlt · 4", { exact: true })).toHaveCSS("color", "rgb(247, 243, 237)");
-        await expect(this.page.getByText("Alle", { exact: true })).toHaveCSS("color", "rgb(174, 182, 198)");
+        await expect(this.page.getByText("Alle", { exact: true })).toHaveCSS("color", "rgb(194, 188, 186)");
         await this.filter("Alle");
       }
     }
