@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { invitationEvent, parseGuest, ticketLinks } from "../../../../features/invitation/domain/invitation";
 
 test("the invitation shows the event date", () => {
-  assert.equal(invitationEvent.date, "20. November · 2026");
+  assert.equal(invitationEvent.date, "20. November 2026");
 });
 
 test("only named guests with an ID can receive invitations", () => {
