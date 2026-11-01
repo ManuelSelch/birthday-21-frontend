@@ -1,4 +1,6 @@
 import { expect, test, type Page, type Route } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { QRCodeSVG } from "qrcode.react";
@@ -142,6 +144,17 @@ export class InvitationDriver {
   async thenLayoutFits() {
     expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await expect(this.page.getByRole("heading", { name: "21. Geburtstag", exact: true })).toBeVisible();
+  }
+  async thenReichshofPhotoIsVisible() {
+    const hero = this.page.getByRole("main").locator("header");
+    await expect(hero).toBeVisible();
+    const background = await hero.evaluate(element => getComputedStyle(element).backgroundImage);
+    const imageUrl = background.match(/url\("?([^"\)]+)"?\)/)?.[1];
+    expect(imageUrl).toBeTruthy();
+    const response = await this.page.request.get(imageUrl!);
+    expect(response.ok()).toBe(true);
+    const hash = (bytes: Buffer) => createHash("sha256").update(bytes).digest("hex");
+    expect(hash(await response.body())).toBe(hash(await readFile("mockups/reichshof-image/assets/reichshof.jpg")));
   }
   async thenVenueIsReichshof() {
     await expect(this.page.getByText("Reichshof Bayreuth", { exact: true })).toBeVisible();

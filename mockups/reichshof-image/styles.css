@@ -1,0 +1,5 @@
+body { margin: 0; background: #0d1220; }
+.comparison { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 16px; background: #f7f4ef; color: #241b1b; font: 13px Arial, sans-serif; box-shadow: 0 2px 10px #0004; }
+.comparison span { color: #665b5a; }
+.comparison .mantine-SegmentedControl-label { font-size: 12px; }
+@media (max-width: 520px) { .comparison { gap: 6px; } .comparison .mantine-SegmentedControl-root { width: 100%; } .comparison span { display: none; } }

@@ -40,6 +40,14 @@ test("accepted invitation shows concise evening details before the ticket", asyn
   await invite.thenTicketHasGuestLinks();
 });
 
+test("invitation displays the Reichshof entrance photograph", async () => {
+  await invite.open();
+
+  await invite.thenReichshofPhotoIsVisible();
+  await invite.accept();
+  await invite.thenReichshofPhotoIsVisible();
+});
+
 test("invitation shows Reichshof Bayreuth as the venue", async () => {
   await invite.open();
 

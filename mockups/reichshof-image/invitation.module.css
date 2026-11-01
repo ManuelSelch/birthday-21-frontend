@@ -1,0 +1,167 @@
+.invitation {
+  --invitation-accent: #d9bd86;
+  --invitation-muted: #b8bac3;
+  --invitation-border: #ffffff24;
+  margin-block-start: calc(-1 * var(--mantine-spacing-lg));
+  min-height: 100svh;
+  background: #0d1220;
+  color: #f7f3ed;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navy { background: #0d1220; }
+.burgundy { --invitation-accent: #e5c69a; --invitation-muted: #c9b9b7; --invitation-border: #e6c6ad30; background: #211217; }
+.charcoal { --invitation-accent: #e1a49c; --invitation-muted: #c2bcba; --invitation-border: #e6d8d030; background: #1a1919; }
+.burgundy .hero { background-image: linear-gradient(90deg, rgba(35, 10, 17, .88), rgba(35, 10, 17, .24)), url("./assets/reichshof.jpg"); }
+.charcoal .hero { background-image: linear-gradient(90deg, rgba(20, 19, 19, .9), rgba(20, 19, 19, .22)), url("./assets/reichshof.jpg"); }
+
+.layout { max-width: 1480px; margin: auto; }
+.hero {
+  min-height: 460px;
+  padding: 30px 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: linear-gradient(90deg, rgba(8, 12, 24, .88), rgba(8, 12, 24, .22)), url("./assets/reichshof.jpg");
+  background-size: cover;
+  background-position: center 42%;
+}
+.edition { font-family: Georgia, serif; font-size: 22px; letter-spacing: 3px; }
+.heroTitle { padding: 38px 0; }
+.heroTitle h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(56px, 6.5vw, 90px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -3px;
+  margin: 16px 0 18px;
+}
+.hostsSection { max-width: 1100px; width: 100%; margin-inline: auto; padding: 25px 24px 26px; }
+.hostsSection h2 { font-family: Georgia, "Times New Roman", serif; font-size: 24px; font-weight: 400; line-height: 1.3; text-align: center; margin: 0 0 22px; }
+.hostRow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; max-width: 330px; margin-inline: auto; }
+.hostPortrait { margin: 0; min-width: 0; text-align: center; }
+.portraitImage { display: block; width: 80px; height: 80px; margin-inline: auto; border: 1px solid #e4c99155; border-radius: 50%; object-fit: cover; }
+.hostPortrait figcaption { font-size: 14px; line-height: 1.5; margin-top: 11px; }
+.content {
+  max-width: 1100px;
+  margin: auto;
+  padding: 30px 50px 45px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 70px;
+}
+.details {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-self: start;
+  gap: 26px;
+  margin: 25px 0 0;
+  padding: 27px 0;
+  border-block: 1px solid var(--invitation-border);
+}
+.details > div { display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+.details svg { color: var(--invitation-accent); flex-shrink: 0; }
+.details dt { font-size: 9px; line-height: 1.6; letter-spacing: 1.6px; color: var(--invitation-muted); margin-bottom: 5px; }
+.details dd { font-size: 13px; line-height: 1.6; margin: 0; overflow-wrap: anywhere; }
+.programmeLink { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 12px; color: var(--invitation-accent); font-size: 16px; text-decoration: none; }
+.programmeLink:hover { text-decoration: underline; }
+.response { min-width: 0; padding: 22px 0 28px; }
+.response h2 { font-family: Georgia, serif; font-size: 30px; font-weight: 400; line-height: 1.2; margin: 17px 0 12px; overflow-wrap: anywhere; }
+.invitation .rsvp { background: var(--invitation-accent); color: #181521; border-radius: 2px; font-size: 13px; }
+.invitation .rsvp:hover:not(:disabled) { background: #e4c991; }
+.ticketBlock { padding-top: 24px; border-top: 1px solid var(--invitation-border); }
+.ticket { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding: 18px; background: #fff; color: #171717; border-radius: 3px; }
+.ticket > svg { display: block; flex-shrink: 0; max-width: 100%; height: auto; }
+.ticketName { flex: 1; min-width: 100px; overflow-wrap: anywhere; }
+.ticketName span { font-size: 10px; font-weight: 600; letter-spacing: 2.1px; line-height: 1.7; }
+.ticketName strong { display: block; font-family: Georgia, serif; font-size: 20px; font-weight: 600; line-height: 1.4; margin-top: 5px; }
+.important { padding: 24px 0 4px; border-top: 1px solid var(--invitation-border); }
+.sectionLabel { color: var(--invitation-accent); font-size: 10px; font-weight: 600; letter-spacing: 1.8px; line-height: 1.6; }
+.response .important h2 { font-size: 28px; line-height: 1.25; margin: 7px 0 22px; }
+.detailRow { display: flex; align-items: flex-start; gap: 14px; padding-bottom: 21px; }
+.detailRow > svg { color: var(--invitation-accent); flex-shrink: 0; margin-top: 1px; }
+.detailRow h3 { font-size: 15px; font-weight: 600; line-height: 1.45; margin: 0 0 5px; }
+.invitation .joinButton { color: var(--invitation-accent); padding: 0; min-height: 44px; font-size: 14px; margin-top: 3px; }
+.invitation .joinButton:hover { background: transparent; text-decoration: underline; }
+.invitation .secondary {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 10px;
+  color: inherit;
+  border-color: var(--invitation-border);
+  font-size: 11px;
+}
+.invitation .secondary:hover { background: #ffffff12; }
+.invitation .cancel { color: var(--invitation-muted); font-size: 11px; min-height: 44px; }
+.invitation .cancel:disabled { background: transparent; }
+.invitation .companionChoice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  background: transparent;
+  border: 1px solid var(--invitation-border);
+  border-radius: 4px;
+  color: inherit;
+  touch-action: manipulation;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+.invitation .companionChoice:hover:not(:disabled) { background: #ffffff08; border-color: #ffffff40; }
+.invitation .companionChoice[data-selected="true"] { background: #142d29; border-color: #69d6a075; }
+.invitation .companionChoice[data-selected="true"]:hover:not(:disabled) { background: #19382f; }
+.invitation .companionChoice:disabled { cursor: wait; opacity: .65; }
+.companionCopy { display: grid; gap: 3px; min-width: 0; }
+.companionTitle { font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.companionHint { color: var(--invitation-muted); font-size: 12px; line-height: 1.4; }
+.companionIcon { color: var(--invitation-muted); display: grid; place-items: center; flex-shrink: 0; }
+.companionChoice[data-selected="true"] .companionIcon { color: #88e5b2; }
+.invitation :is(a, button, input):focus-visible { outline: 3px solid var(--invitation-accent); outline-offset: 4px; }
+.unavailable { max-width: 600px; padding: 80px 24px; margin: auto; }
+.unavailable h1 { font-family: Georgia, serif; font-size: 32px; line-height: 1.2; font-weight: 400; }
+.unavailable p { color: var(--invitation-muted); font-size: 16px; margin-top: 20px; line-height: 1.6; }
+
+@media (min-width: 1500px) {
+  .invitation { padding: 30px; }
+  .layout { border: 1px solid var(--invitation-border); }
+}
+@media (max-width: 900px) {
+  .content { gap: 35px; padding: 22px 30px; }
+}
+@media (max-width: 640px) {
+  .invitation { min-height: 100dvh; }
+  .layout { display: flex; flex-direction: column; min-height: 100dvh; }
+  .hero { flex: 1; min-height: 0; padding: 16px 24px; background-position: 57% center; }
+  .heroTitle { padding: 0; }
+  .heroTitle h1 { margin: 8px 0 12px; }
+  .heroTitle h1 { font-size: clamp(48px, 12vw, 64px); line-height: 1.08; letter-spacing: -1.5px; }
+  .edition { font-size: 26px; }
+  .content { display: block; width: 100%; margin: 0; padding: 0 24px 12px; }
+  .details { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 0; padding: 12px 0; }
+  .details > div { align-items: flex-start; gap: 8px; min-width: 0; }
+  .details svg { margin-top: 3px; }
+  .details dd { overflow-wrap: anywhere; }
+  .details dt { font-size: 12px; letter-spacing: 1px; }
+  .details dd { font-size: 17px; line-height: 1.5; }
+  .response { padding: 12px 0 0; }
+  .response :global(.mantine-Stack-root) { gap: 8px; }
+  .response > h2 { font-size: 32px; line-height: 1.25; margin: 0 0 12px; }
+  .invitation .rsvp { font-size: 17px; min-height: 52px; }
+  .ticket { flex-wrap: nowrap; padding: 12px; gap: 12px; }
+  .ticket > svg { width: 140px; max-width: 50%; }
+  .ticketName { min-width: 0; }
+  .ticketName span { font-size: 12px; }
+  .ticketName strong { font-size: 24px; }
+  .invitation .secondary { padding: 0 6px; font-size: 14px; min-height: 48px; }
+  .invitation .cancel { font-size: 15px; }
+}
+@media (max-width: 350px) {
+  .hostRow { gap: 12px; }
+  .portraitImage { width: 72px; height: 72px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .invitation *, .invitation *::before, .invitation *::after { animation: none !important; transition: none !important; }
+}
