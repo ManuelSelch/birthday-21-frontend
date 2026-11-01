@@ -1,16 +1,18 @@
 import { test } from "@playwright/test";
 import { InvitationDriver } from "./support/invitation-driver";
 
-test("WhatsApp receives the approved public preview without changing guest attendance", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+let invite: InvitationDriver;
 
+test.beforeEach(async ({ page }) => {
+  invite = new InvitationDriver(page);
+  await invite.reset();
+});
+
+test("WhatsApp receives the approved public preview without changing guest attendance", async () => {
   await invite.thenSharePreviewIsPublic();
 });
 
-test("personal invitation records viewing once and persists RSVP, companion and cancellation", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+test("personal invitation records viewing once and persists RSVP, companion and cancellation", async () => {
   await invite.open();
   await invite.thenPending();
 
@@ -30,9 +32,7 @@ test("personal invitation records viewing once and persists RSVP, companion and 
   await invite.thenPending();
 });
 
-test("accepted invitation shows concise evening details before the ticket", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+test("accepted invitation shows concise evening details before the ticket", async () => {
   await invite.open();
   await invite.accept();
 
@@ -40,18 +40,22 @@ test("accepted invitation shows concise evening details before the ticket", asyn
   await invite.thenTicketHasGuestLinks();
 });
 
-test("invitation introduces all three hosts with labelled portraits", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+test("invitation shows Reichshof Bayreuth as the venue", async () => {
+  await invite.open();
+
+  await invite.thenVenueIsReichshof();
+  await invite.accept();
+  await invite.thenVenueIsReichshof();
+});
+
+test("invitation introduces all three hosts with labelled portraits", async () => {
   await invite.open();
 
   await invite.thenHostPortraitsAreVisible();
 });
 
 for (const width of [320, 375, 640, 641, 768, 1280]) {
-  test(`invitation fits ${width}px with stacked evening details`, async ({ page }) => {
-    const invite = new InvitationDriver(page);
-    await invite.reset();
+  test(`invitation fits ${width}px with stacked evening details`, async () => {
     await invite.useViewport(width);
     await invite.open();
     await invite.thenLayoutFits();
@@ -73,9 +77,7 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
   });
 }
 
-test("failed mutations retain saved state and can be retried", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+test("failed mutations retain saved state and can be retried", async () => {
   await invite.open();
   await invite.failAction("accept", "result");
 
@@ -96,9 +98,7 @@ test("failed mutations retain saved state and can be retried", async ({ page }) 
   await invite.thenAccepted();
 });
 
-test("companion row supports keyboard toggle, green saved state and removal", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+test("companion row supports keyboard toggle, green saved state and removal", async () => {
   await invite.open();
   await invite.accept();
   await invite.thenAccepted();
@@ -121,9 +121,7 @@ test("companion row supports keyboard toggle, green saved state and removal", as
   await invite.thenCompanionRemoved();
 });
 
-test("attendance stays pending while a save is in progress", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
+test("attendance stays pending while a save is in progress", async () => {
   await invite.open();
   await invite.holdAcceptance();
 
@@ -134,10 +132,7 @@ test("attendance stays pending while a save is in progress", async ({ page }) =>
   await invite.thenAccepted();
 });
 
-test("missing, repeated and unknown guest IDs do not expose an invitation", async ({ page }) => {
-  const invite = new InvitationDriver(page);
-  await invite.reset();
-
+test("missing, repeated and unknown guest IDs do not expose an invitation", async () => {
   await invite.openWithoutId();
   await invite.thenAccessDenied();
   await invite.thenNoGuestRequest();

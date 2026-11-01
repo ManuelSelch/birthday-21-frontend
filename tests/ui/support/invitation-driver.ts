@@ -143,8 +143,11 @@ export class InvitationDriver {
     expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     await expect(this.page.getByRole("heading", { name: "21. Geburtstag", exact: true })).toBeVisible();
   }
+  async thenVenueIsReichshof() {
+    await expect(this.page.getByText("Reichshof Bayreuth", { exact: true })).toBeVisible();
+  }
   async thenMobileTextIsReadable() {
-    const size = await this.page.getByText("Location folgt · Bayreuth", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
+    const size = await this.page.getByText("Reichshof Bayreuth", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
     expect(size).toBeGreaterThanOrEqual(16);
     const hostName = await this.page.getByText("Manuel", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
     expect(hostName).toBeGreaterThanOrEqual(14);

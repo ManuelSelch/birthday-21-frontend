@@ -10,7 +10,7 @@ export const invitationEvent = {
   year: "2026",
   hosts: "MANUEL · MARCO · DAVID",
   date: "Termin folgt · 2026",
-  location: "Location folgt · Bayreuth",
+  location: "Reichshof Bayreuth",
 };
 
 export function parseGuest(value: unknown): InvitationGuest | null {
