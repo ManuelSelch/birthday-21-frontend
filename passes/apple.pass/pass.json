@@ -13,7 +13,7 @@
     "secondaryFields": [],
     "auxiliaryFields": [
       { "key": "date", "label": "Datum", "value": "20.11.2026" },
-      { "key": "time", "label": "Beginn", "value": "21 Uhr" },
+      { "key": "time", "label": "Beginn", "value": "19 Uhr" },
       { "key": "location", "label": "Ort", "value": "Reichshof Bayreuth" }
     ]
   }
