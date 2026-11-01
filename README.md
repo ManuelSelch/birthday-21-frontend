@@ -10,6 +10,11 @@
 - Order System (planned) -- order drinks& snacks during the party
 - Live Scoreboard (planned) -- track poker chips of each team
 
+## Apple Wallet certificates
+- Place the Apple-issued pass certificate at `certificates/pass.cer` and download the matching Apple WWDR intermediate certificate from [Apple Certificate Authority](https://www.apple.com/certificateauthority/).
+- Run `bash scripts/convert-wallet-certificates.sh certificates/<WWDR-file>.cer` to create `certificates/pass.pem` and `certificates/wwdr.pem`. Existing PEM files are not overwritten; remove them first if they should be replaced.
+- Keep signing credentials and private keys out of Git. Conversion does not create or change the private key.
+
 ## Admin login
 - Open `/admin/login` to manage guests, check-in, and points.
 - Set `ADMIN_PASSWORD` in `.env` using [Admin setup](docs/admin-login/SETUP.md).
