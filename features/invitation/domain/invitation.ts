@@ -30,6 +30,6 @@ export function ticketLinks(id: string) {
     invitation: `https://geburtstag.manuelselch.de/invite?id=${encoded}`,
     timeline: `/timeline?id=${encoded}`,
     wallet: `/api/apple-pass?id=${encoded}`,
-    whatsapp: "https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt",
+    whatsapp: "https://chat.whatsapp.com/CjiF2b7n2dnB3lJ50a7FL0?s=cl&p=i&mlu=4&ilr=4&iam=2",
   };
 }

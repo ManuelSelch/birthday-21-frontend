@@ -27,5 +27,5 @@ test("Wallet links use the current origin while ticket destinations encode the g
   assert.equal(links.invitation, "https://geburtstag.manuelselch.de/invite?id=guest%20%26%3F%23");
   assert.equal(links.timeline, "/timeline?id=guest%20%26%3F%23");
   assert.equal(links.wallet, "/api/apple-pass?id=guest%20%26%3F%23");
-  assert.equal(links.whatsapp, "https://chat.whatsapp.com/KlJOiGqBwcEDC4R4pTK0vN?mode=wwt");
+  assert.equal(links.whatsapp, "https://chat.whatsapp.com/CjiF2b7n2dnB3lJ50a7FL0?s=cl&p=i&mlu=4&ilr=4&iam=2");
 });
