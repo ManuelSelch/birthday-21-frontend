@@ -198,7 +198,7 @@ export class InvitationDriver {
     const details = this.page.getByRole("region", { name: "Gut zu wissen" });
     await expect(details.getByRole("heading", { name: "WhatsApp-Gruppe", exact: true })).toBeVisible();
     await expect(details.getByRole("heading", { name: "Einlass nur mit Ticket", exact: true })).toBeVisible();
-    await expect(details.getByRole("heading", { name: "Dresscode: Anzug", exact: true })).toBeVisible();
+    await expect(details.getByRole("heading", { name: "Dresscode: Elegant", exact: true })).toBeVisible();
     const join = details.getByRole("link", { name: "Gruppe beitreten" });
     await expect(join).toHaveAttribute("target", "_blank");
     await expect(join).toHaveAttribute("rel", "noopener noreferrer");

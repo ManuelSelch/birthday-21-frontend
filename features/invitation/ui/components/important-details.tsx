@@ -22,7 +22,7 @@ export function ImportantDetails({ whatsapp }: { whatsapp: string }) {
       </div>
       <div className={styles.detailRow}>
         <IconHanger size={23} stroke={1.5} aria-hidden="true" />
-        <h3>Dresscode: Anzug</h3>
+        <h3>Dresscode: Elegant</h3>
       </div>
     </section>
   );
