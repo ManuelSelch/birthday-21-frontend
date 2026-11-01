@@ -59,6 +59,8 @@ openssl pkey -in certificates/my-key.key -pubout -outform DER | openssl dgst -sh
 openssl x509 -in certificates/pass.pem -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256
 ```
 
-Start the app and request `/api/apple-pass?id=<guest-id>` on the same host using a real guest ID. Open the downloaded `.pkpass` on an iPhone and verify that Wallet accepts it and displays the expected details. From a phone, `localhost` means the phone itself; use an address reachable from the phone.
+The event-ticket model in `passes/apple.pass/` uses the invitation's birthday-stage image as a pre-cropped strip, charcoal and champagne colors, and a 21 logo. The generator adds the guest's name and existing guest-specific QR; date, time, and venue are stored in the model. The strip, icon, and logo include 1x, 2x, and 3x PNG assets. Wallet controls final field placement and can omit fields when space is limited; the image strip is not shown on Apple Watch.
+
+Start the app and request `/api/apple-pass?id=<guest-id>` on the same host using a real guest ID. Open the downloaded `.pkpass` on an iPhone and verify that Wallet accepts it, the artwork and guest/event details are visible, and the QR scans with the existing scanner. From a phone, `localhost` means the phone itself; use an address reachable from the phone. Existing passes do not update automatically merely because the model changed; download the new pass again.
 
 If the key passphrase was exposed in Git history or elsewhere, moving it to `.env` does not remove the exposure. Consider replacing the key and certificate, and handle any history cleanup separately.
