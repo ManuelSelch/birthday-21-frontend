@@ -5,6 +5,9 @@
     },
     "design": {
       "enabled": false
+    },
+    "scenario": {
+      "enabled": false
     }
   }
 }
