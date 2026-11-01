@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { parseGuest, ticketLinks } from "../../../../features/invitation/domain/invitation";
+import { invitationEvent, parseGuest, ticketLinks } from "../../../../features/invitation/domain/invitation";
+
+test("the invitation shows the event date", () => {
+  assert.equal(invitationEvent.date, "20. November · 2026");
+});
 
 test("only named guests with an ID can receive invitations", () => {
   for (const value of [null, {}, [], { _id: "x" }, { _id: "", name: "Max" }, { _id: "x", name: " " }]) {

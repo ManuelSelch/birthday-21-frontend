@@ -9,7 +9,7 @@ export const invitationEvent = {
   title: "21. Geburtstag",
   year: "2026",
   hosts: "MANUEL · MARCO · DAVID",
-  date: "Termin folgt · 2026",
+  date: "20. November · 2026",
   location: "Reichshof Bayreuth",
 };
 
