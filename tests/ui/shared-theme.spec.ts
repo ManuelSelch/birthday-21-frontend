@@ -29,4 +29,5 @@ test("admin pages share the style while preserving their workflows", async () =>
     await site.thenSharedStyleIsVisible();
   }
   await site.thenSemanticStatusesRemainDistinct();
+  await site.thenNoBrowserErrors();
 });

@@ -70,6 +70,7 @@ test("scanner fits mobile and displays camera permission failures", async ({ pag
 
   await scanner.thenApprovedDesignIsVisible();
   await scanner.thenCameraFailureIsVisible();
+  await scanner.leaveScannerWithoutErrors();
 });
 
 test("scanner shows the live camera when permission is available", async ({ page }) => {

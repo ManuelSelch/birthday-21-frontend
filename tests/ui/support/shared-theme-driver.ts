@@ -4,7 +4,15 @@ import { BirthdayAdminDriver } from "./birthday-admin-driver";
 import { InvitationDriver } from "./invitation-driver";
 
 export class SharedThemeDriver {
-  constructor(private readonly page: Page) {}
+  private readonly errors: string[] = [];
+
+  constructor(private readonly page: Page) {
+    page.on("pageerror", error => this.errors.push(error.stack || error.message));
+  }
+
+  async thenNoBrowserErrors() {
+    expect(this.errors).toEqual([]);
+  }
 
   async reset() { await this.page.request.post(`${cockpitOrigin}/__test/reset`); }
   async openInvitation() {

@@ -68,9 +68,13 @@ export class ScannerDriver {
   async thenCameraFailureIsVisible() {
     await expect(this.page.getByText("Kamera nicht verfügbar", { exact: true })).toBeVisible();
     await expect(this.page.getByRole("status")).toHaveText("Bitte Kamerazugriff im Browser erlauben.");
-    // The scanner library also rejects its cleanup queue after denied getUserMedia.
-    // Assert the usable error UI above, while still rejecting unrelated browser errors.
-    expect(this.errors.every(message => message === "Permission denied")).toBe(true);
+    expect(this.errors).toEqual([]);
+  }
+
+  async leaveScannerWithoutErrors() {
+    await this.page.getByRole("link", { name: "Gästeliste", exact: true }).click();
+    await expect(this.page.getByRole("heading", { name: "Gäste", exact: true })).toBeVisible();
+    expect(this.errors).toEqual([]);
   }
 
   async thenCameraIsReady() {
