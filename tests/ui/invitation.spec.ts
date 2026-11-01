@@ -56,6 +56,23 @@ test("invitation shows Reichshof Bayreuth as the venue", async () => {
   await invite.thenVenueIsReichshof();
 });
 
+test("invitation shows a Google map of Reichshof before and after RSVP", async () => {
+  await invite.open();
+  await invite.thenReichshofMapIsVisible();
+
+  await invite.accept();
+
+  await invite.thenReichshofMapIsVisible();
+});
+
+test("the venue map fits a narrow mobile invitation", async () => {
+  await invite.useViewport(320);
+  await invite.open();
+
+  await invite.thenReichshofMapFits();
+  await invite.thenLayoutFits();
+});
+
 test("invitation introduces all three hosts with labelled portraits", async () => {
   await invite.open();
 

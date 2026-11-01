@@ -17,6 +17,7 @@ export class InvitationDriver {
   }
 
   async reset() {
+    await this.page.route("https://maps.google.com/**", route => route.fulfill({ contentType: "text/html", body: "Map fixture" }));
     await this.page.request.post(`${cockpitOrigin}/__test/reset`);
   }
   async thenSharePreviewIsPublic() {
@@ -155,6 +156,23 @@ export class InvitationDriver {
     expect(response.ok()).toBe(true);
     const hash = (bytes: Buffer) => createHash("sha256").update(bytes).digest("hex");
     expect(hash(await response.body())).toBe(hash(await readFile("mockups/reichshof-image/assets/reichshof.jpg")));
+  }
+  async thenReichshofMapIsVisible() {
+    const map = this.page.locator('iframe[title="Karte: Reichshof Bayreuth"]');
+    await expect(map).toBeVisible();
+    const src = new URL((await map.getAttribute("src"))!);
+    expect(src.hostname).toBe("maps.google.com");
+    expect(src.searchParams.get("q")).toContain("Maximilianstraße 28");
+    expect(src.searchParams.get("q")).toContain("Bayreuth");
+    expect(src.searchParams.get("output")).toBe("embed");
+  }
+  async thenReichshofMapFits() {
+    const map = this.page.locator('iframe[title="Karte: Reichshof Bayreuth"]');
+    await expect(map).toBeVisible();
+    const box = (await map.boundingBox())!;
+    expect(box.width).toBeGreaterThan(0);
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(this.page.viewportSize()!.width);
   }
   async thenVenueIsReichshof() {
     await expect(this.page.getByText("Reichshof Bayreuth", { exact: true })).toBeVisible();
