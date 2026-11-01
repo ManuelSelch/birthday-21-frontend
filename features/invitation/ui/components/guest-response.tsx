@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Alert, Button, Stack, UnstyledButton } from "@mantine/core";
 import { IconArrowRight, IconCheck } from "@tabler/icons-react";
 import { GuestTicket, type GuestTicketProps } from "./guest-ticket";
@@ -20,9 +21,12 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
   const busy = pending !== null;
   return (
     <section className={styles.response} aria-label="Deine Rückmeldung" aria-busy={busy}>
+      <div className={styles.sectionLabel}>DEINE PERSÖNLICHE EINLADUNG</div>
       <h2 aria-live="polite">{accepted ? `Du bist dabei, ${name}.` : `${name}, bist du dabei?`}</h2>
+      {!accepted && <p className={styles.responseIntro}>Wir freuen uns darauf, diesen besonderen Abend mit dir zu feiern.</p>}
       {accepted ? (
         <Stack gap="lg">
+          <Link href={links.timeline} className={styles.programmeLink}>Programm ansehen <IconArrowRight size={17} aria-hidden="true" /></Link>
           <UnstyledButton
             className={styles.companionChoice}
             aria-label="Ich bringe eine Begleitung mit"
@@ -51,6 +55,7 @@ export function GuestResponse({ name, links, accepted, companion, pending, error
           <Button fullWidth size="lg" className={styles.rsvp} disabled={busy} loading={pending === "accept"} rightSection={<IconArrowRight size={19} aria-hidden="true" />} onClick={onAccept}>
             Ich bin dabei
           </Button>
+          <Link href={links.timeline} className={styles.programmeLink}>Programm ansehen <IconArrowRight size={17} aria-hidden="true" /></Link>
           <VenueMap />
         </>
       )}

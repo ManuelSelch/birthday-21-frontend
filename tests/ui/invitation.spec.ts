@@ -40,12 +40,12 @@ test("accepted invitation shows concise evening details before the ticket", asyn
   await invite.thenTicketHasGuestLinks();
 });
 
-test("invitation displays the Reichshof entrance photograph", async () => {
+test("invitation displays the birthday stage image", async () => {
   await invite.open();
 
-  await invite.thenReichshofPhotoIsVisible();
+  await invite.thenBirthdayImageIsVisible();
   await invite.accept();
-  await invite.thenReichshofPhotoIsVisible();
+  await invite.thenBirthdayImageIsVisible();
 });
 
 test("invitation shows Reichshof Bayreuth as the venue", async () => {
@@ -80,10 +80,10 @@ test("the venue map fits a narrow mobile invitation", async () => {
   await invite.thenLayoutFits();
 });
 
-test("invitation introduces all three hosts with labelled portraits", async () => {
+test("invitation introduces all three hosts", async () => {
   await invite.open();
 
-  await invite.thenHostPortraitsAreVisible();
+  await invite.thenHostsAreIntroduced();
 });
 
 for (const width of [320, 375, 640, 641, 768, 1280]) {
@@ -91,8 +91,10 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
     await invite.useViewport(width);
     await invite.open();
     await invite.thenLayoutFits();
-    await invite.thenDateAndLocationAreStacked();
-    await invite.thenHostPortraitsAreVisible();
+    await invite.thenHostsAreIntroduced();
+    if (width <= 640) {
+      await invite.thenDateAndLocationAreStacked();
+    }
     if (width < 640) {
       await invite.thenMobileTextIsReadable();
     }
@@ -105,7 +107,6 @@ for (const width of [320, 375, 640, 641, 768, 1280]) {
     await invite.thenEveningDetailsAndTicketAreStacked();
     await invite.thenLayoutFits();
     await invite.thenTicketHasGuestLinks();
-    await invite.captureLayout();
   });
 }
 

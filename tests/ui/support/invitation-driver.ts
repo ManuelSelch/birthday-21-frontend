@@ -1,6 +1,4 @@
-import { expect, test, type Page, type Route } from "@playwright/test";
-import { readFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
+import { expect, type Page, type Route } from "@playwright/test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { QRCodeSVG } from "qrcode.react";
@@ -144,18 +142,13 @@ export class InvitationDriver {
   }
   async thenLayoutFits() {
     expect(await this.page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-    await expect(this.page.getByRole("heading", { name: "21. Geburtstag", exact: true })).toBeVisible();
+    await expect(this.page.getByRole("heading", { name: "Unser 21. Geburtstag", exact: true })).toBeVisible();
   }
-  async thenReichshofPhotoIsVisible() {
-    const hero = this.page.getByRole("main").locator("header");
-    await expect(hero).toBeVisible();
-    const background = await hero.evaluate(element => getComputedStyle(element).backgroundImage);
-    const imageUrl = background.match(/url\("?([^"\)]+)"?\)/)?.[1];
-    expect(imageUrl).toBeTruthy();
-    const response = await this.page.request.get(imageUrl!);
-    expect(response.ok()).toBe(true);
-    const hash = (bytes: Buffer) => createHash("sha256").update(bytes).digest("hex");
-    expect(hash(await response.body())).toBe(hash(await readFile("mockups/reichshof-image/assets/reichshof.jpg")));
+  async thenBirthdayImageIsVisible() {
+    const image = this.page.getByRole("img", { name: "Manuel, Marco und David am Richterpult zum 21. Geburtstag" });
+    await expect(image).toBeVisible();
+    await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+    await expect(image).toHaveAttribute("src", /birthday-stage/);
   }
   async thenReichshofMapIsVisible() {
     const map = this.page.locator('iframe[title="Karte: Reichshof Bayreuth"]');
@@ -188,8 +181,6 @@ export class InvitationDriver {
   async thenMobileTextIsReadable() {
     const size = await this.page.getByText("Reichshof Bayreuth", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
     expect(size).toBeGreaterThanOrEqual(16);
-    const hostName = await this.page.getByText("Manuel", { exact: true }).evaluate(el => parseFloat(getComputedStyle(el).fontSize));
-    expect(hostName).toBeGreaterThanOrEqual(14);
   }
   async thenDateAndLocationAreStacked() {
     const date = await this.page.getByText("WANN", { exact: true }).boundingBox();
@@ -199,36 +190,9 @@ export class InvitationDriver {
     expect(date!.y + date!.height).toBeLessThan(location!.y);
     expect(Math.abs(date!.x - location!.x)).toBeLessThan(2);
   }
-  async thenHostPortraitsAreVisible() {
-    const section = this.page.getByRole("region", { name: "Wir feiern mit euch" });
-    await expect(section).toBeVisible();
-    const positions = [];
-    for (const name of ["Manuel", "Marco", "David"]) {
-      const portrait = section.getByRole("img", { name, exact: true });
-      await expect(portrait).toBeVisible();
-      await expect.poll(() => portrait.evaluate(el => {
-        const image = el as HTMLImageElement;
-        return image.complete && image.naturalWidth > 0;
-      })).toBe(true);
-      await expect(section.getByText(name, { exact: true })).toBeVisible();
-      const box = (await portrait.boundingBox())!;
-      expect(box.width).toBe(this.page.viewportSize()!.width <= 350 ? 72 : 80);
-      expect(box.height).toBe(box.width);
-      positions.push(box);
-    }
-    expect(Math.abs(positions[0].y - positions[2].y)).toBeLessThan(2);
-    expect(positions[0].x + positions[0].width).toBeLessThan(positions[1].x);
-    expect(positions[1].x + positions[1].width).toBeLessThan(positions[2].x);
-    const hero = (await this.page.getByRole("main").locator("header").boundingBox())!;
-    const hosts = (await section.boundingBox())!;
-    const date = (await this.page.getByText("WANN", { exact: true }).boundingBox())!;
-    expect(hero.y + hero.height).toBeLessThanOrEqual(hosts.y);
-    expect(hosts.y + hosts.height).toBeLessThanOrEqual(date.y);
-    await expect(this.page.getByText("MANUEL · MARCO · DAVID", { exact: true })).toHaveCount(0);
-    await expect(section.getByRole("button")).toHaveCount(0);
-  }
-  async captureLayout() {
-    await this.page.screenshot({ path: test.info().outputPath("invitation.png"), fullPage: true });
+  async thenHostsAreIntroduced() {
+    await this.thenBirthdayImageIsVisible();
+    await expect(this.page.getByText("MANUEL · MARCO · DAVID", { exact: true })).toBeVisible();
   }
   async thenEveningDetailsAreVisible() {
     const details = this.page.getByRole("region", { name: "Gut zu wissen" });

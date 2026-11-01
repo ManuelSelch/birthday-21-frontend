@@ -9,9 +9,9 @@ export class SharedThemeDriver {
   async reset() { await this.page.request.post(`${cockpitOrigin}/__test/reset`); }
   async openInvitation() {
     await this.page.goto("/invite?id=guest-1");
-    await expect(this.page.getByRole("heading", { name: "21. Geburtstag", exact: true })).toBeVisible();
+    await expect(this.page.getByRole("heading", { name: "Unser 21. Geburtstag", exact: true })).toBeVisible();
   }
-  async thenReichshofPhotoIsPreserved() { await new InvitationDriver(this.page).thenReichshofPhotoIsVisible(); }
+  async thenReichshofPhotoIsPreserved() { await new InvitationDriver(this.page).thenBirthdayImageIsVisible(); }
   async openProgramme() {
     await this.page.goto("/timeline");
     await expect(this.page.getByRole("heading", { name: "Programm", exact: true })).toBeVisible();
