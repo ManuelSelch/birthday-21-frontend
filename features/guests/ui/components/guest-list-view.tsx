@@ -42,7 +42,7 @@ export function GuestListView(props: Props) {
           <span aria-label={"Zusagen: " + props.summary.accepted}>{props.summary.accepted} Zusagen</span><span aria-hidden="true"> · </span>
           <span aria-label={"Eingecheckt: " + props.summary.checkedIn}>{props.summary.checkedIn} eingecheckt</span>
           <span className={styles.srOnly} aria-label={"Mit Begleitung: " + props.summary.withCompanions}>Mit Begleitung: {props.summary.withCompanions}</span>
-        </p></div><Button leftSection={<IconPlus size={17}/>} onClick={props.onCreate} disabled={props.refreshing}>Gast</Button></div>
+        </p></div><Button variant="subtle" leftSection={<IconPlus size={17}/>} onClick={props.onCreate} disabled={props.refreshing}>Gast</Button></div>
         <SegmentedControl className={styles.viewTabs} fullWidth size="md" value={props.view} onChange={props.onViewChange}
           aria-label="Ansicht" data={[{ value: "guests", label: "Übersicht" }, { value: "videos", label: "Videos" }]}/>
         <section className={styles.toolbar} aria-label="Gäste filtern">
