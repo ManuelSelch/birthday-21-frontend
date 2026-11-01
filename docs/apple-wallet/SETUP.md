@@ -1,7 +1,5 @@
 # Apple Wallet signing setup
 
-Run these commands from the project root. You need OpenSSL, curl, access to the Apple Developer account that owns the Pass Type ID, and the key passphrase. Here “key” means the signing private key, not an Apple account passkey.
-
 ## 1. Create a private key and CSR
 
 If replacing existing credentials, back them up securely outside the repository first. **The commands below overwrite files with the same names.** Keep the old certificate and key until the replacement is tested. If the old passphrase is lost, a new key requires a new Apple-issued certificate; the old certificate cannot be used with it.
@@ -16,7 +14,18 @@ openssl req -new -key certificates/my-key.key \
 
 Choose a new key passphrase when prompted and store it securely. Enter your identifying information when creating the CSR. Never commit the key or passphrase.
 
-## 2. Issue the pass certificate
+## 2. Register a Pass Type ID (optional)
+
+You do **not** need a new Pass Type ID when replacing a lost key or passphrase: issue a new certificate for the existing ID instead. If you do need a new ID:
+
+1. Sign in to [Apple Developer — Certificates, Identifiers & Profiles](https://developer.apple.com/account/resources/identifiers/list) with an Account Holder or Admin account.
+2. Open **Identifiers**, click **+**, select **Pass Type IDs**, and continue.
+3. Enter a description and a unique reverse-domain identifier, for example `pass.de.selch.birthday2026`, then register it.
+4. Update `passTypeIdentifier` in `passes/apple.pass/pass.json` to the new ID. If using a different developer team, also update `teamIdentifier`.
+
+See [Apple's Wallet identifier instructions](https://developer.apple.com/help/account/capabilities/create-wallet-identifiers-and-certificates/).
+
+## 3. Issue the pass certificate
 
 1. Sign in to [Apple Developer](https://developer.apple.com/account/) and open **Certificates, Identifiers & Profiles**.
 2. Create a **Pass Type ID Certificate** for the existing Pass Type ID in `passes/apple.pass/pass.json`. Upload `certificates/pass.certSigningRequest` when prompted.
@@ -27,7 +36,7 @@ Choose a new key passphrase when prompted and store it securely. Enter your iden
    openssl x509 -inform DER -in certificates/pass.cer -noout -issuer -subject -dates
    ```
 
-## 3. Download and convert certificates
+## 4. Download and convert certificates
 
 The current download script retrieves Apple's WWDR **G4** intermediate. Check that the issuer above says `OU=G4`; if Apple issues the pass certificate under a different intermediate, obtain the matching certificate from [Apple's certificate authority page](https://www.apple.com/certificateauthority/) instead.
 
@@ -38,7 +47,7 @@ The current download script retrieves Apple's WWDR **G4** intermediate. Check th
 
 The download replaces `certificates/AppleWWDRCAG4.cer` if present. Conversion chooses the intermediate by issuer/subject and creates `certificates/pass.pem` and `certificates/wwdr.pem`. It refuses to overwrite either PEM: after securely backing up the old files, remove the existing PEM files before converting. Remove duplicate matching intermediate `.cer` files if conversion reports multiple matches. The scripts do not create or alter the private key.
 
-## 4. Configure and verify
+## 5. Configure and verify
 
 Set `APPLE_WALLET_KEY_PASSPHRASE` in `.env` and in the deployment environment to the new key passphrase. Restart the app so it picks up the change. Keep the variable server-only and never commit `.env` or credentials.
 
