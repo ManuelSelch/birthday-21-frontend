@@ -13,7 +13,7 @@ export class SuperstarDriver {
   }
   async selectScene(name: string) { await this.page.getByRole('button', { name, exact: true }).click(); }
   async selectPerformer(name: string) {
-    await this.page.getByLabel('Act für die Vorschau').click();
+    await this.page.getByRole('textbox', { name: 'Act für die Vorschau', exact: true }).click();
     await this.page.getByRole('option', { name, exact: true }).click();
   }
   async buzz(name: string) { await this.page.getByRole('button', { name: new RegExp('^' + name) }).click(); }

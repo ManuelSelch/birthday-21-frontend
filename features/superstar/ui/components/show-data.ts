@@ -1,3 +1,4 @@
+import { acts } from '../../domain/catalog';
 import manuelPhoto from '../../assets/manuel.jpg';
 import marcoPhoto from '../../assets/marco.jpg';
 import davidPhoto from '../../assets/david.jpg';
@@ -8,11 +9,5 @@ export const jurors = [
   {name:'Marco', photo:marcoPhoto, label:'Volle Spannung!', sub:'ACHTUNG: HOCHSPANNUNGS-TALENT', Icon:IconBoltFilled, color:'pink'},
   {name:'David', photo:davidPhoto, label:'Zugabe!', sub:'DAVON GEHT NOCH EINE RUNDE', Icon:IconHeartFilled, color:'orange'}
 ];
-export const performers = [
-  {name:'Joschua',act:'Kartenzauber',initials:'JO', Icon:IconCards},
-  {name:'Danny',act:'Jonglieren',initials:'DA', Icon:IconSparkles},
-  {name:'Johannes',act:'Klavier',initials:'JO', Icon:IconStarFilled},
-  {name:'Jakob',act:'Zeichentalent',initials:'JA', Icon:IconStarFilled},
-  {name:'Charlie',act:'Karaoke? / noch offen',initials:'CH', Icon:IconMicrophone},
-  {name:'Daniel, Thiebaud & Leonard',act:'Überraschung / noch offen',initials:'DTL', Icon:IconSparkles}
-];
+const actIcons = { cards: IconCards, sparkles: IconSparkles, star: IconStarFilled, microphone: IconMicrophone };
+export const performers = acts.map(act => ({ ...act, Icon: actIcons[act.icon] }));

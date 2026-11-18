@@ -266,3 +266,8 @@
 .intro h1 { font-size: 34px; }
 .studio-brand small { font-size: 7px; }
 }
+
+/* Fit a complete 16:9 output inside any physical display, without cropping. */
+.display { height: 100svh; min-height: 100svh; display: grid; place-items: center; overflow: hidden; }
+.display-frame { width: min(100vw, calc(100svh * 16 / 9)); }
+.display-frame .projector, .display-frame .jury-screen { width: 100%; }

@@ -4,11 +4,11 @@ import { safeAdminDestination, SESSION_SECONDS } from "../../../../features/admi
 
 test("accepts only canonical protected admin paths", () => {
   assert.equal(SESSION_SECONDS, 12 * 60 * 60);
-  for (const path of ["/admin/guests", "/admin/scanner?mode=scan", "/admin"]) {
+  for (const path of ["/admin/guests", "/admin/scanner?mode=scan", "/admin", "/superstar/control"]) {
     assert.equal(safeAdminDestination(path), path);
   }
 
-  for (const path of [undefined, "https://evil.test", "//evil.test/admin", "/admin/login", "/admin/login?next=x", "/administer", "/admin/../invite", "/admin/%2e%2e/invite", "/admin/%6cogin", "/admin/guests#x", "/admin/\\evil", "/admin//evil", "/admin/guests\n"]) {
+  for (const path of ["/superstar/projector", "/superstar/control/other", "/superstar/control/../projector", undefined, "https://evil.test", "//evil.test/admin", "/admin/login", "/admin/login?next=x", "/administer", "/admin/../invite", "/admin/%2e%2e/invite", "/admin/%6cogin", "/admin/guests#x", "/admin/\\evil", "/admin//evil", "/admin/guests\n"]) {
     assert.equal(safeAdminDestination(path), "/admin/guests", String(path));
   }
 });
