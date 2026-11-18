@@ -90,10 +90,10 @@ export function Studio(){
   setCelebrate(false);setReaction(i);setBurst(v=>v+1);
  }
  return <div className={`studio theme-${direction} ${direction==='birthday'?'theme-gala':''} ${solo?'solo':''}`}>
-   <header className="studio-header"><a className="studio-brand" href="./"><span>21</span><div>SUPERSTAR<small>MANUEL / MARCO / DAVID / ENTWURF 08</small></div></a><Badge variant="light" color="gray">INTERAKTIVER ENTWURF</Badge></header>
+   <header className="studio-header"><a className="studio-brand" href="./"><span>21</span><div>SUPERSTAR<small>MANUEL / MARCO / DAVID / ENTWURF 09</small></div></a><Badge variant="light" color="gray">INTERAKTIVER ENTWURF</Badge></header>
    <a className="skip-link" href="#show-preview">Zur Showvorschau</a>
    <main id="show-preview">
-    <section className="intro"><div><span className="eyebrow">{d.eyebrow}</span><h1>{d.title}</h1><p>{d.description}</p></div><div className="design-picker"><span>APP-STIL UND ORIGINALENTWÜRFE</span><SegmentedControl value={direction} onChange={updateDirection} data={Object.entries(directions).map(([value,d])=>({value,label:d.name}))}/></div></section>
+    <section className="intro"><div><span className="eyebrow">{d.eyebrow}</span><h1>{d.title}</h1></div><div className="design-picker"><span>APP-STIL UND ORIGINALENTWÜRFE</span><SegmentedControl value={direction} onChange={updateDirection} data={Object.entries(directions).map(([value,d])=>({value,label:d.name}))}/></div></section>
     <div className="workspace"><div className="outputs"><div className="output-heading"><span><IconDeviceTv size={16}/> BEAMER / PUBLIKUM</span><Switch size="xs" label="Nur Beamer" checked={solo} onChange={e=>setSolo(e.currentTarget.checked)}/></div><Projector direction={direction} scene={scene} performer={performers[Number(performerIndex)]} celebrate={celebrate} burst={burst} reaction={reaction}/>
       <div className="jury-heading"><span>JURYTISCH / DREI EINZELNE 16:9-DISPLAYS</span><span>VON LINKS NACH RECHTS</span></div><div className="jury-grid">{jurors.map((j,i)=><JuryScreen key={j.name} index={i} active={active[i]||celebrate} mode={mode} burst={burst}/>)}</div>
     </div>
@@ -104,8 +104,6 @@ export function Studio(){
       <Button className="golden-button" fullWidth leftSection={<IconConfetti size={18}/>} onClick={()=>{setCelebrate(true);setReaction(null);setBurst(v=>v+1);}}>Goldener Moment für alle</Button><Button fullWidth variant="subtle" color="gray" size="xs" onClick={()=>{setActive([false,false,false]);setCelebrate(false);setReaction(null);}}>Reaktionen zurücksetzen</Button>
       <div className="control-divider"/><label className="field-label">03 / JURYTISCH IM RUHEZUSTAND</label><SegmentedControl fullWidth size="xs" value={mode} onChange={setMode} data={[{value:'names',label:'Namen'},{value:'portraits',label:'Porträts'},{value:'art',label:'Showmotiv'}]}/><p className="control-note">Drei Ideen für die Tischfronten. Buzzer-Reaktionen verschwinden nach etwa drei Sekunden. Der goldene Moment bleibt bis zum Zurücksetzen.</p>
     </aside></div>
-    <section className="idea-footer"><div><span className="eyebrow">ABSTIMMEN OHNE NOTEN</span><h3>{d.question}</h3><p>{d.voting}</p></div><div><span className="eyebrow">DIE GEMEINSAME IDEE</span><h3>Applaus statt Aussieben.</h3><p>Persönliche Buzzer, große Nahaufnahmen und ein Publikum, das mitfeiert. Keine roten Kreuze. Kein Rausbuzzern.</p></div></section>
-    <footer className="studio-footer">Lokaler Designentwurf. Act-Fotos, Kamerabild und Abstimmungen sind Platzhalter. Gastgeberporträts sind echte Fotos. ESP8266, iPad-Steuerung und echte Bildschirmausgabe sind nicht verbunden.</footer>
    </main>
  </div>;
 }

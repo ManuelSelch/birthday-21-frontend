@@ -1,6 +1,6 @@
 # Superstar birthday-app mockup
 
-- Revision: 08. Status: in review; not approved for implementation.
+- Revision: 09. Status: in review; not approved for implementation.
 - Source: copied from `~/Downloads/mockups/superstar` revision 07; Downloads remains unchanged.
 - Goal: fit the positive talent show into the birthday app's existing visual language, without production integration.
 - Default: `/superstar/` or `?design=birthday`; original `pop`, `gala`, and `arcade` directions remain selectable for comparison.
@@ -14,6 +14,7 @@
 - Preserve five projector scenes, six selectable acts, three 16:9 jury screens, portrait/name/showmotif modes, and projector-only view.
 - Individual buzzer overlays and independent jury reactions last 3.2 seconds; repeated presses replay. Scene/act changes and reset clear projector overlays.
 - Golden moment is separate, replayable, and remains until reset. No elimination, ranking, or automatic triple-buzzer behavior.
+- Intro description, idea footer, and studio footer are removed per user feedback; show interactions remain unchanged.
 - Controls stack below 1000px; design choices wrap into two columns on narrow screens. Reduced-motion preference suppresses animation.
 - Agentation uses the local copy-and-paste annotation workflow only.
 
@@ -25,4 +26,4 @@
 - Fake local state only; no backend, camera permission, hardware, sound, display routing, synchronization, real voting, or persistence.
 - Tentative acts and original reaction wording are unchanged. Actual hardware readability/safe areas remain an integration decision.
 - Verification: HTTP/module serving checked; no browser automation or screenshots. Pipeline not required for mockup-only iteration.
-- Approval: pending user review of revision 08. No production behavior changes authorized.
+- Approval: pending user review of revision 09. No production behavior changes authorized.
