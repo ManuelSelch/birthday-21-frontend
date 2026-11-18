@@ -1,6 +1,6 @@
 # Superstar birthday-app mockup
 
-- Revision: 09. Status: in review; not approved for implementation.
+- Revision: 09. Status: approved for implementation (Birthday 21 direction only).
 - Source: copied from `~/Downloads/mockups/superstar` revision 07; Downloads remains unchanged.
 - Goal: fit the positive talent show into the birthday app's existing visual language, without production integration.
 - Default: `/superstar/` or `?design=birthday`; original `pop`, `gala`, and `arcade` directions remain selectable for comparison.
@@ -26,4 +26,6 @@
 - Fake local state only; no backend, camera permission, hardware, sound, display routing, synchronization, real voting, or persistence.
 - Tentative acts and original reaction wording are unchanged. Actual hardware readability/safe areas remain an integration decision.
 - Verification: HTTP/module serving checked; no browser automation or screenshots. Pipeline not required for mockup-only iteration.
-- Approval: pending user review of revision 09. No production behavior changes authorized.
+- Approval: user explicitly approved revision 09 and requested a simple Birthday 21 implementation.
+- Implementation scope: standalone `/superstar` page with existing local demo interactions; omit alternate design picker and annotation tooling. No existing app journeys change.
+- Agent-owned mockup preview stopped and listener exit verified before implementation; approved files preserved.

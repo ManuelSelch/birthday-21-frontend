@@ -6,6 +6,7 @@
 
 ## Features
 - Stadtball-inspired navy/gold design with readable mobile typography
+- [Superstar show demo](docs/superstar.md) at `/superstar`, styled for Birthday 21
 - Wallet Integration
 - Order System (planned) -- order drinks& snacks during the party
 - Live Scoreboard (planned) -- track poker chips of each team
