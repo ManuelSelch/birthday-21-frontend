@@ -11,6 +11,7 @@ export function parseScene(value: string | string[] | undefined): Scene {
 export interface ShowState {
   scene: Scene;
   performerIndex: number;
+  imageIndex: number;
   active: boolean[];
   celebrate: boolean;
   burst: number;
@@ -21,6 +22,7 @@ export interface ShowState {
 export type ShowAction =
   | { type: 'scene'; scene: Scene }
   | { type: 'performer'; index: number }
+  | { type: 'image'; index: number }
   | { type: 'buzz'; index: number }
   | { type: 'expire'; index: number }
   | { type: 'clear-reaction' }
@@ -30,13 +32,14 @@ export type ShowAction =
   | { type: 'solo'; solo: boolean };
 
 export function initialShow(scene: Scene = 'act'): ShowState {
-  return { scene, performerIndex: 0, active: [false, false, false], celebrate: false, burst: 0, reaction: null, mode: 'portraits', solo: false };
+  return { scene, performerIndex: 0, imageIndex: 0, active: [false, false, false], celebrate: false, burst: 0, reaction: null, mode: 'portraits', solo: false };
 }
 
 export function updateShow(state: ShowState, action: ShowAction): ShowState {
   switch (action.type) {
     case 'scene': return { ...state, scene: action.scene, celebrate: false, reaction: null };
-    case 'performer': return { ...state, performerIndex: action.index, active: [false, false, false], celebrate: false, reaction: null };
+    case 'performer': return { ...state, performerIndex: action.index, imageIndex: 0, active: [false, false, false], celebrate: false, reaction: null };
+    case 'image': return { ...state, imageIndex: action.index };
     case 'buzz': return { ...state, active: state.active.map((active, index) => index === action.index || active), celebrate: false, reaction: action.index, burst: state.burst + 1 };
     case 'expire': return { ...state, active: state.active.map((active, index) => index === action.index ? false : active) };
     case 'clear-reaction': return { ...state, reaction: null };

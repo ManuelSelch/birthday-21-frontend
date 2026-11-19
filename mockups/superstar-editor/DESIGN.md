@@ -1,5 +1,5 @@
 # Superstar show editor
-- Revision: 2. Status: in review; not approved.
+- Revision: 2. Status: approved for implementation.
 - Goal: add and edit shows from the Superstar controller without changing the running act.
 - Entry proposal: “Shows bearbeiten” on the live controller; return to live controls.
 - Preserve existing scene selection, jury controls, reactions, and display links.
@@ -11,4 +11,6 @@
 - Uploads: local JPG/PNG/WebP previews, 10 MB limit per file. No real upload or server validation.
 - Assumptions for approval: saved edits update the shared catalogue, not the active act selection; live image switching belongs in the controller. Durable storage and timing of updates to an already-live act require implementation design.
 - Preview currently demonstrates the editor only; the return link opens the prior controller mockup.
-- Approval: pending.
+- Approval: user confirmed compact revision 2 for implementation, then requested proceeding while Cockpit access is prepared.
+- Implementation storage: Cockpit `superstarShows` collection and asset references; existing admin session protects writes. Saving updates live content without switching acts. Actual CMS access remains pending.
+- Preview cleanup: no preview owned by this implementation session; pre-existing preview retained, not stopped without its owner's permission.

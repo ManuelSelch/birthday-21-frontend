@@ -1,3 +1,4 @@
+import { demoShows, type ShowDefinition } from '../domain/show-catalogue';
 import { initialShow, reactionDuration, updateShow } from '../domain/show';
 import { visibleShow, type ShowCommand, type ShowSnapshot } from '../domain/live-show';
 
@@ -13,8 +14,8 @@ export class ShowService {
   private listeners = new Set<Listener>();
   private cancelExpiry?: () => void;
 
-  constructor(private readonly clock: ShowClock, sessionId: string) {
-    this.current = { sessionId, revision: 0, serverTime: clock.now(), state: initialShow(),
+  constructor(private readonly clock: ShowClock, sessionId: string, shows = demoShows) {
+    this.current = { sessionId, revision: 0, serverTime: clock.now(), state: initialShow(), shows: structuredClone(shows),
       juryExpiresAt: [null, null, null], reactionExpiresAt: null };
   }
 
@@ -33,11 +34,22 @@ export class ShowService {
     }
     if (command.type === 'reset' || command.type === 'performer')
       this.current.juryExpiresAt = [null, null, null];
-    if (command.type !== 'buzz' && command.type !== 'mode') this.current.reactionExpiresAt = null;
+    if (command.type !== 'buzz' && command.type !== 'mode' && command.type !== 'image') this.current.reactionExpiresAt = null;
     this.current.revision++;
     this.scheduleExpiry();
     this.publish();
     return this.copy();
+  }
+
+  replaceCatalogue(shows: ShowDefinition[]) {
+    const previous = this.current.shows[this.current.state.performerIndex];
+    const previousImage = previous?.images[this.current.state.imageIndex]?._id;
+    this.current.shows = structuredClone(shows);
+    const selected = shows.findIndex(show => show._id === previous?._id);
+    this.current.state.performerIndex = Math.max(0, selected);
+    this.current.state.imageIndex = Math.max(0, shows[Math.max(0, selected)]?.images.findIndex(image => image._id === previousImage) ?? 0);
+    this.current.revision++;
+    this.publish();
   }
 
   subscribe(listener: Listener): () => void {

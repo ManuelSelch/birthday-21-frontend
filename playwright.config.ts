@@ -3,7 +3,7 @@ import { browserOrigin } from "./tests/ui/support/ports";
 
 export default defineConfig({
   testDir: "./tests/ui",
-  testMatch: process.env.ADMIN_TEST_PRODUCTION === "1" ? ["admin-boundaries.spec.ts", "invitation.spec.ts", "superstar-live.spec.ts"] : "*.spec.ts",
+  testMatch: process.env.ADMIN_TEST_PRODUCTION === "1" ? ["admin-boundaries.spec.ts", "invitation.spec.ts", "superstar-live.spec.ts", "superstar-editor.spec.ts"] : "*.spec.ts",
   fullyParallel: false,
   workers: 1,
   retries: 0,

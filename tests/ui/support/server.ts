@@ -1,3 +1,4 @@
+import { demoShows } from '../../../features/superstar/domain/show-catalogue';
 import { createServer } from "node:http";
 import { spawn } from "node:child_process";
 import { appPort, cockpitPort, cockpitOrigin } from "./ports";
@@ -7,6 +8,9 @@ let requests = 0;
 let guests: Record<string, unknown>[];
 let timeline: unknown = [];
 let timelineFails = false;
+let shows = structuredClone(demoShows);
+const imageBytes = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=', 'base64');
+const assets = new Map<string, { _id: string; path: string; mime: string }>();
 function reset() {
   guest = { _id: "guest-1", video: false, name: "Alex Beispiel", groups: [], hosts: [], accepted: false, invited: false, companion: false, checked_in: false, points: 0 };
   guests = [guest];
@@ -20,6 +24,12 @@ const cockpit = createServer(async (request, response) => {
   response.setHeader("Content-Type", "application/json");
   if (request.url === "/__test/reset") { reset(); response.end("{}"); return; }
   if (request.url === "/__test/state") { response.end(JSON.stringify({ guest, guests, requests })); return; }
+  if (request.url === "/__test/shows" && request.method === "POST") {
+    shows = structuredClone(demoShows);
+    assets.clear();
+    response.end("{}");
+    return;
+  }
   if (request.url === "/__test/guests" && request.method === "POST") {
     let body = "";
     for await (const chunk of request) body += chunk;
@@ -40,6 +50,33 @@ const cockpit = createServer(async (request, response) => {
   requests += 1;
   if (request.headers["api-key"] !== "isolated-test-key") { response.writeHead(401).end("{}"); return; }
 
+  if (request.url === "/api/content/items/superstarShows") { response.end(JSON.stringify(shows)); return; }
+  if (request.url === "/api/content/item/superstarShows" && request.method === "POST") {
+    let body = "";
+    for await (const chunk of request) body += chunk;
+    const data = JSON.parse(body).data;
+    const saved = { ...data, _id: data._id ?? 'new-' + (shows.length + 1) };
+    const index = shows.findIndex(show => show._id === saved._id);
+    if (index >= 0) shows[index] = saved;
+    else shows.push(saved);
+    response.end(JSON.stringify(saved)); return;
+  }
+  if (request.url === "/api/superstar-upload" && request.method === "POST") {
+    for await (const chunk of request) { void chunk; }
+    const id = 'asset-' + (assets.size + 1);
+    const asset = { _id: id, path: '/' + id + '.png', mime: 'image/png' };
+    assets.set(id, asset);
+    response.end(JSON.stringify({ failed: [], assets: [asset] })); return;
+  }
+  if (request.url?.startsWith("/api/assets/image/")) {
+    const id = request.url.split("/").at(-1)!.split("?")[0];
+    if (!assets.has(id)) { response.writeHead(404).end("{}"); return; }
+    response.setHeader("Content-Type", "image/png"); response.end(imageBytes); return;
+  }
+  if (request.url?.startsWith("/api/assets/")) {
+    const asset = assets.get(request.url.split("/").at(-1)!);
+    response.writeHead(asset ? 200 : 404).end(JSON.stringify(asset ?? {})); return;
+  }
   if (request.url === "/api/content/items/drinks") response.end(JSON.stringify([]));
   else if (request.url === "/api/content/items/timeline") {
     if (timelineFails) response.writeHead(503).end(JSON.stringify({ error: "private upstream detail" }));
@@ -72,6 +109,7 @@ const next = spawn(process.execPath, ["node_modules/next/dist/bin/next", product
     NEXT_TEST_DIST_DIR: production ? ".next-admin-build" : ".next-admin-tests",
     COCKPIT_API_URL: `${cockpitOrigin}/api`,
     COCKPIT_API_KEY: "isolated-test-key",
+    COCKPIT_ASSET_UPLOAD_PATH: "/superstar-upload",
     ADMIN_PASSWORD: "birthday test password",
   },
 });

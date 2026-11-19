@@ -30,6 +30,27 @@ beforeEach(() => {
 });
 afterEach(() => show.dispose());
 
+test('saved catalogue content is broadcast without selecting another act or clearing reactions', () => {
+  show.command({ type: 'performer', index: 1 });
+  show.command({ type: 'buzz', index: 0 });
+  const before = show.snapshot();
+
+  const shows = before.shows.map(entry => ({ ...entry }));
+  shows[1].title = 'Ein neuer Titel';
+  shows.push({ ...shows[0], _id: 'new-show', name: 'Neuer Act', sortOrder: 6 });
+  const received: string[] = [];
+  show.subscribe(snapshot => received.push(snapshot.shows[1].title));
+
+  show.replaceCatalogue(shows);
+
+  const after = show.snapshot();
+  assert.equal(after.shows[1].title, 'Ein neuer Titel');
+  assert.deepEqual(after.state, before.state);
+  assert.equal(after.shows.length, 7);
+  assert.deepEqual(received, ['Jonglieren', 'Ein neuer Titel']);
+  assert.ok(parseSnapshot(after));
+});
+
 test('a new connection gets a complete snapshot and subsequent shared commands', () => {
   const received: string[] = [];
   const unsubscribe = show.subscribe(snapshot => received.push(snapshot.state.scene));

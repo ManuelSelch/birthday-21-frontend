@@ -3,7 +3,7 @@ import type { ShowService } from './show-service';
 
 interface CommandDependencies {
   authorize: (request: Request) => Response | undefined;
-  show: () => ShowService;
+  show: () => ShowService | Promise<ShowService>;
 }
 
 function json(body: unknown, status = 200) {
@@ -45,9 +45,13 @@ export function commandHandler({ authorize, show }: CommandDependencies) {
       body = JSON.parse(new TextDecoder().decode(bytes));
     } catch { return json({ error: 'Ungültiges JSON.' }, 400); }
 
-    const command = parseCommand(body);
-    if (!command) return json({ error: 'Ungültiger Show-Befehl.' }, 400);
-    return json(show().command(command));
+    try {
+      const service = await show();
+      const snapshot = service.snapshot();
+      const command = parseCommand(body, snapshot.shows, snapshot.state.performerIndex);
+      if (!command) return json({ error: 'Ungültiger Show-Befehl.' }, 400);
+      return json(service.command(command));
+    } catch { return json({ error: 'Shows konnten nicht geladen werden.' }, 502); }
   };
 }
 

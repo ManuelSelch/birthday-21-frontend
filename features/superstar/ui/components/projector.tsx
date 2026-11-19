@@ -1,6 +1,7 @@
 import { IconStarFilled } from '@tabler/icons-react';
 import { cx } from './show-styles';
-import { performers, birthday } from './show-data';
+import { birthday, type Performer } from './show-data';
+import { imageUrl } from '../../domain/show-catalogue';
 import type { Scene } from '../../domain/show';
 import { Confetti } from './confetti';
 import { CameraIllustration } from './camera-illustration';
@@ -8,13 +9,14 @@ import { BuzzerReaction } from './buzzer-reaction';
 
 interface ProjectorProps {
   scene: Scene;
-  performer: typeof performers[number];
+  performer: Performer;
+  imageIndex?: number;
   celebrate: boolean;
   burst: number;
   reaction: number | null;
 }
 
-export function Projector({ scene, performer, celebrate, burst, reaction }: ProjectorProps) {
+export function Projector({ scene, performer, celebrate, burst, reaction, imageIndex = 0 }: ProjectorProps) {
   const ActIcon = performer.Icon;
   return (
     <div className={cx('projector')}>
@@ -28,11 +30,13 @@ export function Projector({ scene, performer, celebrate, burst, reaction }: Proj
             <span className={cx('kicker')}>KEIN DRUCK. NUR APPLAUS.</span>
             <h2>{performer.name}<span>ist am Start.</span></h2>
             <div className={cx('act-tag')}><ActIcon size={21}/>{performer.act}</div>
-            <p>Talent optional. Legendenstatus garantiert.</p>
+            <p className="whitespace-pre-wrap">{performer.description}</p>
           </div>
           <div className={cx('portrait-art')}>
-            <span className={cx('portrait-placeholder')}>FOTO-PLATZHALTER</span>
-            <span className={cx('portrait-initials')}>{performer.initials}</span>
+            {performer.images[imageIndex] ? <img className="h-full w-full rounded-[inherit] object-cover" src={imageUrl(performer.images[imageIndex])} alt={performer.name}/> : <>
+              <span className={cx('portrait-placeholder')}>FOTO-PLATZHALTER</span>
+              <span className={cx('portrait-initials')}>{performer.initials}</span>
+            </>}
             <span className={cx('portrait-star')}><IconStarFilled/></span>
             <span className={cx('portrait-sticker')}>DEIN<br/>MOMENT!</span>
           </div>

@@ -85,6 +85,7 @@ export function useLiveShow() {
 
   return {
     state: packet ? visibleShow(packet.snapshot, serverNow) : null,
+    shows: packet?.snapshot.shows ?? [],
     sessionId: packet?.snapshot.sessionId,
     connection, pending, error, send,
   };

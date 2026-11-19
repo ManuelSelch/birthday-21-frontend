@@ -1,4 +1,5 @@
-import { acts, juryIds } from './catalog';
+import { juryIds } from './catalog';
+import { demoShows, parseCatalogue, type ShowDefinition } from './show-catalogue';
 import { sceneLabels, type ShowAction, type ShowState } from './show';
 
 export type ShowCommand = Exclude<ShowAction, { type: 'expire' | 'clear-reaction' | 'solo' }>;
@@ -8,6 +9,7 @@ export interface ShowSnapshot {
   revision: number;
   serverTime: number;
   state: ShowState;
+  shows: ShowDefinition[];
   juryExpiresAt: (number | null)[];
   reactionExpiresAt: number | null;
 }
@@ -22,7 +24,7 @@ function timestamp(value: unknown): value is number | null {
   return value === null || (typeof value === 'number' && Number.isFinite(value) && value >= 0);
 }
 
-export function parseCommand(value: unknown): ShowCommand | null {
+export function parseCommand(value: unknown, shows = demoShows, performerIndex = 0): ShowCommand | null {
   if (!record(value)) return null;
   const keys = Object.keys(value).sort().join(',');
   switch (value.type) {
@@ -32,9 +34,12 @@ export function parseCommand(value: unknown): ShowCommand | null {
       return null;
     case 'performer':
     case 'buzz':
-      if (keys === 'index,type' && index(value.index, value.type === 'buzz' ? juryIds.length : acts.length))
+      if (keys === 'index,type' && index(value.index, value.type === 'buzz' ? juryIds.length : shows.length))
         return { type: value.type, index: value.index };
       return null;
+    case 'image':
+      return keys === 'index,type' && index(value.index, shows[performerIndex]?.images.length ?? 0)
+        ? { type: 'image', index: value.index } : null;
     case 'mode':
       if (keys === 'mode,type' && (value.mode === 'portraits' || value.mode === 'art'))
         return { type: 'mode', mode: value.mode };
@@ -49,13 +54,16 @@ export function parseCommand(value: unknown): ShowCommand | null {
 export function parseSnapshot(value: unknown): ShowSnapshot | null {
   if (!record(value) || !record(value.state)) return null;
   const state = value.state;
+  const shows = parseCatalogue(value.shows);
+  if (!shows) return null;
   if (typeof value.sessionId !== 'string' || !value.sessionId ||
     !Number.isSafeInteger(value.revision) || (value.revision as number) < 0 ||
     !timestamp(value.serverTime) || value.serverTime === null ||
     !Array.isArray(value.juryExpiresAt) || value.juryExpiresAt.length !== juryIds.length ||
     !value.juryExpiresAt.every(timestamp) || !timestamp(value.reactionExpiresAt) ||
     !parseCommand({ type: 'scene', scene: state.scene }) ||
-    !index(state.performerIndex, acts.length) ||
+    !(shows.length ? index(state.performerIndex, shows.length) : state.performerIndex === 0) ||
+    !index(state.imageIndex, Math.max(1, shows[state.performerIndex as number]?.images.length ?? 0)) ||
     !Array.isArray(state.active) || state.active.length !== juryIds.length ||
     !state.active.every(active => typeof active === 'boolean') ||
     typeof state.celebrate !== 'boolean' || state.solo !== false ||

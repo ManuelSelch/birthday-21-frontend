@@ -1,3 +1,4 @@
+import type { ShowDefinition, ShowImage } from '../../domain/show-catalogue';
 import { acts } from '../../domain/catalog';
 import manuelPhoto from '../../assets/manuel.jpg';
 import marcoPhoto from '../../assets/marco.jpg';
@@ -10,4 +11,12 @@ export const jurors = [
   {name:'David', photo:davidPhoto, label:'Zugabe!', sub:'DAVON GEHT NOCH EINE RUNDE', Icon:IconHeartFilled, color:'orange'}
 ];
 const actIcons = { cards: IconCards, sparkles: IconSparkles, star: IconStarFilled, microphone: IconMicrophone };
-export const performers = acts.map(act => ({ ...act, Icon: actIcons[act.icon] }));
+export interface Performer {
+  name: string; act: string; initials: string; Icon: typeof IconStarFilled; description: string; images: ShowImage[];
+}
+export const performers: Performer[] = acts.map(act => ({ ...act, Icon: actIcons[act.icon],
+  description: 'Talent optional. Legendenstatus garantiert.', images: [] }));
+export function performerFor(show: ShowDefinition): Performer {
+  return { name: show.name, act: show.title, description: show.description, images: show.images,
+    initials: show.name.split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase(), Icon: IconStarFilled };
+}
