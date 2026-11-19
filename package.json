@@ -18,7 +18,7 @@
     "@yudiel/react-qr-scanner": "^2.6.0",
     "google-auth-library": "^10.4.2",
     "jsonwebtoken": "^9.0.2",
-    "next": "16.4.3",
+    "next": "16.4.6",
     "passkit-generator": "^3.5.2",
     "qrcode.react": "^4.2.0",
     "react": "19.3.1",
