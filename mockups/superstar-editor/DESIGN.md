@@ -1,9 +1,10 @@
 # Superstar show editor
-- Revision: 1. Status: in review; not approved.
+- Revision: 2. Status: in review; not approved.
 - Goal: add and edit shows from the Superstar controller without changing the running act.
 - Entry proposal: “Shows bearbeiten” on the live controller; return to live controls.
 - Preserve existing scene selection, jury controls, reactions, and display links.
-- Layout: show list, draft form, isolated 16:9 beamer preview; stack on narrow screens.
+- Layout: compact show list, draft form, isolated 16:9 beamer preview; stack on narrow screens.
+- Copy: short page and field labels; omit introductory text, repeated artist heading, explanatory hints, and preview callout. Keep upload limits, draft status, and essential accessibility labels.
 - Fields: artist/name, act title, description, multiple uploaded beamer images.
 - Interactions: add, select, edit, preview uploaded images, remove images, save, discard; confirm before switching away from unsaved work.
 - Existing six acts are fake initial data. No backend calls or persistence; refresh resets edits.
