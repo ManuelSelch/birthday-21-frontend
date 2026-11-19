@@ -96,5 +96,6 @@ test("scanner is in the top bar, orders is removed and logout and invitations re
   const app = new AddGuestsDriver(page);
   await app.open();
 
+  await app.thenNavigationUsesIcons();
   await app.thenNavigationIsReal();
 });

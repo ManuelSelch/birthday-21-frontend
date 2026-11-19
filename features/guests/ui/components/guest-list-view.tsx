@@ -29,13 +29,13 @@ export function GuestListView(props: Props) {
     <div className={styles.screen}>
       <header className={styles.topbar}><span className={styles.brand}>21. Geburtstag</span>
         <div className={styles.headerActions}>
-          <Button component="a" href="/superstar/control" variant="subtle" leftSection={<IconStar size={17} aria-hidden="true" />}>Superstar</Button>
+          <ActionIcon component="a" href="/superstar/control" variant="subtle" color="gray" size={36} aria-label="Superstar"><IconStar size={18} aria-hidden="true" /></ActionIcon>
           <AgentationToggle />
           <ActionIcon variant="subtle" color="gray" size={36} aria-label="Seite neu laden" onClick={props.onRefresh}>
             <IconRefresh size={18} />
           </ActionIcon>
-          <Button component="a" href="/admin/scanner" variant="subtle" leftSection={<IconScan size={17}/>}>Scanner</Button>
-          <Button component="a" href="/timeline" variant="subtle" leftSection={<IconTimeline size={17} aria-hidden="true" />}>Timeline</Button>
+          <ActionIcon component="a" href="/admin/scanner" variant="subtle" color="gray" size={36} aria-label="Scanner"><IconScan size={18} aria-hidden="true" /></ActionIcon>
+          <ActionIcon component="a" href="/timeline" variant="subtle" color="gray" size={36} aria-label="Timeline"><IconTimeline size={18} aria-hidden="true" /></ActionIcon>
           {props.logout}</div></header>
       <main className={styles.main}>
         <div className={styles.heading}><div><h1>Gäste</h1><p className={styles.summary} aria-label="Übersicht">

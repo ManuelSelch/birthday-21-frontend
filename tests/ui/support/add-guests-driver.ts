@@ -196,6 +196,17 @@ export class AddGuestsDriver {
     await expect(this.page).toHaveURL(/\/timeline$/);
     await expect(this.page.getByRole("heading", { name: "Programm", exact: true })).toBeVisible();
   }
+  async thenNavigationUsesIcons() {
+    const banner = this.page.getByRole("banner");
+    const refresh = banner.getByRole("button", { name: "Seite neu laden" });
+    const color = await refresh.evaluate(element => getComputedStyle(element).color);
+    for (const name of ["Superstar", "Scanner", "Timeline"]) {
+      const link = banner.getByRole("link", { name, exact: true });
+      await expect(link).toHaveText("");
+      await expect(link.locator("svg")).toBeVisible();
+      await expect(link).toHaveCSS("color", color);
+    }
+  }
   async thenNavigationIsReal() {
     await expect(this.page.getByRole("banner").getByRole("link", { name: "Scanner", exact: true })).toHaveAttribute("href", "/admin/scanner");
     await expect(this.page.getByRole("link", { name: "Bestellungen", exact: true })).toHaveCount(0);
