@@ -90,7 +90,7 @@ export function Studio(){
   setCelebrate(false);setReaction(i);setBurst(v=>v+1);
  }
  return <div className={`studio theme-${direction} ${direction==='birthday'?'theme-gala':''} `}>
-   <header className="studio-header"><a className="studio-brand" href="./"><span>21</span><div>SUPERSTAR<small>MANUEL / MARCO / DAVID</small></div></a><span aria-label="Verbunden" title="Verbunden" style={{marginLeft:'auto',width:10,height:10,borderRadius:'50%',background:'#40c057'}} /></header>
+   <header className="studio-header"><a className="studio-brand" href="./"><span>21</span><div>SUPERSTAR<small>MANUEL / MARCO / DAVID</small></div></a><span aria-label="Verbunden" title="Verbunden" style={{marginLeft:'auto',marginRight:-24,width:7,height:7,borderRadius:'50%',background:'#40c057'}} /></header>
    <a className="skip-link" href="#show-preview">Zur Showvorschau</a>
    <main id="show-preview">
     <section className="intro"><div><span className="eyebrow">{d.eyebrow}</span><h1>{d.title}</h1></div></section>
