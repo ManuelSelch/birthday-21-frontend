@@ -61,12 +61,12 @@ const cockpit = createServer(async (request, response) => {
     else shows.push(saved);
     response.end(JSON.stringify(saved)); return;
   }
-  if (request.url === "/api/superstar-upload" && request.method === "POST") {
+  if (request.url === "/api/superstar/upload" && request.method === "POST") {
     for await (const chunk of request) { void chunk; }
     const id = 'asset-' + (assets.size + 1);
     const asset = { _id: id, path: '/' + id + '.png', mime: 'image/png' };
     assets.set(id, asset);
-    response.end(JSON.stringify({ failed: [], assets: [asset] })); return;
+    response.end(JSON.stringify({ asset })); return;
   }
   if (request.url?.startsWith("/api/assets/image/")) {
     const id = request.url.split("/").at(-1)!.split("?")[0];
@@ -109,7 +109,7 @@ const next = spawn(process.execPath, ["node_modules/next/dist/bin/next", product
     NEXT_TEST_DIST_DIR: production ? ".next-admin-build" : ".next-admin-tests",
     COCKPIT_API_URL: `${cockpitOrigin}/api`,
     COCKPIT_API_KEY: "isolated-test-key",
-    COCKPIT_ASSET_UPLOAD_PATH: "/superstar-upload",
+    COCKPIT_ASSET_UPLOAD_PATH: "/superstar/upload",
     ADMIN_PASSWORD: "birthday test password",
   },
 });

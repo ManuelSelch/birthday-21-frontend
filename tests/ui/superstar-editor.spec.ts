@@ -38,6 +38,15 @@ test('failed saves retain the draft, unsaved navigation is guarded, and discard 
   await editor.shouldFitMobile();
 });
 
+test('reused uploads do not duplicate draft references and can still be saved', async () => {
+  await editor.open();
+  await editor.add('Editor Reused Image Act');
+  await editor.uploadTwoImages();
+
+  await editor.uploadFirstImageAgain();
+  await editor.save();
+});
+
 test('uploaded images can be removed from a draft without deleting the asset', async () => {
   await editor.open();
   await editor.add('Editor Images Act');

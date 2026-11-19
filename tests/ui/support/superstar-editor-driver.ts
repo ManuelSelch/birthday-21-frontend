@@ -58,6 +58,22 @@ export class SuperstarEditorDriver {
     await expect(preview).toHaveAttribute('src', /asset-/);
     await expect.poll(() => preview.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
   }
+  async uploadFirstImageAgain() {
+    const first = this.page.getByRole('img', { name: 'Beamerbild 1', exact: true });
+    const id = (await first.getAttribute('src'))!.split('/').at(-1)!;
+    await this.page.route('**/api/superstar/images', route => route.fulfill({
+      json: { _id: id, path: '/' + id + '.png' },
+    }));
+    const response = this.page.waitForResponse('**/api/superstar/images');
+    await this.page.locator('input[type=file]').setInputFiles({
+      name: 'same.png', mimeType: 'image/png',
+      buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=', 'base64'),
+    });
+    await response;
+    await expect(this.page.getByRole('button', { name: 'Speichern', exact: true })).toBeEnabled();
+    await expect(this.page.getByRole('img', { name: /^Beamerbild / })).toHaveCount(2);
+    await this.page.unroute('**/api/superstar/images');
+  }
   async removeSecondImage() {
     await this.page.getByRole('button', { name: 'Bild 2 entfernen', exact: true }).click();
     await expect(this.page.getByRole('button', { name: 'Bild 2 in Vorschau anzeigen', exact: true })).toHaveCount(0);

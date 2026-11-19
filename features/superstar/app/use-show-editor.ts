@@ -63,7 +63,12 @@ export function useShowEditor(shows: ShowDefinition[], onClose: () => void) {
       for (const file of files) uploaded.push(await uploadShowImage(file));
     } catch (failure) { setError(failure instanceof Error ? failure.message : 'Bildupload fehlgeschlagen.'); }
     finally {
-      setDraft(current => ({ ...current, images: [...current.images, ...uploaded] }));
+      setDraft(current => {
+        const images = [...current.images];
+        for (const image of uploaded)
+          if (!images.some(existing => existing._id === image._id)) images.push(image);
+        return { ...current, images };
+      });
       busyRef.current = false; setBusy(false);
     }
   }

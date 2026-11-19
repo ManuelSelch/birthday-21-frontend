@@ -9,7 +9,7 @@ let respond: (url: string, options: RequestInit) => Response;
 beforeEach(() => {
   requests = [];
   respond = () => Response.json(demoShows);
-  store = new CockpitCatalogue(() => ({ base: 'https://cms.test/api', key: 'server-secret', uploadPath: '/superstar-upload' }));
+  store = new CockpitCatalogue(() => ({ base: 'https://cms.test/api', key: 'server-secret', uploadPath: '/superstar/upload' }));
   mock.method(globalThis, 'fetch', async (url: string | URL | Request, options: RequestInit = {}) => {
     requests.push({ url: String(url), options });
     return respond(String(url), options);
@@ -35,15 +35,19 @@ test('CMS reads and writes use server credentials, no cache, bounded requests an
 
 test('uploads use the configured endpoint and verify returned image metadata', async () => {
   const asset = { _id: 'asset-1', path: '/image.png', mime: 'image/png' };
-  respond = url => Response.json(url.endsWith('/superstar-upload') ? { failed: [], assets: [asset] } : asset);
+  respond = url => Response.json(url.endsWith('/superstar/upload') ? { asset } : asset);
   assert.deepEqual(await store.upload(new File(['image'], 'photo.png', { type: 'image/png' })), { _id: asset._id, path: asset.path });
 
   const form = requests[0].options.body as FormData;
-  assert.ok(form.get('files[]') instanceof File);
+  assert.ok(form.get('file') instanceof File);
+  assert.equal(form.has('files[]'), false);
   assert.equal(new Headers(requests[0].options.headers).has('Content-Type'), false);
   assert.equal(requests[1].url, 'https://cms.test/api/assets/asset-1');
 
-  respond = () => Response.json({ failed: ['photo.png'], assets: [] });
+  respond = url => Response.json(url.endsWith('/superstar/upload') ? { asset, reused: true } : asset);
+  assert.deepEqual(await store.upload(new File(['image'], 'photo.png', { type: 'image/png' })), { _id: asset._id, path: asset.path });
+
+  respond = () => Response.json({ error: 'Asset upload failed' });
   await assert.rejects(store.upload(new File(['image'], 'photo.png')));
 });
 

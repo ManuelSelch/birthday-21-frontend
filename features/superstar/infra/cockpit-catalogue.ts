@@ -39,12 +39,10 @@ export class CockpitCatalogue implements CatalogueStore {
   async upload(file: File): Promise<ShowImage> {
     if (!this.uploadConfigured()) throw new Error('Upload endpoint not configured');
     const form = new FormData();
-    form.append('files[]', file, file.name.replace(/[^a-zA-Z0-9._-]/g, '_'));
+    form.append('file', file, file.name.replace(/[^a-zA-Z0-9._-]/g, '_'));
     const value = await (await this.request(this.environment().uploadPath!, { method: 'POST', body: form })).json();
-    // Explicit integration contract for the installation's upload endpoint.
-    if (!Array.isArray(value.failed) || value.failed.length || !Array.isArray(value.assets) || value.assets.length !== 1)
-      throw new Error('Upload not confirmed');
-    const image = parseImage(value.assets[0]);
+    // The Superstar addon returns a native asset, including for deduplicated uploads.
+    const image = parseImage(value?.asset);
     if (!image) throw new Error('Invalid uploaded asset');
     return this.asset(image._id);
   }
