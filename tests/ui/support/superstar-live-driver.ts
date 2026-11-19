@@ -29,6 +29,10 @@ export class SuperstarLiveDriver {
   }
   async openScreens() {
     this.displays = await this.control.context().browser()!.newContext({ viewport: { width: 900, height: 1090 } });
+    const login = await this.displays.request.post(new URL('/api/admin/login', this.control.url()).href, {
+      data: { password: 'birthday test password', returnTo: '/superstar/projector' },
+    });
+    expect(login.ok()).toBe(true);
     this.projector = await this.displays.newPage();
     await this.projector.goto(new URL('/superstar/projector', this.control.url()).href);
     for (const id of ['manuel', 'marco', 'david']) {
@@ -92,7 +96,10 @@ export class SuperstarLiveDriver {
     }
   }
   async shouldRejectPublicCommands() {
-    expect((await this.displays!.request.post(new URL('/api/superstar/commands', this.control.url()).href, { data: { type: 'golden' } })).status()).toBe(401);
+    const guest = await this.control.context().browser()!.newContext();
+    try {
+      expect((await guest.request.post(new URL('/api/superstar/commands', this.control.url()).href, { data: { type: 'golden' } })).status()).toBe(401);
+    } finally { await guest.close(); }
   }
   async shouldRejectUnknownJuror() {
     const response = await this.displays!.request.get(new URL('/superstar/jury/unknown', this.control.url()).href);

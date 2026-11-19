@@ -7,6 +7,8 @@ export class SuperstarDriver {
   private jury() { return this.page.getByRole('region', { name: 'Jury-Displays' }); }
 
   async open(scene?: string, width = 900) {
+    const login = await this.page.request.post('/api/admin/login', { data: { password: 'birthday test password', returnTo: '/superstar' } });
+    expect(login.ok()).toBe(true);
     await this.page.setViewportSize({ width, height: 1090 });
     await this.page.goto('/superstar' + (scene ? '?scene=' + scene : ''));
     await expect(this.page.getByRole('heading', { name: 'Ein Abend. Lauter Superstars.' })).toBeVisible();

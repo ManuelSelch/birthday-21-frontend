@@ -10,7 +10,7 @@ export function safeAdminDestination(value?: string | null): string {
     if (
       url.origin !== "https://admin.invalid" ||
       url.pathname + url.search !== value ||
-      (!/^\/admin(?:\/[a-zA-Z0-9_-]+)*\/?$/.test(url.pathname) && url.pathname !== '/superstar/control') ||
+      (!/^\/admin(?:\/[a-zA-Z0-9_-]+)*\/?$/.test(url.pathname) && !/^\/superstar(?:\/(?:control|projector|jury\/(?:manuel|marco|david)))?\/?$/.test(url.pathname)) ||
       /^\/admin\/login(?:\/|$)/.test(url.pathname)
     ) return fallback;
 

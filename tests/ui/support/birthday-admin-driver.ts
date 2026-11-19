@@ -10,7 +10,7 @@ export class BirthdayAdminDriver {
   }
   async thenAllAdminPagesRequireLogin() {
     const origin = `http://localhost:${appPort}`;
-    for (const path of ["/admin", "/admin/guests", "/admin/orders", "/admin/points", "/admin/scanner"]) {
+    for (const path of ["/admin", "/admin/guests", "/admin/orders", "/admin/points", "/admin/scanner", "/superstar", "/superstar/control", "/superstar/projector", "/superstar/jury/manuel", "/superstar/jury/marco", "/superstar/jury/david"]) {
       const response = await this.page.request.get(path, { maxRedirects: 0 });
       expect(response.status(), path).toBe(307);
       const destination = new URL(response.headers().location, origin);
@@ -19,6 +19,13 @@ export class BirthdayAdminDriver {
       expect(destination.searchParams.get("returnTo")).toBe(path);
     }
   }
+  async openSuperstarProjector() { await this.page.goto("/superstar/projector"); }
+  async thenSuperstarProjectorIsVisible() {
+    await expect(this.page).toHaveURL(/\/superstar\/projector$/);
+    await expect(this.page.getByRole("main")).toBeVisible();
+  }
+  async openSuperstarControl() { await this.page.getByRole("link", { name: "Superstar", exact: true }).click(); }
+  async thenSuperstarControlIsVisible() { await expect(this.page).toHaveURL(/\/superstar\/control$/); }
   async openGuests() { await this.page.goto("/admin/guests"); }
   async openLogin() { await this.page.goto("/admin/login"); }
   async openPoints() { await this.page.goto("/admin/points"); }

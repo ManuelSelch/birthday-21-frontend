@@ -5,7 +5,7 @@ let show: SuperstarLiveDriver;
 test.beforeEach(({ page }) => { show = new SuperstarLiveDriver(page); });
 test.afterEach(() => show.dispose());
 
-test('live controller requires login while the four outputs remain public and read-only', async () => {
+test('live controller requires login and the four outputs remain read-only', async () => {
   await show.openProtectedControl();
   await show.shouldRequireLogin();
 
