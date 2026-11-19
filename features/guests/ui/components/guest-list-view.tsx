@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { ActionIcon, Button, MantineProvider, SegmentedControl, Select, TextInput, Tooltip } from "@mantine/core";
+import { ActionIcon, Button, MantineProvider, SegmentedControl, Select, TextInput } from "@mantine/core";
 import { IconPlus, IconRefresh, IconScan, IconSearch, IconStar, IconTimeline } from "@tabler/icons-react";
 import type { Guest } from "../../domain/guest";
 import { HOSTS } from "../../domain/assignments";
@@ -10,6 +10,7 @@ import { GuestTable } from "./guest-table";
 import { GuestVideoTable } from "./guest-video-table";
 import type { VideoFilter } from "../../domain/guest-videos";
 import styles from "./guest-list.module.css";
+import { AgentationToggle } from "@/features/agentation/ui/agentation-toggle";
 
 type Props = {
   view: string; onViewChange: (view: string) => void;
@@ -29,11 +30,10 @@ export function GuestListView(props: Props) {
       <header className={styles.topbar}><span className={styles.brand}>21. Geburtstag</span>
         <div className={styles.headerActions}>
           <Button component="a" href="/superstar/control" variant="subtle" leftSection={<IconStar size={17} aria-hidden="true" />}>Superstar</Button>
-          <Tooltip label="Seite neu laden">
-            <ActionIcon variant="subtle" color="gray" size={36} aria-label="Seite neu laden" onClick={props.onRefresh}>
-              <IconRefresh size={18} />
-            </ActionIcon>
-          </Tooltip>
+          <AgentationToggle />
+          <ActionIcon variant="subtle" color="gray" size={36} aria-label="Seite neu laden" onClick={props.onRefresh}>
+            <IconRefresh size={18} />
+          </ActionIcon>
           <Button component="a" href="/admin/scanner" variant="subtle" leftSection={<IconScan size={17}/>}>Scanner</Button>
           <Button component="a" href="/timeline" variant="subtle" leftSection={<IconTimeline size={17} aria-hidden="true" />}>Timeline</Button>
           {props.logout}</div></header>

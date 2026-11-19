@@ -22,6 +22,7 @@
 - Open `/admin/login` to manage guests, check-in, and points.
 - Set `ADMIN_PASSWORD` in `.env` using [Admin setup](docs/admin-login/SETUP.md).
 - Guest invitations do not require login.
+- [Agentation annotations](docs/admin-ui/AGENTATION.md) can be enabled from the guests page.
 
 ## Tech Stack
 - NextJS

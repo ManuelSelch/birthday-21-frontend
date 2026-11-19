@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider, Paper, mantineHtmlProps } from '@mantine/core';
+import { AgentationOverlay } from "@/features/agentation/ui/agentation-overlay";
 
 export const metadata: Metadata = {
   title: "21. Geburtstag",
@@ -36,6 +37,7 @@ export default function RootLayout({
           <Paper pt="lg" bg="var(--site-background)" c="var(--site-text)" mih="100vh">
             {children}
           </Paper>
+          <AgentationOverlay />
         </MantineProvider>
       </body>
     </html>
