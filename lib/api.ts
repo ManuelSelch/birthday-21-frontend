@@ -5,13 +5,13 @@ export type StatusResponse = {
 }
 
 class API {
-    async setPoints(guest: any, points: number) {
+    async setPoints(guest: { _id: string }, points: number) {
         try {
             await this.post("/api/points", {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ id: guest._id, points }),
             });
-        } catch (err: any) { }
+        } catch { }
     };
 
     async getGuests() {
@@ -26,21 +26,21 @@ class API {
                 body: JSON.stringify({ id }),
             });
         } 
-        catch (e) { 
+        catch {
             return { success: false, error: "server error" } 
         } 
     }
 
-    async confirmInvited(guest: any) {
+    async confirmInvited(guest: { _id: string }) {
         try {
             await this.get(`/api/invited?id=${guest._id}`);
             return true;
-        } catch (err: any) { 
+        } catch {
             return false;
         }
     }
 
-    async accept(guest: any) {
+    async accept(guest: { _id: string }) {
         try {
             await this.get(`/api/accept?id=${guest._id}`);
             return true;
@@ -49,7 +49,7 @@ class API {
         }
     }
 
-    async cancel(guest: any) {
+    async cancel(guest: { _id: string }) {
         try {
             await this.get(`/api/cancel?id=${guest._id}`);
             return true;
@@ -58,11 +58,11 @@ class API {
         }
     }
 
-    async setCompanion(guest: any, isCompanion: boolean) {
+    async setCompanion(guest: { _id: string }, isCompanion: boolean) {
         const companion = isCompanion ? "1" : "0";
 
         try {
-            const res = await this.get(`/api/companion?id=${guest._id}&companion=${companion}`);
+            await this.get(`/api/companion?id=${guest._id}&companion=${companion}`);
             return true;
         }
         catch {
@@ -79,4 +79,5 @@ class API {
     }
 }
 
-export default new API();
+const api = new API();
+export default api;

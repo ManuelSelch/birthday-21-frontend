@@ -1,16 +1,15 @@
 "use client";
 import api from "@/lib/api";
-import cockpit from "@/lib/cockpit";
-import { Anchor, Button, Group, NumberInput, Stack, Table, TextInput } from "@mantine/core";
+import { Button, NumberInput, Stack, Table, TextInput } from "@mantine/core";
 import { useEffect, useState } from "react";
 
 export default function PointsTable() {
     const [search, setSearch] = useState("");
     const [points, setPoints] = useState<Record<string, number>>({});
 
-    const [guests, setGuests] = useState<any[]>([]);
+    const [guests, setGuests] = useState<PointGuest[]>([]);
 
-    const sortedGuests = guests.sort((a, b) => num(b.points) - num(a.points));
+    const sortedGuests = [...guests].sort((a, b) => num(b.points) - num(a.points));
     const filteredGuests = sortedGuests.filter((g) =>
         g.name.toLowerCase().includes(search.toLowerCase())
     );
@@ -24,14 +23,14 @@ export default function PointsTable() {
         setPoints(prev => ({ ...prev, [id]: Number(value) }));
     };
 
-    const handleSave = async (g: any) => {
+    const handleSave = async (g: PointGuest) => {
         const newValue = points[g._id] ?? g.points;
         await api.setPoints(g, newValue);
         await fetchGuests();
     };
 
     useEffect(() => {
-        fetchGuests();
+        api.getGuests().then(setGuests);
     }, [])
 
     const rows = filteredGuests.map(g => {
@@ -84,7 +83,9 @@ export default function PointsTable() {
     )
 }
 
-function num(value: any) {
+type PointGuest = { _id: string; name: string; points?: number | null };
+
+function num(value: number | null | undefined) {
     if(value == undefined)
         return 0;
     return value;

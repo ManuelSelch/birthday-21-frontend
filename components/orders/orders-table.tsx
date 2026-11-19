@@ -1,8 +1,8 @@
 "use client";
-import { Anchor, Button, Stack, Table, TextInput } from "@mantine/core";
+import { Stack, Table, TextInput } from "@mantine/core";
 import { useState } from "react";
 
-export default function OrdersTable({orders}: {orders: any[]}) {
+export default function OrdersTable({orders}: {orders: { _id: string; name: string; points?: number | null }[]}) {
     const [search, setSearch] = useState("");
 
     const filderedOrders = orders.filter((o) =>
@@ -40,7 +40,7 @@ export default function OrdersTable({orders}: {orders: any[]}) {
     )
 }
 
-function num(value: any) {
+function num(value: number | null | undefined) {
     if(value == undefined)
         return 0;
     return value;

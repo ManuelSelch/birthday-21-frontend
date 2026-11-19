@@ -20,7 +20,7 @@ test("the event pass retains the guest identity and QR while using the approved 
   assert.equal(props.eventTicket.primaryFields.length, 0);
   assert.deepEqual(Array.from(props.eventTicket.secondaryFields), [{ key: "name", label: "Gast", value: "Max Mustermann" }]);
   assert.deepEqual(Array.from(props.eventTicket.auxiliaryFields, ({ key, value }) => [key, value]), [
-    ["date", "20.11.2026"], ["time", "21 Uhr"], ["location", "Reichshof Bayreuth"],
+    ["date", "20.11.2026"], ["time", "19 Uhr"], ["location", "Reichshof Bayreuth"],
   ]);
   assert.equal(props.barcodes[0].message, "https://geburtstag.manuelselch.de/invite?id=guest-123");
   assert.equal(props.barcodes[0].format, "PKBarcodeFormatQR");

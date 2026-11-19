@@ -5,7 +5,7 @@ export async function GET(request: Request) {
     const url = new URL(request.url);
     const id = url.searchParams.get("id");
 
-    const guest = await cockpit.getItem("guests", id as string);
+    const guest = await cockpit.getItem<{ _id: string; name: string }>("guests", id as string);
     const buffer = await generateApplePass(guest);
     const uint8Array = new Uint8Array(buffer);
 

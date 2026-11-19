@@ -1,6 +1,5 @@
-import cockpit from "@/lib/cockpit";
 import { IconUsers } from '@tabler/icons-react';
-import { Anchor, Container, Group, Text, Title } from "@mantine/core";
+import { Anchor, Container, Group, Title } from "@mantine/core";
 import PointsTable from "@/components/points/points-table";
 
 export default async function GuestsPage() {

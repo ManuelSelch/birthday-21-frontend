@@ -1,5 +1,5 @@
 interface CockpitOptions {
-  filter?: Record<string, any>;
+  filter?: Record<string, unknown>;
   sort?: Record<string, number>;
   limit?: number;
   skip?: number;
@@ -15,7 +15,7 @@ class CockpitAPI {
     this.apiKey = process.env.COCKPIT_API_KEY!;
   }
 
-  async request<T = any>(endpoint: string, options: RequestInit = {}): Promise<T> {
+  async request<T = unknown>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseURL}${endpoint}`;
 
     const config: RequestInit = {
@@ -37,7 +37,7 @@ class CockpitAPI {
     return response.json();
   }
 
-  async getItems<T = any>(collection: string, options: CockpitOptions = {}): Promise<T[]> {
+  async getItems<T = unknown>(collection: string, options: CockpitOptions = {}): Promise<T[]> {
     const params = new URLSearchParams();
 
     Object.entries(options).forEach(([key, value]) => {
@@ -52,11 +52,11 @@ class CockpitAPI {
     return this.request<T[]>(endpoint);
   }
 
-  async getItem<T = any>(collection: string, id: string): Promise<T> {
+  async getItem<T = unknown>(collection: string, id: string): Promise<T> {
     return this.request<T>(`/content/item/${collection}/${id}`);
   }
 
-  async getSingleton<T = any>(singleton: string): Promise<T> {
+  async getSingleton<T = unknown>(singleton: string): Promise<T> {
     return this.request<T>(`/content/item/${singleton}`);
   }
 
@@ -65,7 +65,7 @@ class CockpitAPI {
    * @param collection - the collection name
    * @param data - the item data. Include _id to update existing item
    */
-  async saveItem<T = any>(collection: string, data: Record<string, any>): Promise<T> {
+  async saveItem<T = unknown>(collection: string, data: Record<string, unknown>): Promise<T> {
     const endpoint = `/content/item/${collection}`;
 
     return this.request<T>(endpoint, {
@@ -77,4 +77,5 @@ class CockpitAPI {
   }
 }
 
-export default new CockpitAPI();
+const cockpit = new CockpitAPI();
+export default cockpit;

@@ -11,7 +11,7 @@ export async function POST(request: Request) {
     if (typeof id !== "string" || !id.trim() || id.length > 128)
         return privateJson({ success: false, error: "no ticket id provided" }, 400);
 
-    const guest = await cockpit.getItem("guests", id);
+    const guest = await cockpit.getItem<{ accepted?: boolean; checked_in?: boolean } | null>("guests", id);
 
     if(!guest)
         return privateJson({ success: false, error: "ticket is invalid" });
