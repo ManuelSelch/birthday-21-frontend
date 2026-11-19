@@ -5,7 +5,7 @@ let show: SuperstarLiveDriver;
 test.beforeEach(({ page }) => { show = new SuperstarLiveDriver(page); });
 test.afterEach(() => show.dispose());
 
-test('live controller requires login while the four outputs remain public and read-only', async () => {
+test('live controller requires login and the four outputs remain read-only', async () => {
   await show.openProtectedControl();
   await show.shouldRequireLogin();
 
@@ -47,8 +47,8 @@ test('golden moment and jury mode are shared; disconnected screens catch up auto
   await show.celebrate();
   await show.shouldCelebrateEverywhere();
   await show.reset();
-  await show.selectNames();
-  await show.shouldShowNamesEverywhere();
+  await show.selectMotifs();
+  await show.shouldShowMotifsEverywhere();
 
   await show.disconnectScreens();
   await show.shouldWarnDisconnected();

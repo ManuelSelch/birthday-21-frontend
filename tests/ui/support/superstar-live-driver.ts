@@ -29,6 +29,10 @@ export class SuperstarLiveDriver {
   }
   async openScreens() {
     this.displays = await this.control.context().browser()!.newContext({ viewport: { width: 900, height: 1090 } });
+    const login = await this.displays.request.post(new URL('/api/admin/login', this.control.url()).href, {
+      data: { password: 'birthday test password', returnTo: '/superstar/projector' },
+    });
+    expect(login.ok()).toBe(true);
     this.projector = await this.displays.newPage();
     await this.projector.goto(new URL('/superstar/projector', this.control.url()).href);
     for (const id of ['manuel', 'marco', 'david']) {
@@ -48,7 +52,11 @@ export class SuperstarLiveDriver {
   async buzz(name: string) { await this.control.getByRole('button', { name: new RegExp('^' + name) }).click(); }
   async celebrate() { await this.control.getByRole('button', { name: 'Goldener Moment für alle' }).click(); }
   async reset() { await this.control.getByRole('button', { name: 'Reaktionen zurücksetzen' }).click(); }
-  async selectNames() { await this.control.getByText('Namen', { exact: true }).click(); }
+  async selectMotifs() {
+    await expect(this.control.getByText('Namen', { exact: true })).toHaveCount(0);
+    await expect(this.control.getByText('Porträts', { exact: true })).toBeVisible();
+    await this.control.getByText('Motive', { exact: true }).click();
+  }
   async reloadProjector() { await this.projector!.reload(); }
   async disconnectScreens() { await this.displays!.setOffline(true); }
   async reconnectScreens() { await this.displays!.setOffline(false); }
@@ -68,9 +76,9 @@ export class SuperstarLiveDriver {
     for (let index = 0; index < this.jurors.length; index++)
       await expect(this.jurors[index].getByText(['Sauber abgeliefert!', 'Volle Spannung!', 'Zugabe!'][index], { exact: true })).toBeVisible();
   }
-  async shouldShowNamesEverywhere() {
+  async shouldShowMotifsEverywhere() {
     for (const page of this.jurors)
-      await expect(page.getByText('BEREIT FÜR DEINEN MOMENT', { exact: true })).toBeVisible();
+      await expect(page.getByText('GEMEINSAM WIRD’S GROSS', { exact: true })).toBeVisible();
     await expect(this.projector!.getByText(/Das ist dein/)).toHaveCount(0);
   }
   async shouldWarnDisconnected() {
@@ -88,7 +96,10 @@ export class SuperstarLiveDriver {
     }
   }
   async shouldRejectPublicCommands() {
-    expect((await this.displays!.request.post(new URL('/api/superstar/commands', this.control.url()).href, { data: { type: 'golden' } })).status()).toBe(401);
+    const guest = await this.control.context().browser()!.newContext();
+    try {
+      expect((await guest.request.post(new URL('/api/superstar/commands', this.control.url()).href, { data: { type: 'golden' } })).status()).toBe(401);
+    } finally { await guest.close(); }
   }
   async shouldRejectUnknownJuror() {
     const response = await this.displays!.request.get(new URL('/superstar/jury/unknown', this.control.url()).href);

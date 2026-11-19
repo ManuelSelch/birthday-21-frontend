@@ -60,12 +60,12 @@ test('golden moment persists until reset and projector-only mode can be exited',
   await show.shouldShowJurorReaction('Zugabe!');
   await show.reset();
   await show.shouldShowNoGoldenMoment();
-  await show.selectJuryNames();
-  await show.shouldShowNames();
+  await show.selectJuryMotifs();
+  await show.shouldShowMotifs();
   await show.showOnlyProjector();
   await show.shouldShowOnlyProjector();
   await show.showControls();
-  await show.shouldShowNames();
+  await show.shouldShowMotifs();
 });
 
 test('invalid scene query defaults safely to the act scene', async () => {

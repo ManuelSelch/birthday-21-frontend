@@ -16,4 +16,4 @@ export function proxy(request: NextRequest) {
   return response;
 }
 
-export const config = { matcher: ["/admin/:path*", "/superstar/control"] };
+export const config = { matcher: ["/admin/:path*", "/superstar/:path*"] };

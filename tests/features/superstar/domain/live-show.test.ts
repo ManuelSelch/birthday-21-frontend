@@ -12,7 +12,7 @@ import { parseCommand, parseSnapshot } from '../../../../features/superstar/doma
     null, [], {}, { type: 'scene', scene: 'constructor' }, { type: 'buzz', index: -1 },
     { type: 'buzz', index: 3 }, { type: 'performer', index: 6 }, { type: 'performer', index: 1.5 },
     { type: 'performer', index: '1' }, { type: 'expire', index: 0 }, { type: 'clear-reaction' },
-    { type: 'solo', solo: true }, { type: 'mode', mode: 'unknown' }, { type: 'reset', scene: 'idle' },
+    { type: 'solo', solo: true }, { type: 'mode', mode: 'names' }, { type: 'mode', mode: 'unknown' }, { type: 'reset', scene: 'idle' },
   ]) assert.equal(parseCommand(command), null, JSON.stringify(command));
 });
 

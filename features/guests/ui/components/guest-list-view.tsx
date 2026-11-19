@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { ActionIcon, Button, MantineProvider, SegmentedControl, Select, TextInput, Tooltip } from "@mantine/core";
-import { IconPlus, IconRefresh, IconScan, IconSearch, IconTimeline } from "@tabler/icons-react";
+import { IconPlus, IconRefresh, IconScan, IconSearch, IconStar, IconTimeline } from "@tabler/icons-react";
 import type { Guest } from "../../domain/guest";
 import { HOSTS } from "../../domain/assignments";
 import { UNASSIGNED, type GuestFilter } from "../../domain/guest-list";
@@ -28,6 +28,7 @@ export function GuestListView(props: Props) {
     <div className={styles.screen}>
       <header className={styles.topbar}><span className={styles.brand}>21. Geburtstag</span>
         <div className={styles.headerActions}>
+          <Button component="a" href="/superstar/control" variant="subtle" leftSection={<IconStar size={17} aria-hidden="true" />}>Superstar</Button>
           <Tooltip label="Seite neu laden">
             <ActionIcon variant="subtle" color="gray" size={36} aria-label="Seite neu laden" onClick={props.onRefresh}>
               <IconRefresh size={18} />
