@@ -20,8 +20,8 @@ export function ShowView({state, onAction, live}: ShowViewProps) {
   return <div className={cx(`studio ${state.solo?'solo':''}`)}>
     <header className={cx('studio-header')}>
       <a className={cx('studio-brand')} href="/superstar"><span>21</span><div>SUPERSTAR<small>MANUEL / MARCO / DAVID</small></div></a>
-      {live ? <ConnectionStatus connection={live.connection}/> : <a href="/superstar/control">Live-Regie</a>}
-      <Badge variant="light" color="gray">{live ? 'LIVE-REGIE' : 'LOKALE DEMO'}</Badge>
+      {live ? <ConnectionStatus connection={live.connection} indicator/> : <a href="/superstar/control">Live-Regie</a>}
+      {!live && <Badge variant="light" color="gray">LOKALE DEMO</Badge>}
     </header>
     <a className={cx('skip-link')} href="#show-preview">Zur Showvorschau</a>
     <main id="show-preview" className={cx('main')}>
@@ -30,17 +30,16 @@ export function ShowView({state, onAction, live}: ShowViewProps) {
         <nav aria-label="Show-Bildschirme" className="mb-6 flex flex-wrap gap-5 text-sm">
           <a href="/superstar/projector" target="_blank" rel="noopener noreferrer">Beamer öffnen</a>
           {juryIds.map((id, index) => <a key={id} href={`/superstar/jury/${id}`} target="_blank" rel="noopener noreferrer">{jurors[index].name} öffnen</a>)}
-          <a href="/admin/login?returnTo=/superstar/control">Anmeldung</a>
         </nav>
         {live.error && <Alert role="alert" color="red" mb="md">{live.error}</Alert>}
       </>}
       <div className={cx('workspace')}>
         <div className={cx('outputs')}>
-          <div className={cx('output-heading')}><span><IconDeviceTv size={16}/> BEAMER / PUBLIKUM</span><Switch size="xs" label="Nur Beamer" checked={state.solo} onChange={event=>onAction({type:'solo',solo:event.currentTarget.checked})}/></div>
+          <div className={cx('output-heading')}><span><IconDeviceTv size={16}/> {live ? 'Beamer' : 'BEAMER / PUBLIKUM'}</span>{!live && <Switch size="xs" label="Nur Beamer" checked={state.solo} onChange={event=>onAction({type:'solo',solo:event.currentTarget.checked})}/>}</div>
           <section aria-label="Beamer-Vorschau">
             <Projector scene={state.scene} performer={performers[state.performerIndex]} celebrate={state.celebrate} burst={state.burst} reaction={state.reaction}/>
           </section>
-          <div className={cx('jury-heading')}><span>JURYTISCH / DREI EINZELNE 16:9-DISPLAYS</span><span>VON LINKS NACH RECHTS</span></div>
+          <div className={cx('jury-heading')}><span>{live ? 'Jurytisch' : 'JURYTISCH / DREI EINZELNE 16:9-DISPLAYS'}</span><span>VON LINKS NACH RECHTS</span></div>
           <section className={cx('jury-grid')} aria-label="Jury-Displays">
             {jurors.map((juror,index)=><JuryScreen key={juror.name} index={index} active={state.active[index]||state.celebrate} mode={state.mode} burst={state.burst}/>)}
           </section>

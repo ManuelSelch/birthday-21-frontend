@@ -25,7 +25,11 @@ export class SuperstarLiveDriver {
     for (const command of [{ type: 'reset' }, { type: 'scene', scene: 'act' }, { type: 'performer', index: 0 }, { type: 'mode', mode: 'portraits' }])
       expect((await this.control.request.post('/api/superstar/commands', { data: command })).ok()).toBe(true);
     await this.control.goto('/superstar/control');
-    await expect(this.control.getByRole('status', { name: '', exact: true }).filter({ hasText: 'Verbunden' })).toBeVisible();
+    await expect(this.control.getByRole('status', { name: 'Verbunden' })).toBeVisible();
+    await expect(this.control.getByRole('link', { name: 'Anmeldung' })).toHaveCount(0);
+    await expect(this.control.getByRole('switch', { name: 'Nur Beamer' })).toHaveCount(0);
+    await expect(this.control.getByText('Jurytisch', { exact: true })).toBeVisible();
+    await expect(this.control.getByText('Jury', { exact: true })).toBeVisible();
   }
   async openScreens() {
     this.displays = await this.control.context().browser()!.newContext({ viewport: { width: 900, height: 1090 } });
