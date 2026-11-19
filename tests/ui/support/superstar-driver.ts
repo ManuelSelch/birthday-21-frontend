@@ -27,7 +27,11 @@ export class SuperstarDriver {
     await this.page.getByText('Nur Beamer', { exact: true }).click();
     await expect(this.page.getByRole('switch', { name: 'Nur Beamer' })).not.toBeChecked();
   }
-  async selectJuryNames() { await this.page.getByText('Namen', { exact: true }).click(); }
+  async selectJuryMotifs() {
+    await expect(this.page.getByText('Namen', { exact: true })).toHaveCount(0);
+    await expect(this.page.getByText('Porträts', { exact: true })).toBeVisible();
+    await this.page.getByText('Motive', { exact: true }).click();
+  }
   async pauseTime() {
     await this.page.clock.install();
     await this.page.clock.pauseAt(new Date(Date.now() + 1000));
@@ -58,7 +62,7 @@ export class SuperstarDriver {
   async shouldShowNoJurorReaction(text: string) { await expect(this.jury().getByText(text, { exact: true })).toHaveCount(0); }
   async shouldShowGoldenMoment() { await expect(this.projector().getByText(/Das ist dein/)).toBeVisible(); }
   async shouldShowNoGoldenMoment() { await expect(this.projector().getByText(/Das ist dein/)).toHaveCount(0); }
-  async shouldShowNames() { await expect(this.jury().getByText('BEREIT FÜR DEINEN MOMENT', { exact: true })).toHaveCount(3); }
+  async shouldShowMotifs() { await expect(this.jury().getByText('GEMEINSAM WIRD’S GROSS', { exact: true })).toHaveCount(3); }
   async shouldShowOnlyProjector() {
     await expect(this.projector()).toBeVisible();
     await expect(this.jury()).toBeHidden();

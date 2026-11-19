@@ -9,7 +9,7 @@
 
 ## Live behavior
 
-- Controller commands select a scene, act, jury idle mode, individual buzzer, golden moment, or reaction reset. “Nur Beamer” affects only the controller's preview.
+- Controller commands select a scene, act, jury idle mode (Porträts or Motive), individual buzzer, golden moment, or reaction reset. “Nur Beamer” affects only the controller's preview.
 - Next.js owns shared state in memory and broadcasts full snapshots through SSE. Reloading any page reconnects to the current show; restarting the server resets it.
 - Individual reactions expire independently after 3.2 seconds. Repeated presses restart that reaction; the newest juror owns the beamer overlay. Golden moment remains until reset or another relevant command.
 - Disconnected outputs retain the last scene with a warning, expire transient artwork locally, and automatically catch up on reconnect. Controls are disabled while disconnected or submitting. Failed commands show an error and are never automatically replayed.

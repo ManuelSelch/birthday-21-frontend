@@ -48,7 +48,11 @@ export class SuperstarLiveDriver {
   async buzz(name: string) { await this.control.getByRole('button', { name: new RegExp('^' + name) }).click(); }
   async celebrate() { await this.control.getByRole('button', { name: 'Goldener Moment für alle' }).click(); }
   async reset() { await this.control.getByRole('button', { name: 'Reaktionen zurücksetzen' }).click(); }
-  async selectNames() { await this.control.getByText('Namen', { exact: true }).click(); }
+  async selectMotifs() {
+    await expect(this.control.getByText('Namen', { exact: true })).toHaveCount(0);
+    await expect(this.control.getByText('Porträts', { exact: true })).toBeVisible();
+    await this.control.getByText('Motive', { exact: true }).click();
+  }
   async reloadProjector() { await this.projector!.reload(); }
   async disconnectScreens() { await this.displays!.setOffline(true); }
   async reconnectScreens() { await this.displays!.setOffline(false); }
@@ -68,9 +72,9 @@ export class SuperstarLiveDriver {
     for (let index = 0; index < this.jurors.length; index++)
       await expect(this.jurors[index].getByText(['Sauber abgeliefert!', 'Volle Spannung!', 'Zugabe!'][index], { exact: true })).toBeVisible();
   }
-  async shouldShowNamesEverywhere() {
+  async shouldShowMotifsEverywhere() {
     for (const page of this.jurors)
-      await expect(page.getByText('BEREIT FÜR DEINEN MOMENT', { exact: true })).toBeVisible();
+      await expect(page.getByText('GEMEINSAM WIRD’S GROSS', { exact: true })).toBeVisible();
     await expect(this.projector!.getByText(/Das ist dein/)).toHaveCount(0);
   }
   async shouldWarnDisconnected() {

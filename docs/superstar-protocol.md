@@ -5,7 +5,7 @@
   - `{ "type": "scene", "scene": "act|camera|vote|results|idle" }` (choose one value).
   - `{ "type": "performer", "index": 0 }` (zero-based catalog index, currently 0–5).
   - `{ "type": "buzz", "index": 0 }` (0 Manuel, 1 Marco, 2 David).
-  - `{ "type": "mode", "mode": "names|portraits|art" }` (choose one value).
+  - `{ "type": "mode", "mode": "portraits|art" }` (choose one value).
   - `{ "type": "golden" }` or `{ "type": "reset" }`.
 - A successful command returns a complete snapshot; clients render the SSE stream rather than optimistically applying commands.
 - `GET /api/superstar/events`: public, read-only SSE. Emits named `snapshot` events immediately on connection and after state changes/expiry, a 15-second heartbeat comment, and a 1500ms reconnect hint. Slow consumers are disconnected instead of buffering indefinitely; disconnect/cancel removes subscriptions and heartbeat timers.

@@ -36,7 +36,7 @@ export function parseCommand(value: unknown): ShowCommand | null {
         return { type: value.type, index: value.index };
       return null;
     case 'mode':
-      if (keys === 'mode,type' && (value.mode === 'names' || value.mode === 'portraits' || value.mode === 'art'))
+      if (keys === 'mode,type' && (value.mode === 'portraits' || value.mode === 'art'))
         return { type: 'mode', mode: value.mode };
       return null;
     case 'golden':

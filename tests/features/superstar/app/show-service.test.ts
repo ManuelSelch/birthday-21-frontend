@@ -83,9 +83,9 @@ test('golden moment persists, reset cancels expiry work, and mode and act are sh
   assert.equal(show.snapshot().state.celebrate, false);
   assert.equal(clock.tasks.size, 0);
 
-  show.command({ type: 'mode', mode: 'names' });
+  show.command({ type: 'mode', mode: 'art' });
   show.command({ type: 'performer', index: 4 });
-  assert.equal(show.snapshot().state.mode, 'names');
+  assert.equal(show.snapshot().state.mode, 'art');
   assert.equal(show.snapshot().state.performerIndex, 4);
 });
 

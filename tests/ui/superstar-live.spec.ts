@@ -47,8 +47,8 @@ test('golden moment and jury mode are shared; disconnected screens catch up auto
   await show.celebrate();
   await show.shouldCelebrateEverywhere();
   await show.reset();
-  await show.selectNames();
-  await show.shouldShowNamesEverywhere();
+  await show.selectMotifs();
+  await show.shouldShowMotifsEverywhere();
 
   await show.disconnectScreens();
   await show.shouldWarnDisconnected();

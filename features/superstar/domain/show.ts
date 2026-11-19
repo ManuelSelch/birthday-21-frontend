@@ -1,6 +1,6 @@
 export const sceneLabels = { act: 'Auftritt', camera: 'Kamera', vote: 'Abstimmung', results: 'Ergebnis', idle: 'Showpause' } as const;
 export type Scene = keyof typeof sceneLabels;
-export type JuryMode = 'names' | 'portraits' | 'art';
+export type JuryMode = 'portraits' | 'art';
 export const reactionDuration = 3200;
 
 export function parseScene(value: string | string[] | undefined): Scene {
