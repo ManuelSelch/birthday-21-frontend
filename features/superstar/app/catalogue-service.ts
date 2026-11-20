@@ -1,10 +1,10 @@
-import { parseDefinition, parseCatalogue, type ShowDefinition, type ShowDraft, type ShowImage } from '../domain/show-catalogue';
+import { parseDefinition, parseCatalogue, parseImage, type ShowDefinition, type ShowDraft, type ShowImage } from '../domain/show-catalogue';
 import type { ShowService } from './show-service';
 
 export interface CatalogueStore {
   list(): Promise<unknown>;
   save(data: Omit<ShowDefinition, '_id'> & { _id?: string }): Promise<unknown>;
-  asset(id: string): Promise<ShowImage>;
+  asset(id: string): Promise<ShowImage & Record<string, unknown>>;
 }
 export class UnknownShow extends Error {}
 
@@ -43,7 +43,7 @@ export class CatalogueService {
       if (!saved || (id && saved._id !== id) ||
         (!id && shows.some(show => show._id === saved._id)) ||
         saved.name !== data.name || saved.title !== data.title || saved.description !== data.description ||
-        saved.sortOrder !== data.sortOrder || JSON.stringify(saved.images) !== JSON.stringify(data.images))
+        saved.sortOrder !== data.sortOrder || JSON.stringify(saved.images) !== JSON.stringify(data.images.map(parseImage)))
         throw new Error('Save not confirmed');
       this.show.replaceCatalogue(previous ? shows.map(show => show._id === id ? saved : show) : [...shows, saved]);
       return saved;

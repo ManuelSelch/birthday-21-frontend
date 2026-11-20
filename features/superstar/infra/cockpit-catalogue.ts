@@ -26,11 +26,11 @@ export class CockpitCatalogue implements CatalogueStore {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ data }),
     })).json();
   }
-  async asset(id: string): Promise<ShowImage> {
+  async asset(id: string): Promise<ShowImage & Record<string, unknown>> {
     const value = await (await this.request('/assets/' + encodeURIComponent(id))).json();
     const image = parseImage(value);
-    if (!image || !['image/jpeg', 'image/png', 'image/webp'].includes(value.mime)) throw new Error('Invalid image');
-    return image;
+    if (!image || image._id !== id || !['image/jpeg', 'image/png', 'image/webp'].includes(value.mime)) throw new Error('Invalid image');
+    return { ...value, ...image };
   }
   uploadConfigured() {
     const { uploadPath: path, uploadFolder: folder } = this.environment();
@@ -46,7 +46,7 @@ export class CockpitCatalogue implements CatalogueStore {
     // The image upload addon returns a native asset, including for deduplicated uploads.
     const image = parseImage(value?.asset);
     if (!image) throw new Error('Invalid uploaded asset');
-    return this.asset(image._id);
+    return parseImage(await this.asset(image._id))!;
   }
   async image(id: string) {
     const response = await this.request('/assets/image/' + encodeURIComponent(id) + '?o=1&w=1920&h=1920&m=bestFit');

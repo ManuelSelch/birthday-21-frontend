@@ -1,8 +1,8 @@
 # Superstar Cockpit setup
 
 - Collection: `superstarShows`; API responses must be arrays. Cockpit supplies `_id`.
-- Required fields: `name` (Text, 1–100 characters), `title` (Text, 1–160), `description` (multiline plain Text, empty allowed, max. 500), `sortOrder` (nonnegative integer), `images` (Object containing a JSON array, “as string” off, default `[]`).
-- Each image is a Cockpit asset reference containing `_id` and `path`. Full asset metadata is accepted and reduced to these two fields. A single asset object is not an array; resave existing records after model changes.
+- Required fields: `name` (Text, 1–100 characters), `title` (Text, 1–160), `description` (multiline plain Text, empty allowed, max. 500), `sortOrder` (nonnegative integer), `images` (Asset field with multiple values, stored as an array; default `[]`).
+- Saving fetches and stores native Cockpit asset metadata so the Asset field can display images. Live snapshots expose only `_id` and `path`. A single asset object is not an array. To refresh older minimal references, open and save the show again.
 - Limits: 200 shows, 20 images per show, JPG/PNG/WebP, 10 MB per image. New shows append; editing preserves ordering. No show deletion or reordering UI.
 - Existing server-only `COCKPIT_API_URL` and `COCKPIT_API_KEY` are reused. Allow collection read/create/update and asset metadata/image reads. Never expose the API key in a browser or image URL.
 - Production uses only CMS records; it does not seed, migrate or fall back to the six demo acts.

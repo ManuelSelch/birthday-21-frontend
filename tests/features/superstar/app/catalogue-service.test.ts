@@ -15,7 +15,7 @@ beforeEach(() => {
   store = {
     list: async () => entries,
     save: async data => { writes.push(data); return { ...data, _id: data._id ?? 'created' }; },
-    asset: async id => ({ _id: id, path: '/image.png' }),
+    asset: async id => ({ _id: id, path: '/image.png', title: 'Portrait', type: 'image', size: 1234, _modified: 12 }),
   };
   show = new ShowService({ now: () => 10, schedule: () => () => {} }, 'catalogue', []);
   service = new CatalogueService(store, show);
@@ -58,6 +58,10 @@ test('updated titles are broadcast, and a failed write leaves the active content
 
   assert.equal(show.snapshot().shows[0].title, 'Updated');
   assert.deepEqual(show.snapshot().state, state);
+  assert.deepEqual((writes[0] as { images: unknown[] }).images[0], {
+    _id: 'asset', path: '/image.png', title: 'Portrait', type: 'image', size: 1234, _modified: 12,
+  });
+  assert.deepEqual(show.snapshot().shows[0].images, [{ _id: 'asset', path: '/image.png' }]);
 
   store.save = async () => { throw new Error('failed'); };
   await assert.rejects(service.save({ ...entries[0], title: 'Failed' }, entries[0]._id));

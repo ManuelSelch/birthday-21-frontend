@@ -34,9 +34,10 @@ test('CMS reads and writes use server credentials, no cache, bounded requests an
 });
 
 test('uploads use the configured endpoint and verify returned image metadata', async () => {
-  const asset = { _id: 'asset-1', path: '/image.png', mime: 'image/png' };
+  const asset = { _id: 'asset-1', path: '/image.png', mime: 'image/png', title: 'Portrait', type: 'image', size: 1234, _modified: 12 };
   respond = url => Response.json(url.endsWith('/image-upload/upload') ? { asset } : asset);
   assert.deepEqual(await store.upload(new File(['image'], 'photo.png', { type: 'image/png' })), { _id: asset._id, path: asset.path });
+  assert.deepEqual(await store.asset('asset-1'), asset);
 
   const form = requests[0].options.body as FormData;
   assert.ok(form.get('file') instanceof File);
