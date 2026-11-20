@@ -19,14 +19,13 @@ interface ProjectorProps {
 export function Projector({ scene, performer, celebrate, burst, reaction, imageIndex = 0 }: ProjectorProps) {
   return (
     <div className={cx(scene === 'act' ? 'projector act-projector' : 'projector')} data-act-screen={scene === 'act' ? '' : undefined}>
-      {scene === 'act' ? <div className={cx('act-header')}><span>GEBURTSTAG SUCHT DEN SUPERSTAR</span><span>21 / 21 / 21</span></div> : <div className={cx('show-top')}>
+      {scene === 'act' ? <div className={cx('act-header')}><span>GEBURTSTAG SUCHT DEN SUPERSTAR</span></div> : <div className={cx('show-top')}>
         <span className={cx('show-wordmark')}><IconStarFilled/> GEBURTSTAG SUCHT DEN SUPERSTAR</span>
         <span className={cx('show-edition')}>DREI MAL 21</span>
       </div>}
       {scene === 'act' && (
         <div className={cx('act-layout')}>
           <div className={cx('act-details')}>
-            <span className={cx('act-eyebrow')}>DER NÄCHSTE AUFTRITT</span>
             <h2>{performer.name}</h2>
             <div className={cx('act-rule')}/>
             <strong className={cx('act-title')}>{performer.act}</strong>
@@ -78,8 +77,7 @@ export function Projector({ scene, performer, celebrate, burst, reaction, imageI
           <IconStarFilled className={cx('idle-star')}/>
         </div>
       )}
-      {scene === 'act' ? <div className={cx('act-footer')}><span>GEBURTSTAG SUCHT DEN SUPERSTAR</span><span>LIVE</span></div> :
-        <div className={cx('show-bottom')}><span>ECHTE FREUNDE. UNENTDECKTE TALENTE.</span></div>}
+      {scene !== 'act' && <div className={cx('show-bottom')}><span>ECHTE FREUNDE. UNENTDECKTE TALENTE.</span></div>}
       {reaction !== null && !celebrate && <BuzzerReaction key={burst} index={reaction}/>}
       {celebrate && (
         <div className={cx('golden-moment')} key={burst}>
