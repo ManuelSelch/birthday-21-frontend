@@ -2,9 +2,9 @@ import { parseImage, type ShowDefinition, type ShowImage } from '../domain/show-
 import type { CatalogueStore } from '../app/catalogue-service';
 
 export class CockpitCatalogue implements CatalogueStore {
-  constructor(private readonly environment: () => { base?: string; key?: string; uploadPath?: string } = () => ({
+  constructor(private readonly environment: () => { base?: string; key?: string; uploadPath?: string; uploadFolder?: string } = () => ({
     base: process.env.COCKPIT_API_URL, key: process.env.COCKPIT_API_KEY,
-    uploadPath: process.env.COCKPIT_ASSET_UPLOAD_PATH,
+    uploadPath: process.env.COCKPIT_ASSET_UPLOAD_PATH, uploadFolder: process.env.COCKPIT_ASSET_UPLOAD_FOLDER,
   })) {}
 
   private async request(path: string, options: RequestInit = {}) {
@@ -33,15 +33,17 @@ export class CockpitCatalogue implements CatalogueStore {
     return image;
   }
   uploadConfigured() {
-    const path = this.environment().uploadPath;
-    return Boolean(path && /^\/[a-zA-Z0-9_/-]+$/.test(path) && !path.includes('//') && !path.includes('..'));
+    const { uploadPath: path, uploadFolder: folder } = this.environment();
+    return Boolean(path && /^\/[a-zA-Z0-9_/-]+$/.test(path) && !path.includes('//') && !path.includes('..') &&
+      folder && /^[a-zA-Z0-9_-]+$/.test(folder));
   }
   async upload(file: File): Promise<ShowImage> {
     if (!this.uploadConfigured()) throw new Error('Upload endpoint not configured');
     const form = new FormData();
     form.append('file', file, file.name.replace(/[^a-zA-Z0-9._-]/g, '_'));
+    form.append('folder', this.environment().uploadFolder!);
     const value = await (await this.request(this.environment().uploadPath!, { method: 'POST', body: form })).json();
-    // The Superstar addon returns a native asset, including for deduplicated uploads.
+    // The image upload addon returns a native asset, including for deduplicated uploads.
     const image = parseImage(value?.asset);
     if (!image) throw new Error('Invalid uploaded asset');
     return this.asset(image._id);
