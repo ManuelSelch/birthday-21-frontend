@@ -58,10 +58,10 @@ export class SuperstarDriver {
     await this.shouldShowResults();
   }
   async shouldShowPause() { await expect(this.projector().getByText('Kurze Pause. Großer Applaus.')).toBeVisible(); }
-  async shouldShowReaction(name: string) { await expect(this.projector().getByRole('status')).toContainText(name.toUpperCase() + ' FEIERT DICH'); }
+  async shouldShowReaction(name: string) { await expect(this.projector().getByRole('status', { name: 'Jury-Reaktion' })).toContainText(name); }
   async shouldShowNoReaction() { await expect(this.projector().getByRole('status')).toHaveCount(0); }
-  async shouldShowJurorReaction(text: string) { await expect(this.jury().getByText(text, { exact: true })).toBeVisible(); }
-  async shouldShowNoJurorReaction(text: string) { await expect(this.jury().getByText(text, { exact: true })).toHaveCount(0); }
+  async shouldShowJurorReaction(name: string) { await expect(this.jury().getByRole('status', { name: 'Jury-Reaktion ' + name })).toBeVisible(); }
+  async shouldShowNoJurorReaction(name: string) { await expect(this.jury().getByRole('status', { name: 'Jury-Reaktion ' + name })).toHaveCount(0); }
   async shouldShowGoldenMoment() { await expect(this.projector().getByText(/Das ist dein/)).toBeVisible(); }
   async shouldShowNoGoldenMoment() { await expect(this.projector().getByText(/Das ist dein/)).toHaveCount(0); }
   async shouldShowMotifs() { await expect(this.jury().getByText('GEMEINSAM WIRD’S GROSS', { exact: true })).toHaveCount(3); }

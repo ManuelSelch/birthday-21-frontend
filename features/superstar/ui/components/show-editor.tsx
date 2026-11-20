@@ -61,7 +61,7 @@ export function ShowEditor({ editor, shows }: Props) {
         </section>
         <section className="min-w-0 min-[700px]:max-[1199px]:col-start-2" aria-label="Beamer-Entwurf">
           <div className="mb-4 flex items-center gap-2 text-[10px] tracking-wider text-[var(--site-muted)]"><IconDeviceTv size={16}/><span>BEAMER-VORSCHAU</span><Badge size="xs" variant="outline" color="gray" className="ml-auto">NICHT LIVE</Badge></div>
-          <Projector scene="act" performer={performerFor(draft)} imageIndex={editor.imageIndex} celebrate={false} burst={0} reaction={null}/>
+          <Projector scene="act" performer={performerFor(draft)} imageIndex={editor.imageIndex} celebrate={false} burst={0} reaction={null} active={[]}/>
         </section>
       </div>
     </main>

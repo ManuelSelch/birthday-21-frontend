@@ -24,11 +24,11 @@ test('controller synchronizes acts, scenes and jury reactions across separate br
   await show.selectAct('Danny');
   await show.shouldShowAct('Danny');
   await show.buzz('Manuel');
-  await show.shouldShowReaction('Manuel', 0, 'Sauber abgeliefert!');
+  await show.shouldShowReaction('Manuel', 0);
   await show.shouldExpireReactions();
 
   await show.buzz('Manuel');
-  await show.shouldShowReaction('Manuel', 0, 'Sauber abgeliefert!');
+  await show.shouldShowReaction('Manuel', 0);
   await show.disconnectScreens();
   await show.shouldWarnDisconnected();
   await show.shouldExpireReactions();
@@ -38,6 +38,16 @@ test('controller synchronizes acts, scenes and jury reactions across separate br
   await show.shouldShowResults();
   await show.reloadProjector();
   await show.shouldShowResults();
+});
+
+test('overlapping buzzers show all active jurors and expire independently', async () => {
+  await show.prepareShow();
+  await show.openScreens();
+
+  await show.buzz('Manuel');
+  await show.buzz('Marco');
+  await show.shouldShowMultipleReactions(['Manuel', 'Marco']);
+  await show.shouldExpireReactions();
 });
 
 test('golden moment and jury mode are shared; disconnected screens catch up automatically', async () => {

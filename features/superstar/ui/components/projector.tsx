@@ -14,9 +14,10 @@ interface ProjectorProps {
   celebrate: boolean;
   burst: number;
   reaction: number | null;
+  active: boolean[];
 }
 
-export function Projector({ scene, performer, celebrate, burst, reaction, imageIndex = 0 }: ProjectorProps) {
+export function Projector({ scene, performer, celebrate, burst, reaction, active, imageIndex = 0 }: ProjectorProps) {
   return (
     <div className={cx(scene === 'act' ? 'projector act-projector' : 'projector')} data-act-screen={scene === 'act' ? '' : undefined}>
       {scene === 'act' ? <div className={cx('act-header')}><span>GEBURTSTAG SUCHT DEN SUPERSTAR</span></div> : <div className={cx('show-top')}>
@@ -78,7 +79,7 @@ export function Projector({ scene, performer, celebrate, burst, reaction, imageI
         </div>
       )}
       {scene !== 'act' && <div className={cx('show-bottom')}><span>ECHTE FREUNDE. UNENTDECKTE TALENTE.</span></div>}
-      {reaction !== null && !celebrate && <BuzzerReaction key={burst} index={reaction}/>}
+      {reaction !== null && !celebrate && <BuzzerReaction active={active} burst={burst}/>}
       {celebrate && (
         <div className={cx('golden-moment')} key={burst}>
           <Confetti burst={burst}/><IconStarFilled/>

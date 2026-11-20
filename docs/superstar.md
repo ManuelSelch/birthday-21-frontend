@@ -11,7 +11,7 @@
 
 - Controller commands select a scene, act, jury idle mode (Porträts or Motive), individual buzzer, golden moment, or reaction reset. “Nur Beamer” affects only the controller's preview.
 - Next.js owns live playback state in memory and broadcasts full snapshots (including the show catalogue) through public, read-only SSE. Reloading reconnects to the current show; restarting resets playback but reloads saved shows from Cockpit. Login protects pages, editing, uploads and image bytes, not SSE show text/asset references.
-- Individual reactions expire independently after 3.2 seconds. Repeated presses restart that reaction; the newest juror owns the beamer overlay. Golden moment remains until reset or another relevant command.
+- Individual reactions expire independently after 3.2 seconds. Repeated presses restart that reaction; the beamer overlay shows all currently active jurors. Golden moment remains until reset or another relevant command.
 - Disconnected outputs retain the last scene with a warning, expire transient artwork locally, and automatically catch up on reconnect. Controls are disabled while disconnected or submitting. Failed commands show an error and are never automatically replayed.
 - Run **one persistent self-hosted Next.js process**, not serverless, multiple replicas, or cluster workers. No database or separate Node.js service is needed.
 - **Shows bearbeiten** opens the approved compact editor in the controller. Draft edits and image previews are local until saved; saving updates connected screens without selecting another act or clearing jury reactions. With multiple images, **Beamerbild** selects the live image. Removing the selected image selects the first remaining image.

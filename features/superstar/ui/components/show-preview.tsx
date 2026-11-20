@@ -17,7 +17,7 @@ export function ShowPreview({ state, shows, onAction, live }: {
   return <div className={cx('outputs')}>
     <div className={cx('output-heading')}><span><IconDeviceTv size={16}/> {live ? 'Beamer' : 'BEAMER / PUBLIKUM'}</span>{!live && <Switch size="xs" label="Nur Beamer" checked={state.solo} onChange={event=>onAction({type:'solo',solo:event.currentTarget.checked})}/>}</div>
     <section aria-label="Beamer-Vorschau">
-      {selected ? <Projector scene={state.scene} performer={live ? performerFor(selected) : performers[state.performerIndex]} imageIndex={state.imageIndex} celebrate={state.celebrate} burst={state.burst} reaction={state.reaction}/> : <Alert>Keine Shows vorhanden. Bitte eine Show hinzufügen.</Alert>}
+      {selected ? <Projector scene={state.scene} performer={live ? performerFor(selected) : performers[state.performerIndex]} imageIndex={state.imageIndex} celebrate={state.celebrate} burst={state.burst} reaction={state.reaction} active={state.active}/> : <Alert>Keine Shows vorhanden. Bitte eine Show hinzufügen.</Alert>}
     </section>
     <div className={cx('jury-heading')}><span>{live ? 'Jurytisch' : 'JURYTISCH / DREI EINZELNE 16:9-DISPLAYS'}</span><span>VON LINKS NACH RECHTS</span></div>
     <section className={cx('jury-grid')} aria-label="Jury-Displays">

@@ -19,7 +19,7 @@ export function DisplayView({ state, connection, jurorIndex, shows }: DisplayVie
     <main className={cx('studio display')} aria-label={jurorIndex === undefined ? 'Beamer' : `${jurors[jurorIndex].name} Jury-Display`}>
       {state && <div className={cx('display-frame')}>
         {jurorIndex === undefined
-          ? shows[state.performerIndex] ? <Projector scene={state.scene} performer={performerFor(shows[state.performerIndex])} imageIndex={state.imageIndex} celebrate={state.celebrate} burst={state.burst} reaction={state.reaction}/> : <div className="grid h-full place-items-center">Die Show beginnt bald.</div>
+          ? shows[state.performerIndex] ? <Projector scene={state.scene} performer={performerFor(shows[state.performerIndex])} imageIndex={state.imageIndex} celebrate={state.celebrate} burst={state.burst} reaction={state.reaction} active={state.active}/> : <div className="grid h-full place-items-center">Die Show beginnt bald.</div>
           : <JuryScreen index={jurorIndex} active={state.active[jurorIndex] || state.celebrate} mode={state.mode} burst={state.burst}/>}
       </div>}
       {connection !== 'connected' && <div className="fixed bottom-4 left-4 right-4 z-20">

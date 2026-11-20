@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { IconStarFilled } from '@tabler/icons-react';
 import { cx } from './show-styles';
 import { jurors } from './show-data';
+import { BuzzerConfetti } from './buzzer-confetti';
 import type { JuryMode } from '../../domain/show';
 
 export function JuryScreen({index,active,mode,burst}: {index:number;active:boolean;mode:JuryMode;burst:number}){
- const j=jurors[index]; const Icon=j.Icon;
- return <div className={cx(`jury-screen ${j.color} ${active?'is-active':''}`)} key={`${mode}-${burst}`}><div className={cx('jury-body')}>{active?<><Icon className={cx('jury-symbol')}/><strong>{j.label}</strong><small>{j.sub}</small></>:mode==='portraits'?<><div className={cx('jury-photo')}><Image src={j.photo} alt={j.name} width={160} height={160}/></div><strong>{j.name}</strong></>:<><IconStarFilled className={cx('jury-symbol')}/><strong className={cx('jury-art-title')}>{['DREI','MAL','21'][index]}</strong><small>GEMEINSAM WIRD’S GROSS</small></>}</div>{active&&<div className={cx('jury-rings')}/>}</div>;
+ const j=jurors[index];
+ return <div className={cx(`jury-screen ${j.color} ${active?'is-active':''}`)} key={`${mode}-${burst}`}><div className={cx('jury-body')}>{active?<div className={cx('buzzer-jury')} role="status" aria-label={`Jury-Reaktion ${j.name}`}><strong>{j.name}</strong></div>:mode==='portraits'?<><div className={cx('jury-photo')}><Image src={j.photo} alt={j.name} width={160} height={160}/></div><strong>{j.name}</strong></>:<><IconStarFilled className={cx('jury-symbol')}/><strong className={cx('jury-art-title')}>{['DREI','MAL','21'][index]}</strong><small>GEMEINSAM WIRD’S GROSS</small></>}</div>{active&&<BuzzerConfetti/>}</div>;
 }
-

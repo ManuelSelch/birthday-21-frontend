@@ -290,3 +290,22 @@
 .act-image-empty { width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; color:#6a6255; }
 .act-image-empty span { font:400 9cqw/1 Georgia,serif; color:#b6a17c; }
 .act-image-empty small { font-size:.6cqw; letter-spacing:.14em; margin-top:2cqw; }
+
+/* Shared, independently timed jury reactions. */
+.beamer-reaction { background:linear-gradient(0deg,#100f0deb 0%,#100f0d8a 36%,#100f0d1f 75%); animation:none; }
+.buzzer-confetti { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+.buzzer-confetti i { position:absolute; top:-12%; border-radius:1px; opacity:.95; animation:buzzer-fall 2.8s linear infinite; }
+.buzzer-people { position:absolute; z-index:2; left:6%; bottom:10%; display:flex; align-items:flex-end; gap:3.5cqw; }
+.buzzer-person { display:flex; flex-direction:column; align-items:center; gap:1cqw; animation:buzzer-arrive .35s ease-out; }
+.buzzer-person img { display:block; width:8.5cqw; height:8.5cqw; border-radius:50%; object-fit:cover; border:.16cqw solid #e6d4b7; }
+.buzzer-person strong { color:#fff; font:400 2cqw/1.05 Georgia,serif; letter-spacing:-.035em; }
+.jury-screen.is-active { background:#25211d; color:#fff; }
+.jury-screen.is-active .jury-body { animation:none; z-index:2; }
+.buzzer-jury { position:absolute; inset:0; display:flex; justify-content:center; align-items:center; text-align:center; padding:0 6%; animation:buzzer-arrive .35s ease-out; }
+.is-active .buzzer-jury strong { color:#fff; font:400 9cqw/1.08 Georgia,serif; }
+@keyframes buzzer-fall { from { transform:translateY(-15cqw) rotate(0deg); } to { transform:translateY(72cqw) rotate(380deg); } }
+@keyframes buzzer-arrive { from { opacity:0; transform:translateY(1.5cqw); } to { opacity:1; transform:translateY(0); } }
+@media(prefers-reduced-motion:reduce) {
+.buzzer-confetti i, .buzzer-person, .buzzer-jury { animation:none; }
+.buzzer-confetti i { top:25%; }
+}

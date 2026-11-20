@@ -67,18 +67,22 @@ export class SuperstarLiveDriver {
 
   async shouldShowAct(name: string) { await expect(this.projector!.getByRole('heading')).toContainText(name); }
   async shouldShowResults() { await expect(this.projector!.getByRole('heading')).toHaveText('Pokal der offenen Münder'); }
-  async shouldShowReaction(name: string, index: number, text: string) {
-    await expect(this.projector!.getByRole('status')).toContainText(name.toUpperCase() + ' FEIERT DICH');
-    await expect(this.jurors[index].getByText(text, { exact: true })).toBeVisible();
+  async shouldShowReaction(name: string, index: number) {
+    await expect(this.projector!.getByRole('status', { name: 'Jury-Reaktion' })).toContainText(name);
+    await expect(this.jurors[index].getByRole('status', { name: 'Jury-Reaktion ' + name })).toBeVisible();
+  }
+  async shouldShowMultipleReactions(names: string[]) {
+    const reaction = this.projector!.getByRole('status', { name: 'Jury-Reaktion' });
+    for (const name of names) await expect(reaction.getByRole('img', { name, exact: true })).toBeVisible();
   }
   async shouldExpireReactions() {
     await expect(this.projector!.getByRole('status')).toHaveCount(0);
-    await expect(this.jurors[0].getByText('Sauber abgeliefert!', { exact: true })).toHaveCount(0);
+    await expect(this.jurors[0].getByRole('status', { name: 'Jury-Reaktion Manuel' })).toHaveCount(0);
   }
   async shouldCelebrateEverywhere() {
     await expect(this.projector!.getByText(/Das ist dein/)).toBeVisible();
     for (let index = 0; index < this.jurors.length; index++)
-      await expect(this.jurors[index].getByText(['Sauber abgeliefert!', 'Volle Spannung!', 'Zugabe!'][index], { exact: true })).toBeVisible();
+      await expect(this.jurors[index].getByRole('status', { name: 'Jury-Reaktion ' + ['Manuel', 'Marco', 'David'][index] })).toBeVisible();
   }
   async shouldShowMotifsEverywhere() {
     for (const page of this.jurors)
