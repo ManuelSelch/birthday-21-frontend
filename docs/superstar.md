@@ -24,5 +24,6 @@
 - `features/superstar/app/catalogue-service.ts` loads and serializes confirmed Cockpit catalogue writes; `infra/cockpit-catalogue.ts` owns credentialed CMS requests and image streaming. `app/use-show-editor.ts` owns draft, navigation guards and upload/save state; UI components render values and callbacks.
 - `features/superstar/app/show-service.ts` owns state, subscriptions, revision counters, and expiry timers. `server.ts` keeps one process-wide singleton shared by the command/event route bundles.
 - `app/use-live-show.ts` owns EventSource lifecycle and command submission; components only render values and callbacks. Session IDs distinguish server restarts; server timestamps avoid relying on display wall clocks.
+- The demo and controller client pages compose the shared header, intro, preview and controls directly; the controller also provides live navigation and editing.
 - [Protocol](superstar-protocol.md), [state/service tests](../tests/features/superstar/), [HTTP scenarios](../tests/integration/superstar.test.ts), and [multi-screen UI scenarios](../tests/ui/superstar-live.spec.ts), and [editor scenarios](../tests/ui/superstar-editor.spec.ts).
 - Production checks: build with `NEXT_TEST_DIST_DIR=.next-admin-build`, then run `ADMIN_TEST_PRODUCTION=1 npm run test:ui -- superstar-live.spec.ts`. Browser geometry checks do not replace visual approval.
