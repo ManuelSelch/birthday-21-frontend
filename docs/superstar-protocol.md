@@ -1,5 +1,9 @@
 # Superstar protocol
 
+- `POST /api/superstar/buzzer/{name}`: device-only endpoint; names are exactly `manuel`, `marco`, `david`. Requires `Authorization: Bearer <SUPERSTAR_BUZZER_API_KEY>`, not an admin cookie. No body or Content-Type required; body contents are ignored. Each successful request triggers the existing live buzzer and SSE broadcast, including repeated presses.
+- Device responses: 200 with `{"ok":true}`, missing/invalid key 401, unknown name 404, missing/empty server configuration 503, catalogue failure 502; all are no-store. Only POST is exported. The key does not authorize admin commands, editing, uploads or pages.
+- Configure a dedicated random server key (generate with `openssl rand -hex 32`), then put the same value in the ESP's ignored `config.h`. Use HTTPS with certificate verification; never put the key in URLs, logs or Git. Restart the server after changing its environment; update the ESP when rotating the key. Never automatically retry requests: a lost response may still mean the buzzer fired.
+
 - `POST /api/superstar/commands`: existing admin session required; JSON only, same-origin browser requests, maximum 2048 bytes. Invalid commands return 400, unauthenticated requests 401, foreign origins 403, oversized bodies 413, and non-JSON bodies 415. No command queue or automatic retry.
 - Commands contain exactly these fields:
   - `{ "type": "scene", "scene": "act|camera|vote|results|idle" }` (choose one value).

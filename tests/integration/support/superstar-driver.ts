@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { auth } from '../../../features/admin-auth/server';
+import { buzzerHandler } from '../../../features/superstar/app/buzzer-http';
 import { commandHandler, eventHandler } from '../../../features/superstar/app/http';
 import { ShowService } from '../../../features/superstar/app/show-service';
 import { parseSnapshot, type ShowSnapshot } from '../../../features/superstar/domain/live-show';
@@ -40,14 +41,30 @@ export class SuperstarServerDriver {
     this.cookie = response.headers.get('set-cookie')!.split(';')[0];
   }
 
-  async send(command: unknown, options: { raw?: boolean; contentType?: string; origin?: string } = {}) {
+  async send(command: unknown, options: { raw?: boolean; contentType?: string; origin?: string; apiKey?: string } = {}) {
     this.response = await commandHandler({ authorize: auth.authorize, show: () => this.show })(
       new Request('http://party.test/api/superstar/commands', {
         method: 'POST', headers: { Cookie: this.cookie, 'Content-Type': options.contentType ?? 'application/json',
-          ...(options.origin ? { Origin: options.origin } : {}) },
+          ...(options.origin ? { Origin: options.origin } : {}),
+          ...(options.apiKey ? { Authorization: `Bearer ${options.apiKey}` } : {}) },
         body: options.raw ? String(command) : JSON.stringify(command),
       }),
     );
+  }
+
+  configureBuzzerKey(key: string | undefined) {
+    if (key === undefined) delete process.env.SUPERSTAR_BUZZER_API_KEY;
+    else process.env.SUPERSTAR_BUZZER_API_KEY = key;
+  }
+
+  async buzz(name: string, key?: string) {
+    this.response = await buzzerHandler({
+      key: () => process.env.SUPERSTAR_BUZZER_API_KEY,
+      show: () => this.show,
+    })(new Request(`https://party.test/api/superstar/buzzer/${name}`, {
+      method: 'POST',
+      headers: { Cookie: this.cookie, ...(key === undefined ? {} : { Authorization: `Bearer ${key}` }) },
+    }), name);
   }
 
   connect() {

@@ -1,6 +1,6 @@
 # Superstar
 
-- Birthday 21 visuals follow approved [mockup revision 09](../mockups/superstar/DESIGN.md); the act screen follows the [approved beamer mockup](../mockups/superstar-act/DESIGN.md). No hardware, real camera, voting, or sound integration yet.
+- Birthday 21 visuals follow approved [mockup revision 09](../mockups/superstar/DESIGN.md); the act screen follows the [approved beamer mockup](../mockups/superstar-act/DESIGN.md). ESP8266 hardware buzzers use the dedicated [device endpoint](superstar-protocol.md); no real camera, voting, or sound integration yet.
 - All `/superstar` pages require the existing admin login. Open the live controller via **Superstar** on the guest page; it links to all four outputs.
 - `/superstar/projector`: read-only beamer output. The act scene fits images without cropping; long text is bounded within its column.
 - `/superstar/jury/manuel`, `/superstar/jury/marco`, `/superstar/jury/david`: read-only individual jury outputs. Unknown jurors return 404.
@@ -10,7 +10,7 @@
 ## Live behavior
 
 - Controller commands select a scene, act, jury idle mode (Porträts or Motive), individual buzzer, golden moment, or reaction reset. “Nur Beamer” affects only the controller's preview.
-- Next.js owns live playback state in memory and broadcasts full snapshots (including the show catalogue) through public, read-only SSE. Reloading reconnects to the current show; restarting resets playback but reloads saved shows from Cockpit. Login protects pages, editing, uploads and image bytes, not SSE show text/asset references.
+- Next.js owns live playback state in memory and broadcasts full snapshots (including the show catalogue) through public, read-only SSE. Reloading reconnects to the current show; restarting resets playback but reloads saved shows from Cockpit. Login protects pages, controller commands, editing, uploads and image bytes, not SSE show text/asset references. Hardware buzzers use a separate buzzer-only API key.
 - Individual reactions expire independently after 3.2 seconds. Repeated presses restart that reaction; the beamer overlay shows all currently active jurors. Golden moment remains until reset or another relevant command.
 - Disconnected outputs retain the last scene with a warning, expire transient artwork locally, and automatically catch up on reconnect. Controls are disabled while disconnected or submitting. Failed commands show an error and are never automatically replayed.
 - Run **one persistent self-hosted Next.js process**, not serverless, multiple replicas, or cluster workers. No database or separate Node.js service is needed.
