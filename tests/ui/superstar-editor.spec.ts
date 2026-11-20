@@ -47,6 +47,13 @@ test('reused uploads do not duplicate draft references and can still be saved', 
   await editor.save();
 });
 
+test('the act preview contains long content and fits the selected image without cropping', async () => {
+  await editor.open();
+  await editor.add('Die sensationellen Geburtstagskinder mit einem besonders langen Namen');
+  await editor.uploadTwoImages();
+  await editor.shouldFitActLayout();
+});
+
 test('uploaded images can be removed from a draft without deleting the asset', async () => {
   await editor.open();
   await editor.add('Editor Images Act');

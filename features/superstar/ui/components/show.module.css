@@ -274,3 +274,25 @@
 .display { height: 100svh; min-height: 100svh; display: grid; place-items: center; overflow: hidden; }
 .display-frame { width: min(100vw, calc(100svh * 16 / 9)); }
 .display-frame .projector, .display-frame .jury-screen { width: 100%; }
+
+/* Act-only title card; other show scenes keep their existing layout. */
+.act-projector { background:#141414; color:#f3eee5; border:0; }
+.act-projector:before { display:none; }
+.act-header, .act-footer { position:absolute; left:5%; right:5%; display:flex; justify-content:space-between; align-items:center; font-size:.8cqw; letter-spacing:.16em; font-weight:650; color:#bcb4a9; }
+.act-header { top:6.5%; }
+.act-header span:last-child { color:#bfa982; letter-spacing:.12em; }
+.act-footer { bottom:5%; font-size:.67cqw; color:#797571; }
+.act-footer span:last-child { color:#c3ad87; }
+.act-layout { position:absolute; inset:17% 5% 13%; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.02fr); gap:5%; align-items:stretch; }
+.act-details { min-width:0; min-height:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; overflow:hidden; }
+.act-eyebrow { font-size:.9cqw; letter-spacing:.16em; color:#c1aa83; font-weight:700; display:flex; align-items:center; gap:.7cqw; }
+.act-eyebrow:before { content:''; width:2.3cqw; height:1px; background:#bda77d; }
+.act-details h2 { font:400 5.5cqw/.99 Georgia,serif; letter-spacing:-.045em; margin:2.3cqw 0 0; overflow-wrap:anywhere; max-width:100%; max-height:3.1em; overflow:hidden; }
+.act-rule { width:3.2cqw; height:1px; background:#bba781; margin:2.4cqw 0 1.6cqw; flex:none; }
+.act-title { font-size:1.5cqw; line-height:1.25; font-weight:600; color:#f3eee5; margin:0; max-height:3.75em; overflow:hidden; }
+.act-details p { font-size:1.05cqw; color:#b1aba2; line-height:1.55; max-width:90%; max-height:6.2em; overflow:hidden; margin:1.2cqw 0 0; white-space:pre-wrap; }
+.act-image { min-height:0; min-width:0; overflow:hidden; background:#1b1b1a; display:flex; align-items:center; justify-content:center; }
+.act-image img { display:block; width:100%; height:100%; object-fit:contain; }
+.act-image-empty { width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; color:#6a6255; }
+.act-image-empty span { font:400 9cqw/1 Georgia,serif; color:#b6a17c; }
+.act-image-empty small { font-size:.6cqw; letter-spacing:.14em; margin-top:2cqw; }

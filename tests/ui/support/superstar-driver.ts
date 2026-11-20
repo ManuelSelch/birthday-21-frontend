@@ -42,7 +42,7 @@ export class SuperstarDriver {
 
   async shouldShowAct(name = 'Joschua') {
     await expect(this.projector().getByRole('heading')).toContainText(name);
-    await expect(this.projector().getByText('FOTO-PLATZHALTER')).toBeVisible();
+    await expect(this.projector().getByRole('img', { name: 'Kein Bild vorhanden' })).toBeVisible();
   }
   async shouldShowCamera() { await expect(this.projector().getByText('KAMERA-VORSCHAU / SIMULIERT')).toBeVisible(); }
   async shouldShowVoting() { await expect(this.projector().getByRole('heading', { name: 'Welchen Preis verdient dieser Act?' })).toBeVisible(); }

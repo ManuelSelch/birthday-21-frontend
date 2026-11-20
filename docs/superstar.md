@@ -1,8 +1,8 @@
 # Superstar
 
-- Birthday 21 visuals follow approved [mockup revision 09](../mockups/superstar/DESIGN.md). No hardware, real camera, voting, or sound integration yet.
+- Birthday 21 visuals follow approved [mockup revision 09](../mockups/superstar/DESIGN.md); the act screen follows the [approved beamer mockup](../mockups/superstar-act/DESIGN.md). No hardware, real camera, voting, or sound integration yet.
 - All `/superstar` pages require the existing admin login. Open the live controller via **Superstar** on the guest page; it links to all four outputs.
-- `/superstar/projector`: read-only beamer output.
+- `/superstar/projector`: read-only beamer output. The act scene fits images without cropping; long text is bounded within its column.
 - `/superstar/jury/manuel`, `/superstar/jury/marco`, `/superstar/jury/david`: read-only individual jury outputs. Unknown jurors return 404.
 - Sign in on each separate browser or device, then move one browser window to each physical screen and enter browser fullscreen manually. Outputs fit a complete 16:9 composition with letterboxing rather than cropping.
 - `/superstar` remains the independent local demo, including its scene query parameter; it never controls live screens.

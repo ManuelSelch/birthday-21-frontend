@@ -52,6 +52,20 @@ export class SuperstarEditorDriver {
     await expect(this.page.getByRole('button', { name: 'Bild 2 in Vorschau anzeigen', exact: true })).toBeVisible();
     await expect(this.page.getByRole('button', { name: 'Speichern', exact: true })).toBeEnabled();
   }
+  async shouldFitActLayout() {
+    const preview = this.page.getByRole('region', { name: 'Beamer-Entwurf' });
+    const image = preview.locator('img');
+    await expect(image).toHaveCSS('object-fit', 'contain');
+    const boxes = await preview.evaluate(region => {
+      const stage = region.querySelector('[data-act-screen]')!.getBoundingClientRect();
+      const picture = region.querySelector('img')!.getBoundingClientRect();
+      const heading = region.querySelector('h2')!.getBoundingClientRect();
+      return { stage: stage.toJSON(), picture: picture.toJSON(), heading: heading.toJSON() };
+    });
+    expect(boxes.picture.right).toBeLessThanOrEqual(boxes.stage.right);
+    expect(boxes.picture.bottom).toBeLessThanOrEqual(boxes.stage.bottom);
+    expect(boxes.heading.right).toBeLessThanOrEqual(boxes.picture.left);
+  }
   async shouldPreviewSecondImage() {
     await this.page.getByRole('button', { name: 'Bild 2 in Vorschau anzeigen', exact: true }).click();
     const preview = this.page.getByRole('region', { name: 'Beamer-Entwurf' }).locator('img');

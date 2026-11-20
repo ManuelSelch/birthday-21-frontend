@@ -17,28 +17,25 @@ interface ProjectorProps {
 }
 
 export function Projector({ scene, performer, celebrate, burst, reaction, imageIndex = 0 }: ProjectorProps) {
-  const ActIcon = performer.Icon;
   return (
-    <div className={cx('projector')}>
-      <div className={cx('show-top')}>
+    <div className={cx(scene === 'act' ? 'projector act-projector' : 'projector')} data-act-screen={scene === 'act' ? '' : undefined}>
+      {scene === 'act' ? <div className={cx('act-header')}><span>GEBURTSTAG SUCHT DEN SUPERSTAR</span><span>21 / 21 / 21</span></div> : <div className={cx('show-top')}>
         <span className={cx('show-wordmark')}><IconStarFilled/> GEBURTSTAG SUCHT DEN SUPERSTAR</span>
         <span className={cx('show-edition')}>DREI MAL 21</span>
-      </div>
+      </div>}
       {scene === 'act' && (
-        <div className={cx('act-content')}>
-          <div className={cx('act-copy')}>
-            <span className={cx('kicker')}>KEIN DRUCK. NUR APPLAUS.</span>
-            <h2>{performer.name}<span>ist am Start.</span></h2>
-            <div className={cx('act-tag')}><ActIcon size={21}/>{performer.act}</div>
-            <p className="whitespace-pre-wrap">{performer.description}</p>
+        <div className={cx('act-layout')}>
+          <div className={cx('act-details')}>
+            <span className={cx('act-eyebrow')}>DER NÄCHSTE AUFTRITT</span>
+            <h2>{performer.name}</h2>
+            <div className={cx('act-rule')}/>
+            <strong className={cx('act-title')}>{performer.act}</strong>
+            <p>{performer.description}</p>
           </div>
-          <div className={cx('portrait-art')}>
-            {performer.images[imageIndex] ? <img className="h-full w-full rounded-[inherit] object-cover" src={imageUrl(performer.images[imageIndex])} alt={performer.name}/> : <>
-              <span className={cx('portrait-placeholder')}>FOTO-PLATZHALTER</span>
-              <span className={cx('portrait-initials')}>{performer.initials}</span>
-            </>}
-            <span className={cx('portrait-star')}><IconStarFilled/></span>
-            <span className={cx('portrait-sticker')}>DEIN<br/>MOMENT!</span>
+          <div className={cx('act-image')}>
+            {performer.images[imageIndex] ? <img src={imageUrl(performer.images[imageIndex])} alt={performer.name}/> : <div className={cx('act-image-empty')} role="img" aria-label="Kein Bild vorhanden">
+              <span>G</span><small>GEBURTSTAG SUCHT DEN SUPERSTAR</small>
+            </div>}
           </div>
         </div>
       )}
@@ -81,7 +78,8 @@ export function Projector({ scene, performer, celebrate, burst, reaction, imageI
           <IconStarFilled className={cx('idle-star')}/>
         </div>
       )}
-      <div className={cx('show-bottom')}><span>ECHTE FREUNDE. UNENTDECKTE TALENTE.</span></div>
+      {scene === 'act' ? <div className={cx('act-footer')}><span>GEBURTSTAG SUCHT DEN SUPERSTAR</span><span>LIVE</span></div> :
+        <div className={cx('show-bottom')}><span>ECHTE FREUNDE. UNENTDECKTE TALENTE.</span></div>}
       {reaction !== null && !celebrate && <BuzzerReaction key={burst} index={reaction}/>}
       {celebrate && (
         <div className={cx('golden-moment')} key={burst}>
